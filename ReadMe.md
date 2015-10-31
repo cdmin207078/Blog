@@ -2,8 +2,6 @@
 
 ![Sai & 亮](http://imgsrc.baidu.com/forum/pic/item/a686c9177f3e67092416a0553bc79f3df8dc5502.jpg)
 
-##宗旨
-*记录一些什么*
 > 半亩方塘一鉴开，天光云影共徘徊。问渠那得清如许，为有源头活水来。
 
 ##日志流水
