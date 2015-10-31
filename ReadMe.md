@@ -1,8 +1,9 @@
 #关于这个程序的一些记录
 
-![Sai & 亮](http://imgsrc.baidu.com/forum/pic/item/a686c9177f3e67092416a0553bc79f3df8dc5502.jpg)
-
 > 半亩方塘一鉴开，天光云影共徘徊。问渠那得清如许，为有源头活水来。
 
 ##日志流水
 2015-10-28 22:20:45  创建程序到Git
+
+
+![Sai & 亮](http://imgsrc.baidu.com/forum/pic/item/a686c9177f3e67092416a0553bc79f3df8dc5502.jpg)
