@@ -5,5 +5,3 @@
 ##日志流水
 * `2015-10-28 22:20:45`  创建程序到Git
 * `2015-10-31 23:50:28`  clone 到 T410,并提交更改
-
-![Sai & 亮](http://imgsrc.baidu.com/forum/pic/item/a686c9177f3e67092416a0553bc79f3df8dc5502.jpg)
