@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+	<style type="text/css">
+	* { margin: 0 0; padding: 0 0; }
+	div {
+		margin: 10px 20px;
+		border: 1px #444 dashed;
+
+	}
+	h1 {
+		border-bottom: 5px #ccf solid;
+		max-width: 300px;
+	}
+	.animte03 {
+		/*-webkit-transition-property: background-color;
+		-webkit-transition-duration: 0.5s;
+		-webkit-transition-timing-function: ease;*/	
+
+		transition: all 0.5s ease;
+		-webkit-transition: all 0.5s ease;
+		-moz-transition: all 0.5s ease;
+		-o-transition: all 0.5s ease;	
+	}
+	#night {
+		width: 100px; 
+		height: 100px;
+	}
+	#night:hover {
+		background-color: #555;
+		color: #eee;
+		/*transform: skew(-15deg) scale(1.1);*/
+		transform: scale(0.8) rotate(75deg);
+	}
+
+	#boxzone {
+		position: relative;
+	}
+	.box {
+		width: 50px;
+	}
+
+	#boxzone:hover .box{
+		margin-left: 500px;
+		transform: rotate(360deg);
+	}
+
+	.transition-ease {
+		transition: all 1s ease;
+		-webkit-transition: all 1s ease;
+		-moz-transition: all 1s ease;
+		-o-transition: all 1s ease;	
+	}
+	.transition-linear {
+		transition: all 1s linear;
+		-webkit-transition: all 1s linear;
+		-moz-transition: all 1s linear;
+		-o-transition: all 1s linear;	
+	}
+	.transition-ease-in {
+		transition: all 1s ease-in;
+		-webkit-transition: all 1s ease-in;
+		-moz-transition: all 1s ease-in;
+		-o-transition: all 1s ease-in;	
+	}
+	.transition-ease-out {
+		transition: all 1s ease-out;
+		-webkit-transition: all 1s ease-out;
+		-moz-transition: all 1s ease-out;
+		-o-transition: all 1s ease-out;	
+	}
+	.transition-ease-in-out {
+		transition: all 1s ease-in-out;
+		-webkit-transition: all 1s ease-in-out;
+		-moz-transition: all 1s ease-in-out;
+		-o-transition: all 1s ease-in-out;	
+	}
+	.transition-cubic-bezier {
+		transition: all 1s cubic-bezier(1, 0.15, 0.26, 0.84);
+		-webkit-transition: all 1s cubic-bezier(1, 0.15, 0.26, 0.84);
+		-moz-transition: all 1s cubic-bezier(1, 0.15, 0.26, 0.84);
+		-o-transition: all 1s cubic-bezier(1, 0.15, 0.26, 0.84);	
+	}
+
+	</style>
+
+	<style type="text/css">
+	#tf .box {
+		margin: 30px 30px;
+	}
+	.skew {
+		transform: skew(-15deg);
+	}
+	.scale {
+		transform: scale(1.5);
+	}
+	.rotate {
+		transform: rotate(15deg);
+	}
+	.translate {
+		transform: translate(10px,20px);
+	}
+
+	.skew-scale-rotate-translate {
+		transform: skew(-15deg) scale(1.5) rotate(15deg) translate(10px,20px);
+	}
+	</style>
+</head>
+<body>
+
+<h1>transition</h1>
+<div id="night" class="animte03">鼠标滑过,夜幕低垂</div>
+
+<div id="boxzone">
+	<div id="box1" class="box transition-ease">
+		<span>ease</span>
+	</div>	
+	<div id="box2" class="box transition-linear">
+		<span>linear</span>
+	</div>	
+	<div id="box3" class="box transition-ease-in">
+		<span>ease-in</span>
+	</div>	
+	<div id="box4" class="box transition-ease-out">
+		<span>ease-out</span>
+	</div>	
+	<div id="box5" class="box transition-ease-in-out">
+		<span>ease-in-out</span>
+	</div>	
+	<div id="box6" class="box transition-cubic-bezier">
+		<span>cubic-bezier</span>
+	</div>	
+</div>
+
+<hr />
+<h1>transform </h1>
+<div id="tf">
+	<div class="box skew">skew - 倾斜</div>
+	<div class="box scale">scale - 缩放</div>
+	<div class="box rotate">rotate - 旋转</div>
+	<div class="box translate">translate - 移动</div>
+	<div class="box skew-scale-rotate-translate">skew-scale-rotate-translate - 综合</div>
+</div>
+
+
+</body>
+</html>
