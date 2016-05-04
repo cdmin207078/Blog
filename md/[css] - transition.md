@@ -22,6 +22,12 @@ timing-function 取值参考 : [Properties from CSS](http://www.w3.org/TR/css3-t
 
 ## transform - 变换 \ 改变 \ 改观
 
+####skew - 倾斜
+####scale - 缩放
+####rotate - 翻转
+####translate - 移动
+
+
 ## animations - 动画
 
 
