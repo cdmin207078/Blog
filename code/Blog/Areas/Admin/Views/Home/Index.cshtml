@@ -1,0 +1,29 @@
+﻿@using Blog.Models
+
+<div class="row">
+
+    <div class="col-md-12">
+
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th>标题</th>
+                    <th style="width:15%">发表时间</th>
+                    <th style="width:15%">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Article item in ViewBag.Articles)
+                {
+                    <tr>
+                        <td>@item.Title</td>
+                        <td>@item.CreateTime</td>
+                        <td>
+                            @Html.ActionLink("编辑", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-xs" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
