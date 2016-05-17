@@ -8,16 +8,15 @@ using System.Web.Mvc;
 
 namespace Blog.Areas.Admin.Controllers
 {
-    public class HomeController : Controller
+    public class ArticleController : Controller
     {
         ArticleService articleSvc = new ArticleService();
 
         public ViewResult Index()
         {
+            ViewBag.Title = "所有文章";
 
-            ViewBag.Title = "文章列表";
-
-            ViewBag.Articles = articleSvc.Load();
+            ViewBag.Articles = articleSvc.Load(d => d.Id < 100);
 
             return View();
         }
@@ -30,9 +29,12 @@ namespace Blog.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [ValidateInput(false)]
         public JsonResult Edit(Article model)
         {
-            return Json(new { Success = true, Message = string.Format("文章保存成功,操作时间 - {0}", DateTime.Now.ToString()) });
+            model.CreateTime = DateTime.Now;
+            model.MDContent = "没有Markdown 文档内容.";
+            return Json(new { Success = true, Message = string.Format("文章保存成功,操作时间 - {0}", DateTime.Now.ToString()), Data = model });
         }
     }
 }

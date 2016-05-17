@@ -2,17 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Blog.Services
 {
-    interface IArticleService
+    interface IArticleService : IBaseServices<Article>
     {
-        void Insert(Article model);
-
-        void Update(Article model);
-
-        Article Load(int id);
+        List<Article> Load(Expression<Func<Article, bool>> whereLambda);
     }
 }

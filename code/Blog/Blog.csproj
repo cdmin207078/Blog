@@ -102,9 +102,20 @@
     <Content Include="Content\Css\bootstrap-3.3.6.css" />
     <Content Include="Content\Css\bootstrap-3.3.6.min.css" />
     <Content Include="Content\Css\common.css" />
-    <Content Include="Content\Css\diy-bootstrap.css" />
+    <Content Include="Content\Css\diy-plugin.css" />
+    <Content Include="Content\simditor\images\image.png" />
+    <Content Include="Content\simditor\scripts\hotkeys.js" />
+    <Content Include="Content\simditor\scripts\hotkeys.min.js" />
+    <Content Include="Content\simditor\scripts\jquery.min.js" />
+    <Content Include="Content\simditor\scripts\module.js" />
+    <Content Include="Content\simditor\scripts\module.min.js" />
+    <Content Include="Content\simditor\scripts\simditor.js" />
+    <Content Include="Content\simditor\scripts\simditor.min.js" />
+    <Content Include="Content\simditor\scripts\uploader.js" />
+    <Content Include="Content\simditor\scripts\uploader.min.js" />
+    <Content Include="Content\simditor\styles\simditor.css" />
     <Content Include="Global.asax" />
-    <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Article\Index.cshtml" />
     <Content Include="Content\Scripts\bootstrap-4.0.0.js" />
     <Content Include="Content\Scripts\bootstrap-4.0.0.min.js" />
     <Content Include="Content\Scripts\jquery-3.0.0.js" />
@@ -115,7 +126,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ArticleController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -128,6 +139,8 @@
     <Compile Include="Repositores\Mapping\ArticleMap.cs" />
     <Compile Include="Services\Article\ArticleService.cs" />
     <Compile Include="Services\Article\IArticleService.cs" />
+    <Compile Include="Services\BaseServices.cs" />
+    <Compile Include="Services\IBaseServices.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -135,7 +148,10 @@
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Admin\Views\Home\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Article\Edit.cshtml" />
+    <Content Include="Content\simditor\styles\editor.scss" />
+    <Content Include="Content\simditor\styles\fonticon.scss" />
+    <Content Include="Content\simditor\styles\simditor.scss" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

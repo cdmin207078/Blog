@@ -7,28 +7,18 @@ using System.Web;
 
 namespace Blog.Services
 {
-    public class ArticleService : IArticleService
+    class ArticleService : BaseServices<Article>, IArticleService
     {
-        IRepository<Article> _articleRepository = new EfRepository<Article>();
+        IRepository<Article> repositores = new EfRepository<Article>();
 
-        public void Insert(Article model)
+        public ArticleService()
         {
-            throw new NotImplementedException();
+            this._repositores = repositores;
         }
 
-        public void Update(Article model)
+        public List<Article> Load(System.Linq.Expressions.Expression<Func<Article, bool>> whereLambda)
         {
-            throw new NotImplementedException();
-        }
-
-        public Article Load(int id)
-        {
-            return _articleRepository.Load(id);
-        }
-
-        public List<Article> Load()
-        {
-            return _articleRepository.Table.Where(d => d.Id < 1000).ToList();
+            return _repositores.Table.Where(whereLambda).ToList();
         }
     }
 }

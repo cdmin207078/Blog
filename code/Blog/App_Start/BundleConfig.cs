@@ -10,9 +10,23 @@ namespace Blog
     {
         public static void RegsiterBundles(BundleCollection Bundles)
         {
-            Bundles.Add(new ScriptBundle("~/bundles/JS").Include("~/Content/Scripts/jquery-{version}.js"));
+            Bundles.Add(new ScriptBundle("~/bundles/JS").Include(
+                "~/Content/Scripts/jquery-{version}.js"));
 
-            Bundles.Add(new StyleBundle("~/bundles/bootstrap").Include("~/Content/Css/bootstrap-{version}.css", "~/Content/Css/diy-bootstrap.css", "~/Content/Css/common.css"));
+            Bundles.Add(new StyleBundle("~/bundles/bootstrap").Include(
+                "~/Content/Css/bootstrap-{version}.css",
+                "~/Content/Css/diy-plugin.css",
+                "~/Content/Css/common.css"));
+
+
+            Bundles.Add(new ScriptBundle("~/bundles/simditor/JS").Include(
+                "~/Content/simditor/scripts/module.js",
+                "~/Content/simditor/scripts/hotkeys.js",
+                "~/Content/simditor/scripts/uploader.js",
+                "~/Content/simditor/scripts/simditor.js"));
+
+            Bundles.Add(new StyleBundle("~/bundles/simditor/Css").Include(
+                "~/Content/simditor/styles/simditor.css"));
         }
     }
 }

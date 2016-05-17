@@ -1,0 +1,68 @@
+﻿@using System.Web.Optimization;
+@model Blog.Models.Article
+@section style {
+    @Styles.Render("~/bundles/simditor/Css")
+    <style type="text/css">
+        .simditor-icon {
+            line-height: 40px !important;
+        }
+    </style>
+}
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="form-group">
+            @*<label for="exampleInputEmail1">标题</label>*@
+            <input id="title" name="title" type="text" class="form-control" id="exampleInputEmail1" placeholder="文章标题">
+        </div>
+        <div class="form-group">
+            @*<label for="content">正文</label>*@
+            <textarea id="content" name="content" class="form-control" rows="5"></textarea>
+        </div>
+
+
+        <button id="btn_pub" class="btn btn-default btn-lg">发布</button>
+
+        <br />
+        <br />
+
+    </div>
+</div>
+
+
+
+@section script {
+    @Scripts.Render("~/bundles/simditor/JS")
+
+    <script type="text/javascript">
+        $(function () {
+            var editor = new Simditor({
+                textarea: $('#content'),
+                placeholder: '梦魂无拘束，隔世也缠绵，独坐一帘风月闲',
+            });
+
+            $('#btn_pub').click(function () {
+                var data = {
+                    Title: $('#title').val(),
+                    Content: editor.getValue()
+                };
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/Admin/Article/Edit',
+                    data: data
+                }).done(function (data) {
+                    alert(data.Message);
+                });
+                //$.post('/Admin/Article/Edit', { Title: $('#title').val(), Content: editor.getValue() },
+                //    function (data) {
+
+                //    });
+            });
+        });
+
+
+
+
+    </script>
+}
