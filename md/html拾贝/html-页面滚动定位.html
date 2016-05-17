@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title></title>
+<style type="text/css">
+* { margin: 0 0; padding: 0 0; }
+#sidebarNav { position: fixed; top : 150px; right:30px; }
+#sidebarNav ul li { list-style: none; }
+#main { margin-bottom: 300px; }
+#main div {	height: 500px; width: 100%; text-align: center; line-height: 300px; color: #fff;}
+
+
+
+.section-menu a
+{
+	display: block;
+	position: relative;
+	padding: 5px;
+	height: 10px;
+	width: 10px;
+	color: #fff;
+	line-height: 20px;
+	text-align: right;
+	white-space: nowrap;
+	transition: all 0.5s ease;
+}
+
+.section-menu a:before
+{
+	content: "";
+	display: block;
+	position: relative;
+	border-radius: 10px;
+	width: 100%;
+	height: 100%;
+	background: rgba(255, 255, 255, 0.5);
+    -webkit-transform: scale(0.4);
+    -moz-transform: scale(0.4);
+    -ms-transform: scale(0.4);
+    transform: scale(0.4);
+	transition: all 0.3s ease;
+	-webkit-transform: scale(100);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+}
+
+.section-menu a:hover:before
+{
+	background: white;
+    -webkit-transform: scale(100);
+    -moz-transform: scale(1.5);
+    -ms-transform: scale(1.5);
+    transform: scale(1.5);
+}
+
+.section-menu a:hover span{
+	opacity: 1;
+}
+.section-menu a span {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding-right: 25px;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+#main div h1:before {
+	content: "·  ";
+
+}
+
+#main div h1:after {
+	content: "  ·";
+}
+</style>
+
+
+<style type="text/css">
+
+.elevator {
+	position: fixed;
+	top : 40%; 
+	right: 4%; 
+}
+.elevator li {
+	list-style: none;
+	height: 20px;
+}
+.elevator a {
+	-moz-transition: all 0.1s ease;
+    -webkit-transition: all 0.1s ease;
+    -o-transition: all 0.1s ease;
+    transition: all 0.1s ease;
+
+
+	font-size: 14px;
+	text-decoration: none;
+	color: #fff;
+}
+
+.esymbol {
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	border-radius: 10px;
+	background: rgba(255, 255, 255, 0.5);
+}
+
+.esymbol_hover , .esymbol_cur {
+	transform: scale(1.2);
+	background:  rgba(255, 255, 255, 1);
+}
+
+.etitle {
+	opacity: 0;
+	text-align: right;
+	min-width: 70px;
+	position: absolute;
+    right: 20px;
+
+}
+.etitle_hover,.etitle_cur {
+	opacity: 1;
+	right: 15px;
+
+}
+</style>
+</head>
+<body>
+
+<!-- <div id="sidebarNav" class="section-menu">
+	<ul>
+		<li><a href="#L1" class="sidebarNav_item"><span>山秀谷</span></a></li>
+		<li><a href="#L2" class="sidebarNav_item"><span>云雾</span></a></li>
+		<li><a href="#L3" class="sidebarNav_item"><span>远溪口</span></a></li>
+		<li><a href="#L4" class="sidebarNav_item"><span>仙洞水帘</span></a></li>
+		<li><a href="#L5" class="sidebarNav_item"><span>山裕朗天</span></a></li>
+		<li><a href="#L6" class="sidebarNav_item"><span>川脉</span></a></li>
+		<li><a href="#L7" class="sidebarNav_item"><span>飘雨</span></a></li>
+		<li><a href="#L8" class="sidebarNav_item"><span>川籁</span></a></li>
+		<li><a href="#L9" class="sidebarNav_item"><span>章告远知</span></a></li>
+	</ul>
+</div> -->
+
+
+<div id="elevator" class="elevator">
+	<ul>
+		<li><a class="etitle etitle_cur" href="#L1">山秀谷</a> <a class="esymbol esymbol_cur" href="#L1"></a>       </li>
+		<li><a class="etitle" href="#L2">云雾</a>  <a class="esymbol" href="#L2"></a>      </li>
+		<li><a class="etitle" href="#L3">远溪口</a> <a class="esymbol" href="#L3"></a>       </li>
+		<li><a class="etitle" href="#L4">仙洞水帘</a><a class="esymbol" href="#L4"></a>       </li>
+		<li><a class="etitle" href="#L5">山裕朗天</a><a class="esymbol" href="#L5"></a>       </li>
+		<li><a class="etitle" href="#L6">川脉</a>		<a class="esymbol" href="#L6"></a>	</li>
+		<li><a class="etitle" href="#L7">飘雨</a>		<a class="esymbol" href="#L7"></a>	</li>
+		<li><a class="etitle" href="#L8">川籁</a>		<a class="esymbol" href="#L8"></a>	</li>
+		<li><a class="etitle" href="#L9">章告远知</a><a class="esymbol" href="#L9"></a>			</li>
+	</ul>
+</div>
+
+<div id="main">
+	<div id='L1' name="L1" style="background-color: #CC3333;" class="floor"><h1>山秀谷</h1></div>
+	<div id='L2' name="L2" style="background-color: #CCCCCC;" class="floor"><h1>云雾</h1></div>
+	<div id='L3' name="L3" style="background-color: #003366;" class="floor"><h1>远溪口</h1></div>
+	<div id='L4' name="L4" style="background-color: #993333;" class="floor"><h1>仙洞水帘</h1></div>
+	<div id='L5' name="L5" style="background-color: #CCCC00;" class="floor"><h1>山裕朗天</h1></div>
+	<div id='L6' name="L6" style="background-color: #663366;" class="floor"><h1>川脉</h1></div>
+	<div id='L7' name="L7" style="background-color: #CCCC99;" class="floor"><h1>飘雨</h1></div>
+	<div id='L8' name="L8" style="background-color: #666666;" class="floor"><h1>川籁</h1></div>
+	<div id='L9' name="L9" style="background-color: #CC9999;" class="floor"><h1>章告远知</h1></div>
+</div>
+
+</body>
+
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript">
+	$(function () {
+		$(".sidebarNav_item").click(function() {
+			$('body,html').stop();
+
+			var obj = $($(this).attr("href"));
+			var t = obj.offset().top;
+			
+			$('body,html').animate({"scrollTop":t},500);
+
+		});
+
+		var _elevators = $('#elevator li');
+		var _floors = $('#main .floor');
+
+		// 页面滚动
+		$(window).scroll(function(){
+			var winH = $(window).height(); 		//获取窗口高度
+			var iTop = $(window).scrollTop();	//获取已经滚动的距离 px
+
+			_floors.each(function(){
+				if(winH+iTop - $(this).offset().top>winH/2){
+					_elevators.find('.esymbol').removeClass('esymbol_cur');
+					_elevators.find('.etitle').removeClass('etitle_cur');
+
+					var curEli = _elevators.eq($(this).index());
+					curEli.find('.esymbol').addClass('esymbol_cur');
+					curEli.find('.etitle').addClass('etitle_cur');
+			 	}
+			});
+		});
+
+
+		// 点击相应楼层跳转
+		$(".elevator a").click(function() {
+			$('body,html').stop();
+
+			var obj = $($(this).attr("href"));
+			var t = obj.offset().top;
+			
+			$('body,html').animate({"scrollTop":t},500);
+		});
+
+		// 楼层指引鼠标响应效果
+		$(".elevator a").hover(
+			function () {
+				var $this = $(this);
+				var parEL = $this.parent();
+				var symbol = parEL.find('.esymbol');
+				var title = parEL.find('.etitle');
+
+				symbol.addClass('esymbol_hover');
+				title.addClass('etitle_hover');
+			}
+			,function () {
+				var $this = $(this);
+				var parEL = $this.parent();
+				var symbol = parEL.find('.esymbol');
+				var title = parEL.find('.etitle');
+
+				symbol.removeClass('esymbol_hover');
+				title.removeClass('etitle_hover');
+			}
+		);
+	});
+</script>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+	<style type="text/css">
+	* {
+		margin: 0 0;
+		padding: 0 0;
+	}
+	body {
+		background: url('html-元素透明-半透明实现-bg.png') 0 0 repeat;
+	}
+	.demo {
+		width: 200px;
+		height: 150px;
+		margin: 100px 100px;
+		padding: 25px;
+		background-color: #000;
+		text-align: center;
+		/*opacity: 0.3;*/   /*直接设置 opacity 会导致子元素继承Alpha值*/
+		background-color: rgba(255,102,102,0.3);
+
+	}
+	.demo p {
+		color:#fff;
+	}
+
+	@media \0screen\,screen\9 {/* 只支持IE6、7、8 */
+	  .demo{
+	    background-color:#000;
+	    filter:Alpha(opacity=0.3);
+	    position:static; /* IE6、7、8只能设置position:static(默认属性) ，否则会导致子元素继承Alpha值 */
+	    *zoom:1; /* 激活IE6、7的haslayout属性，让它读懂Alpha */
+	  }
+	  .demo p{
+	    position: relative;/* 设置子元素为相对定位，可让子元素不继承Alpha值 */
+	  }  
+	}
+
+	</style>
+</head>
+<body>
+
+<div class="demo">
+	<p>
+		爱你不是两三天 <br/>
+		每天却想你很多遍 <br/>
+		还不习惯孤独街道 <br/>
+		拥挤人潮 没你拥抱 <br/>
+		爱你不是两三天 <br/>
+		一眨眼心就能沉淀 <br/>
+		你是否想念我 喔 <br/>
+		还是像我 只和寂寞做朋友 <br/>
+	</p>
+	<!--[if IE]>
+		这段文字只在IE浏览器显示
+	<![endif]-->
+</div>
+
+</body>
+</html>
