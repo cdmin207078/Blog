@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<!-- saved from url=(0044)http://www.jq22.com/demo/jQuery-gdc20160421/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="UTF-8">
+		<title></title>
+		   <style type="text/css">
+		   	*{margin: 0;padding: 0;}
+		   	i{font-style: normal;}
+		   	ul,li,dl,ol{list-style: none;}
+		   	#LoutiNav{ border: 1px solid gray; width: 30px; position: fixed; top: 150px; left: 50px; display: none;}
+		   	#LoutiNav li{ width: 30px; height: 30px;border-bottom: 1px solid gray; line-height: 30px; text-align: center; cursor: pointer;}
+		   	#LoutiNav span{display: none;}
+		   	#LoutiNav .active{background: white; color: darkred;}
+		   	#LoutiNav li:hover span{display: block; font-size: 12px; background: darkred; color: white;}
+		   	#LoutiNav li:hover i{display: none;}
+		   	#goTop{width: 40px;height: 40px; line-height: 40px;text-align: center; background: gray; position: fixed;bottom: 30px; right: 30px; cursor: pointer;border-radius: 5px; display: none; }
+		   	#goTop:hover{background: darkred; color: white;}
+		   	#goTop:hover span{display: block;}
+		   	#header{height: 200px; background: palegoldenrod; text-align: center; line-height: 200px; font-size: 72px; margin: 0 auto;}
+		   	.louceng{ height: 810px; width: 1440;text-align: center; line-height: 800px; font-size: 120px; margin: 0 auto;}
+		   	#erweima{width: 130px; height: 130px; background: palegreen; display: none; position: absolute; right: 46px; bottom: 5px;line-height: 130px; text-align: center; font-size: 20px; border-radius:10px ;}
+		   </style>
+		   <script type="text/javascript" src="./jQuery-gdc20160421_files/jquery-1.7.2.min.js"></script>
+	</head>
+	<body>
+		<ul id="LoutiNav" style="display: block;">
+			<li class=""><i>1F</i><span>服饰</span></li>
+			<li class=""><i>2F</i><span>美妆</span></li>
+			<li class=""><i>3F</i><span>手机</span></li>
+			<li class=""><i>4F</i><span>家电</span></li>
+			<li class="active"><i>5F</i><span>数码</span></li>
+			<li class=""><i>6F</i><span>运动</span></li>
+			<li class=""><i>7F</i><span>居家</span></li>
+			<li class=""><i>8F</i><span>母婴</span></li>
+			<li><i>9F</i><span>食品</span></li>
+			<li><i>10F</i><span>图书</span></li>
+			<li style="border-bottom: none;"><i>11F</i><span>服务</span></li>
+		</ul>
+		<div id="goTop" style="display: block;">
+			<span id="erweima">我是二维码</span>
+			Top</div>
+		
+		<div id="header">头部</div>
+		<div id="main">
+				<div class="louceng" style="background: papayawhip;">服饰</div>
+				<div class="louceng" style="background: peachpuff;">美妆</div>
+				<div class="louceng" style="background: peru;">手机</div>
+				<div class="louceng" style="background: pink;">家电</div>
+				<div class="louceng" style="background: palegoldenrod;">数码</div>
+				<div class="louceng" style="background: plum;">运动</div>
+				<div class="louceng" style="background: powderblue;">居家</div>
+				<div class="louceng" style="background: rosybrown;">母婴</div>
+				<div class="louceng" style="background: cornflowerblue">食品</div>
+				<div class="louceng" style="background: mediumpurple;">图书</div>
+				<div class="louceng" style="background: darkslateblue;">服务</div>
+		</div>	
+		<script type="text/javascript">
+		   var oNav = $('#LoutiNav');//导航壳
+		   var aNav = oNav.find('li');//导航
+		   var aDiv = $('#main .louceng');//楼层
+		   var oTop = $('#goTop');
+			//回到顶部
+			$(window).scroll(function(){
+				 var winH = $(window).height();//可视窗口高度
+				 var iTop = $(window).scrollTop();//鼠标滚动的距离
+				 
+				 if(iTop>=$('#header').height()){
+				 	oNav.fadeIn();
+				 	oTop.fadeIn();
+				 //鼠标滑动式改变	
+				 aDiv.each(function(){
+				 	if(winH+iTop - $(this).offset().top>winH/2){
+				 		aNav.removeClass('active');
+				 		aNav.eq($(this).index()).addClass('active');
+
+				 		console.info($(this).text());
+				 	}
+				 })
+				 }else{
+				 	oNav.fadeOut();
+				 	oTop.fadeOut();
+				 }
+			})
+			//点击top回到顶部
+			oTop.click(function(){
+				$('body,html').animate({"scrollTop":0},500)
+			})
+			//点击回到当前楼层
+			aNav.click(function(){
+				var t = aDiv.eq($(this).index()).offset().top;
+				$('body,html').animate({"scrollTop":t},500);
+				$(this).addClass('active').siblings().removeClass('active');
+			});
+		</script>
+	
+
+</body></html>

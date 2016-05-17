@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<!-- saved from url=(0050)http://www.jq22.com/demo/jquery-qpqh-150617223404/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<meta charset="UTF-8">
+
+	<title>页面切换</title>
+
+	<style type="text/css">
+
+		h1,body,html{
+
+			padding: 0;
+
+			margin: 0;
+
+		}
+
+		body{
+
+			font-family: Arial,"Microsoft YaHei","Hiragino Sans GB",sans-serif;
+
+		}
+
+		html,body{
+
+			height: 100%;
+
+			overflow: hidden;
+
+		}
+
+		h1{
+
+			font-size: 6em;
+
+			font-weight: normal;
+
+		}
+
+		p{
+
+			font-size: 2em;
+
+			margin:0.5em 0 2em 0;
+
+		}
+
+		#container,.section{
+
+			height: 100%;
+
+			position: relative;
+
+		}
+
+		#section0,
+
+		#section1,
+
+		#section2,
+
+		#section3{
+
+			background-color: #000;
+
+			background-size: cover;
+
+			background-position: 50% 50%;
+
+		}
+
+		#section0{
+
+			background:#00ff99;
+
+			color: #fff;
+
+			text-shadow:1px 1px 1px #333;
+
+		}
+
+		#section1{
+
+			color: #fff;
+
+			text-shadow:1px 1px 1px #333;
+
+			background:#FFCC00;
+
+		}
+
+		#section2{
+
+			background:#2fe2bf;
+
+			color: #fff;
+
+			text-shadow:1px 1px 1px #666;
+
+		}
+
+		#section3{
+
+			color: #008283;
+
+			background:#c9302c;
+
+			text-shadow:1px 1px 1px #fff;
+
+		}
+
+		#section0 p{
+
+			color: #F1FF00;
+
+		}
+
+		#section3 p{
+
+			color: #00A3AF;
+
+		}
+
+		.left{
+
+			float: left;
+
+		}
+
+		.intro{
+
+			position: absolute;
+
+			top: 50%;
+
+			width: 100%;
+
+			-webkit-transform: translateY(-50%);
+
+			transform: translateY(-50%);
+
+			text-align: center;
+
+		}
+
+		#pages{
+
+			position:fixed;
+
+			right: 10px;
+
+			top: 50%;
+
+			list-style: none;
+
+		}
+
+		#pages li{
+
+			width: 8px;
+
+			height: 8px;
+
+			border-radius: 50%;
+
+			background: #fff;
+
+			margin: 0 0 10px 5px;
+
+		}
+
+		#pages li.active{
+
+			width: 14px;
+
+			height: 14px;
+
+			border: 2px solid #FFFE00;
+
+			background: none;
+
+			margin-left: 0;
+
+		}
+
+		#section0 .title{
+
+			-webkit-transform: translateX(-100%);
+
+			transform: translateX(-100%);
+
+			-webkit-animation: sectitle0 1s ease-in-out 100ms forwards;
+
+			animation: sectitle0 1s ease-in-out 100ms forwards;
+
+		}
+
+		#section0 p{
+
+			-webkit-transform: translateX(100%);
+
+			transform: translateX(100%);
+
+			-webkit-animation: sec0 1s ease-in-out 100ms forwards;
+
+			animation: sec0 1s ease-in-out 100ms forwards;
+
+		}
+
+		@-webkit-keyframes sectitle0{
+
+			0%{
+
+				-webkit-transform: translateX(-100%);
+
+				transform: translateX(-100%);
+
+			}
+
+			100%{
+
+				-webkit-transform: translateX(0);
+
+				transform: translateX(0);
+
+			}
+
+		}
+
+		@keyframes sectitle0{
+
+			0%{
+
+				-webkit-transform: translateX(-100%);
+
+				transform: translateX(-100%);
+
+			}
+
+			100%{
+
+				-webkit-transform: translateX(0);
+
+				transform: translateX(0);
+
+			}
+
+		}
+
+		@-webkit-keyframes sec0{
+
+			0%{
+
+				-webkit-transform: translateX(100%);
+
+				transform: translateX(100%);
+
+			}
+
+			100%{
+
+				-webkit-transform: translateX(0);
+
+				transform: translateX(0);
+
+			}
+
+		}
+
+		@keyframes sec0{
+
+			0%{
+
+				-webkit-transform: translateX(100%);
+
+				transform: translateX(100%);
+
+			}
+
+			100%{
+
+				-webkit-transform: translateX(0);
+
+				transform: translateX(0);
+
+			}
+
+		}
+
+	</style>
+
+</head>
+
+<body>
+
+	<div id="container" class="left" style="width: 400%; transition: all 1000ms ease; transform: translate3d(-1440px, 0px, 0px);">
+
+		<div class="section left" id="section0" style="width: 25%;">
+
+			<div class="intro">
+
+				<h1 class="title">switchPage</h1>
+
+				<p>Create Beautiful Fullscreen Scrolling Websites</p>
+
+			</div>
+
+		</div>
+
+		<div class="section left active" id="section1" style="width: 25%;">
+
+			<div class="intro">
+
+				<h1 class="title">Example</h1>
+
+				<p>HTML markup example to define 4 sections</p>
+
+				<img src="./页面切换_files/example.png">
+
+			</div>
+
+			
+
+		</div>
+
+		<div class="section left" id="section2" style="width: 25%;">
+
+			<div class="intro">
+
+				<h1 class="title">Example</h1>
+
+				<p>The plug-in configuration parameters</p>
+
+				<img src="./页面切换_files/example2.png">
+
+			</div>
+
+		</div>
+
+		<div class="section left" id="section3" style="width: 25%;">
+
+			<div class="intro">
+
+				<h1 class="title">THE END</h1>
+
+				<p>Everything will be okay in the end. If it's not okay, it's not the end.</p>
+
+			</div>
+
+		</div>
+
+	</div>
+
+	<script type="text/javascript" src="./页面切换_files/jquery-1.11.2.min.js"></script>
+
+	<script type="text/javascript" src="./页面切换_files/pageswitch.js"></script>
+
+	<script type="text/javascript">
+
+		$(function(){
+
+			$("#container").switchPage({
+
+				'loop' : true,
+
+				'keyboard' : true,
+
+				'direction' : 'horizontal'
+
+			});
+
+		});
+
+	</script>
+
+
+
+<ul id="pages"><li class=""></li><li class="active"></li><li class=""></li><li class=""></li></ul></body></html>

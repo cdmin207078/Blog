@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="jquery.fullPage.css" />
+	<style type="text/css">
+	#fullPage div.section {
+		text-align: center;
+	}
+	</style>
+</head>
+<body>
+<div id="fullPage">
+	<div class="section">
+		<h1>Page 1</h1>
+	</div>
+	<div class="section">
+		<h1>Page 2</h1>
+	</div>
+	<div class="section">
+		<h1>Page 3</h1>
+	</div>
+	<div class="section">
+		<h1>Page 4</h1>
+	</div>
+	<div class="section">
+		<h1>Page 5</h1>
+	</div>
+</div>
+</body>
+<script type="text/javascript" src="http://cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="jquery.fullPage.js"></script>
+<script type="text/javascript">
+$(function() {
+	$("#fullPage").fullpage({
+		sectionsColor:['#d2d2d2', '#4BBFC3', '#7BAABE', 'whitesmoke', '#ccddff']
+	});
+});
+</script>
+</html>
