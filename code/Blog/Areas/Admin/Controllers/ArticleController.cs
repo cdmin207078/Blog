@@ -21,11 +21,16 @@ namespace Blog.Areas.Admin.Controllers
             return View();
         }
 
-        public ViewResult Edit(int id)
+        public ViewResult Edit()
         {
             ViewBag.Title = "文章编辑";
 
-            return View(articleSvc.Load(id));
+            //if (id.HasValue)
+            //{
+            //    ViewBag.Article = articleSvc.Load(id.Value);
+            //}
+
+            return View();
         }
 
         [HttpPost]
@@ -33,7 +38,9 @@ namespace Blog.Areas.Admin.Controllers
         public JsonResult Edit(Article model)
         {
             model.CreateTime = DateTime.Now;
-            model.MDContent = "没有Markdown 文档内容.";
+
+            articleSvc.Insert(model);
+
             return Json(new { Success = true, Message = string.Format("文章保存成功,操作时间 - {0}", DateTime.Now.ToString()), Data = model });
         }
     }

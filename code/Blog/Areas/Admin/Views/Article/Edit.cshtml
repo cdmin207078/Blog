@@ -1,5 +1,4 @@
 ﻿@using System.Web.Optimization;
-@model Blog.Models.Article
 @section style {
     @Styles.Render("~/bundles/simditor/Css")
     <style type="text/css">
@@ -8,28 +7,39 @@
         }
     </style>
 }
+
 <div class="row">
-
     <div class="col-md-12">
-        <div class="form-group">
-            @*<label for="exampleInputEmail1">标题</label>*@
-            <input id="title" name="title" type="text" class="form-control" id="exampleInputEmail1" placeholder="文章标题">
-        </div>
-        <div class="form-group">
-            @*<label for="content">正文</label>*@
-            <textarea id="content" name="content" class="form-control" rows="5"></textarea>
-        </div>
-
-
-        <button id="btn_pub" class="btn btn-default btn-lg">发布</button>
-
-        <br />
-        <br />
-
+        <input id="title" name="title" type="text" class="form-control" placeholder="文章标题">
     </div>
 </div>
+<br />
 
+<div class="row">
+    <div class="col-md-12">
+        <textarea id="content" name="content" class="form-control" rows="10" placeholder="文若流沙,思若泉涌"></textarea>
+    </div>
+</div>
+<br />
 
+<div class="row">
+    <div class="col-md-3">
+        <select id="category" class=" form-control">
+            <option value="0">- - -文章分类- - -</option>
+            <option value="1">生活随笔</option>
+            <option value="2">Html / Css</option>
+            <option value="3">C# & .net</option>
+        </select>
+    </div>
+    <div class="col-md-9">
+        <input id="tag" name="tag" type="text" class="form-control" placeholder="标签 (,)逗号分隔">
+    </div>
+</div>
+<br />
+
+<button id="btn_pub" class="btn btn-default btn-lg">发布</button>
+<br />
+<br />
 
 @section script {
     @Scripts.Render("~/bundles/simditor/JS")
@@ -37,14 +47,15 @@
     <script type="text/javascript">
         $(function () {
             var editor = new Simditor({
-                textarea: $('#content'),
-                placeholder: '梦魂无拘束，隔世也缠绵，独坐一帘风月闲',
+                textarea: $('#content')
             });
 
             $('#btn_pub').click(function () {
                 var data = {
-                    Title: $('#title').val(),
-                    Content: editor.getValue()
+                    title: $('#title').val(),
+                    content: editor.getValue(),
+                    categoryid: $('#category').val(),
+                    tag: $('#tag').val()
                 };
 
                 $.ajax({
@@ -54,15 +65,10 @@
                 }).done(function (data) {
                     alert(data.Message);
                 });
-                //$.post('/Admin/Article/Edit', { Title: $('#title').val(), Content: editor.getValue() },
-                //    function (data) {
 
-                //    });
             });
+
         });
-
-
-
 
     </script>
 }

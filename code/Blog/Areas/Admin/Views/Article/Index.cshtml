@@ -11,16 +11,31 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (Article item in ViewBag.Articles)
-                {
-                    <tr>
-                        <td>@item.Title</td>
-                        <td><em title="@item.CreateTime">@item.CreateTime.ToString("yyyy-MM-dd")</em></td>
-                        <td>
-                            @Html.ActionLink("编辑", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-xs" })
-                        </td>
-                    </tr>
+                @{
+                    var articles = ViewBag.Articles as List<Article>;
+                    if (articles == null || articles.Count == 0)
+                    {
+                        <tr>
+                            <td colspan="3" style="text-align:center;background-color:#fffc79;"><em>暂无数据</em></td>
+                        </tr>
+                    }
+                    else
+                    {
+                        foreach (Article item in ViewBag.Articles)
+                        {
+                            <tr>
+                                <td>@item.Title</td>
+                                <td><em title="@item.CreateTime">@item.CreateTime.ToString("yyyy-MM-dd")</em></td>
+                                <td>
+                                    @Html.ActionLink("编辑", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-xs" })
+                                </td>
+                            </tr>
+                        }
+                    }
+
                 }
+
+
             </tbody>
         </table>
     </div>

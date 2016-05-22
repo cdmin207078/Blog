@@ -18,11 +18,6 @@ namespace Blog.Models
         public string Content { get; set; }
 
         /// <summary>
-        /// MarkDown编辑模式保存的内容
-        /// </summary>
-        public string MDContent { get; set; }
-
-        /// <summary>
         /// 创建时间
         /// </summary>
         public DateTime CreateTime { get; set; }
@@ -31,5 +26,10 @@ namespace Blog.Models
         /// 所属分类
         /// </summary>
         public int CategoryId { get; set; }
+
+        /// <summary>
+        /// 标签
+        /// </summary>
+        public string Tag { get; set; }
     }
 }
