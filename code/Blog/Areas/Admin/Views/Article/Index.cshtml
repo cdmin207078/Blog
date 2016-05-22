@@ -2,6 +2,12 @@
 
 <div class="row">
     <div class="col-md-12">
+        @Html.ActionLink("写文章", "Add", null, new { @class = "btn btn-default" })
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-12">
         <table class="table table-condensed table-hover">
             <thead>
                 <tr>
@@ -16,7 +22,7 @@
                     if (articles == null || articles.Count == 0)
                     {
                         <tr>
-                            <td colspan="3" style="text-align:center;background-color:#fffc79;"><em>暂无数据</em></td>
+                            <td colspan="3"><p class="bg-warning">暂无数据</p></td>
                         </tr>
                     }
                     else

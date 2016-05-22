@@ -15,5 +15,7 @@ namespace Blog.Services
         void Update(TEntity model);
 
         TEntity Load(int id);
+
+        List<TEntity> Load();
     }
 }

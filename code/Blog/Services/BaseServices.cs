@@ -11,19 +11,24 @@ namespace Blog.Services
     {
         protected IRepository<TEntity> _repositores;
 
-        public void Insert(TEntity model)
+        public virtual void Insert(TEntity model)
         {
             _repositores.Insert(model);
         }
 
-        public void Update(TEntity model)
+        public virtual void Update(TEntity model)
         {
             _repositores.Update(model);
         }
 
-        public TEntity Load(int id)
+        public virtual TEntity Load(int id)
         {
             return _repositores.Load(id);
+        }
+
+        public virtual List<TEntity> Load()
+        {
+            return _repositores.Table.ToList();
         }
     }
 }
