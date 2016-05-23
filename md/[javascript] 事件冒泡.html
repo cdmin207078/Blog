@@ -76,10 +76,13 @@
 	</style>
 </head>
 <body>
+<div>
+	<a href="javascript:void();"></a>
+</div>
 <div class="parent">
 	<div class="cityoffers">
 		<div class="cityoffers-text">
-			<h3>心游太玄 - 一念清净心,微尘-观天-三摩地 特价优惠<i></i></h3>
+			<h3>心游太玄 - 一念清净心<i></i></h3>
 		</div>
 		
 		<div class="cityoffers-link">
@@ -122,6 +125,7 @@
 
 			if($(this).hasClass('cityoffers-open')){
 				$(this).stop(true,false).animate({ height: '35px' }, "normal");
+
 				$(this).removeClass('cityoffers-open');
 			} else {
 				$(this).stop(true,false).animate({ height: '90px' }, "normal");

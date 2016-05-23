@@ -8,7 +8,7 @@ using System.Web;
 
 namespace Blog.Services
 {
-    class ArticleService : BaseServices<Article>, IArticleService
+    public class ArticleService : BaseServices<Article>, IArticleService
     {
         public ArticleService()
         {

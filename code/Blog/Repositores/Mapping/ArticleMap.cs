@@ -7,7 +7,7 @@ using System.Web;
 
 namespace Blog.Repositores.Mapping
 {
-    class ArticleMap : EntityTypeConfiguration<Article>
+    public class ArticleMap : EntityTypeConfiguration<Article>
     {
         public ArticleMap()
         {

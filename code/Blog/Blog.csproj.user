@@ -7,6 +7,9 @@
     <WebStackScaffolding_LayoutPageFile />
     <WebStackScaffolding_IsAsyncSelected>False</WebStackScaffolding_IsAsyncSelected>
     <ProjectView>ProjectFiles</ProjectView>
+    <UseIISExpress>true</UseIISExpress>
+    <WebStackScaffolding_ControllerDialogWidth>600</WebStackScaffolding_ControllerDialogWidth>
+    <WebStackScaffolding_ViewDialogWidth>600</WebStackScaffolding_ViewDialogWidth>
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>

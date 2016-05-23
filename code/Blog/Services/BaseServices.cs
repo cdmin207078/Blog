@@ -7,7 +7,7 @@ using System.Web;
 
 namespace Blog.Services
 {
-    class BaseServices<TEntity> : IBaseServices<TEntity> where TEntity : _BaseEntity
+    public class BaseServices<TEntity> : IBaseServices<TEntity> where TEntity : _BaseEntity
     {
         protected IRepository<TEntity> _repositores;
 

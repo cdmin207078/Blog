@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Blog.Services
 {
-    interface IBaseServices<TEntity> where TEntity : _BaseEntity
+    public interface IBaseServices<TEntity> where TEntity : _BaseEntity
     {
         void Insert(TEntity model);
 

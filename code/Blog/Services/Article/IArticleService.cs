@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Blog.Services
 {
-    interface IArticleService : IBaseServices<Article>
+    public interface IArticleService : IBaseServices<Article>
     {
         List<Article> Load(Expression<Func<Article, bool>> whereLambda);
     }

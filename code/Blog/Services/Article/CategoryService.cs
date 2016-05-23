@@ -7,7 +7,7 @@ using System.Web;
 
 namespace Blog.Services
 {
-    class CategoryService : BaseServices<Category>
+    public class CategoryService : BaseServices<Category>
     {
         public CategoryService()
         {
