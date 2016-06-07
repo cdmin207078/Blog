@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		/*a { text-decoration: none; }*/
+	</style>
+</head>
+<body>
+
+<h1>杜甫三章</h1>
+<ul>
+	<li><a href="http://www.1.com">今夕复何夕，共此灯烛光。</a></li>
+	<li><a href="http://www.2.com">少壮能几时？鬓发各已苍！</a></li>
+	<li><a href="http://www.3.com">访旧半为鬼，惊呼热中肠。</a></li>
+	<li><a href="http://www.4.com">焉知二十载，重上君子堂。</a></li>
+	<li><a href="http://www.5.com">昔别君未婚，儿女忽成行。</a></li>
+	<li><a href="http://www.6.com">怡然敬父执，问我来何方。</a></li>
+</ul>
+
+
+
+
+<script src="http://cdn.bootcss.com/jquery/3.0.0-rc1/jquery.js"></script>
+<script type="text/javascript">
+
+	// 使用 $.extend()来扩展Jquery
+	$.extend({
+		sayHello : function (name) {
+			console.log('hello, ' + (name? name: 'Dude') + '!');
+		},
+		log:function (message) {
+			var now = new Date(),
+				y = now.getFullYear(),
+	            m = now.getMonth() + 1, //！JavaScript中月分是从0开始的
+	            d = now.getDate(),
+	            h = now.getHours(),
+	            min = now.getMinutes(),
+	            s = now.getSeconds(),
+	            time = y + '/' + m + '/' + d + ' ' + h + ':' + min + ':' + s;
+	        console.log(time + ' My App: ' + message);
+		}
+	});
+
+	$.sayHello();
+	$.sayHello('chen.ning');
+	$.log('呵呵哒');
+</script>
+
+<script type="text/javascript">
+	;
+	$.fn.myPlugin = function(options) {
+		var defaults = {
+			'color' : 'red',
+			'fontSize': '12px'
+		}
+		,settings = $.extend({},defaults,options);
+
+		this.css({
+			'color': settings.color,
+			'font-size': settings.fontSize
+		});
+
+		return this;
+	};
+
+</script>
+
+<script type="text/javascript">
+	$(function(){
+		$('a').myPlugin({
+			color: '#666',
+			// fontSize: '24px'
+		}).css({ 'text-decoration': 'none'});
+
+
+		$('h1').myPlugin();
+	});
+</script>
+</body>
+</html>
+
