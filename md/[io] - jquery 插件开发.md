@@ -97,3 +97,160 @@ $.fn.myPlugin = function(options) {
 
 
 ##面向对象的插件开发
+为什么要有面向对象的思维，因为如果不这样，你可能需要一个方法的时候就去定义一个function，当需要另外一个方法的时候，再去随便定义一个function，同样，需要一个变量的时候，毫无规则地定义一些散落在代码各处的变量。
+
+还是老问题，不方便维护，也不够清晰。当然，这些问题在代码规模较小时是体现不出来的。
+
+如果将需要的重要变量定义到对象的属性上，函数变成对象的方法，当我们需要的时候通过对象来获取，一来方便管理，二来不会影响外部命名空间，因为所有这些变量名还有方法名都是在对象内部。
+
+```javascript
+<!-- 面向对象 插件开发 -->
+<!-- 对象定义 -->
+<script type="text/javascript">
+	var Beautifier = function (ele,opt) {
+		this.$element = ele,
+		this.defaults = {
+			'color': 'bLue',
+			'fontSize': '20px',
+			'textDecoration':'line-through',
+			'backgroundColor':'#fff'
+		},
+		this.options = $.extend({},this.defaults,opt);
+	}
+
+	Beautifier.prototype = {
+		beautify: function () {
+			return this.$element.css({
+				'color': this.options.color,
+				'fontSize': this.options.fontSize,
+				'textDecoration': this.options.textDecoration,
+				'backgroundColor': this.options.backgroundColor
+			});
+		}
+	}
+</script>
+
+<!-- 插件定义 -->
+<script type="text/javascript">
+;
+	$.fn.SetCss = function(options) {
+		var beauti = new Beautifier(this,options);
+		
+		return beauti.beautify();
+		//或者 
+		// return this;
+	}
+</script>
+
+<!-- 使用插件 -->
+<script type="text/javascript">
+	$(function(){
+		$('a').SetCss({
+			'color': 'red',
+			'backgroundColor':'#eee',
+			'fontSize': '18px',
+			'textDecoration':'underline'
+		}).mouseover(function(){
+			alert($(this).text());
+		});
+	});
+</script>
+```
+
+
+##关于命名空间
+
+### 用自调用匿名函数包裹你的代码
+始终用自调用匿名函数包裹你的代码中，那么就不会污染全局命名空间，同时不会和别的代码冲突。
+
+```javascript
+(function() {
+    //定义Beautifier的构造函数
+    var Beautifier = function(ele, opt) {
+        this.$element = ele,
+        this.defaults = {
+            'color': 'red',
+            'fontSize': '12px',
+            'textDecoration': 'none'
+        },
+        this.options = $.extend({}, this.defaults, opt)
+    }
+    //定义Beautifier的方法
+    Beautifier.prototype = {
+        beautify: function() {
+            return this.$element.css({
+                'color': this.options.color,
+                'fontSize': this.options.fontSize,
+                'textDecoration': this.options.textDecoration
+            });
+        }
+    }
+    //在插件中使用Beautifier对象
+    $.fn.myPlugin = function(options) {
+        //创建Beautifier的实体
+        var beautifier = new Beautifier(this, options);
+        //调用其方法
+        return beautifier.beautify();
+    }
+})();
+```
+
+### 代码开头加一个分号
+充当自调用匿名函数的第一对括号与上面别人定义的函数相连，因为中间没有分号，代码无法正常解析了，所以报错。
+所以好的做法是我们在代码开头加一个分号，这在任何时候都是一个好的习惯。
+
+```javascript
+var foo=function(){
+    //别人的代码
+}//注意这里没有用分号结尾
+
+//开始我们的代码。。。
+;(function(){
+    //我们的代码。。
+    alert('Hello!');
+})();
+```
+
+###将系统变量以变量形式传递到插件内部
+当我们这样做之后，window等系统变量在插件内部就有了一个局部的引用，可以提高访问速度，会有些许性能的提升
+最后我们得到一个非常安全结构良好的代码：
+
+```javascript
+;(function($,window,document,undefined){
+
+})(jQuery,window,document);
+```
+
+> 因为 ecmascript 执行JS代码是从里到外，因此把全局变量window或jQuery对象传进来，就避免了到外层去寻找，提高效率。undefined在老一辈的浏览器是不被支持的，直接使用会报错，js框架要考虑到兼容性，因此增加一个形参undefined。
+> 还有，不要用window.undefined传递给形参，有可能window.undefined被其他人修改了，最好就是甚么都不传，形参的undefined就是真正的undefined了。
+
+```javascript
+var undefined = 8;  
+(function( window ) {   
+    alert(window.undefined); // 8  
+    alert(undefined); // 8  
+})(window);  
+
+<!-- 传入 undefined -->
+var undefined = 8;  
+(function( window, undefined ) {   
+    alert(window.undefined);  // 8  
+    alert(undefined); // 此处undefined参数为局部的名称为undefined变量，值为undefined  
+})(window);  
+```
+
+##代码混淆与压缩
+
+
+
+
+##其它事项
+
+**引号的使用**既然都扯了这些与插件主题无关的了，这里再多说一句，**一般HTML代码里面使用双引号，而在JavaScript中多用单引号**，比如下面代码所示：
+
+```javascript
+var name = 'Wayou';
+document.getElementById(‘example’).innerHTML = '< a href="http: //wayouliu.duapp.com/">'+name+'</a>'; //href=".." HTML中保持双引号，JavaScript中保持单引号
+```
+
+一方面，HTML代码中本来就使用的是双引号，另一方面，在JavaScript中引号中还需要引号的时候，要求我们单双引号间隔着写才是合法的语句，除非你使用转意符那也是可以的。再者，坚持这样的统一可以保持代码风格的一致，不会出现这里字符串用双引号包着，另外的地方就在用单引号。

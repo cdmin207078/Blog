@@ -21,8 +21,6 @@
 </ul>
 
 
-
-
 <script src="http://cdn.bootcss.com/jquery/3.0.0-rc1/jquery.js"></script>
 <script type="text/javascript">
 
@@ -75,9 +73,84 @@
 			// fontSize: '24px'
 		}).css({ 'text-decoration': 'none'});
 
-
 		$('h1').myPlugin();
 	});
+</script>
+
+<!-- 面向对象 插件开发 -->
+<script type="text/javascript">
+(function(){
+	var Beautifier = function (ele,opt) {
+		this.$element = ele,
+		this.defaults = {
+			'color': 'bLue',
+			'fontSize': '20px',
+			'textDecoration':'line-through',
+			'backgroundColor':'#fff'
+		},
+		this.options = $.extend({},this.defaults,opt);
+	}
+
+	Beautifier.prototype.beautify = function () {
+		return this.$element.css({
+			'color': this.options.color,
+			'fontSize': this.options.fontSize,
+			'textDecoration': this.options.textDecoration,
+			'backgroundColor': this.options.backgroundColor
+		});
+	}
+
+	$.fn.SetCss = function(options) {
+		var beauti = new Beautifier(this,options);
+		
+		return beauti.beautify();
+		//或者 
+		// return this;
+	}
+})();
+	
+</script>
+
+<script type="text/javascript">
+	$(function(){
+		$('a').SetCss({
+			'color': 'red',
+			'backgroundColor':'#eee',
+			'fontSize': '18px',
+			'textDecoration':'none'
+		}).mouseover(function(){
+			alert($(this).text());
+		});
+	});
+</script>
+
+
+<script type="text/javascript">
+	var foo = function()
+	{
+
+	}
+
+	// 代码开头加一个分号
+	;(function(){
+		alert('Hello World.');
+	})();
+</script>
+
+<script type="text/javascript">
+	//将系统变量以变量形式传递到插件内部
+	;(function(window,document,undefined){
+
+	})(window,document);
+</script>
+
+<script type="text/javascript">
+var undefined = 8;
+
+(function(undefined){
+	alert(window.undefined);
+	alert(undefined);
+})();
 </script>
 </body>
 </html>
