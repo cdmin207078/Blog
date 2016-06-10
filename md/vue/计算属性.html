@@ -1,0 +1,74 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+	<title>计算属性</title>
+</head>
+<body>
+
+<span>a = {{ a }}</span>,<span>b = {{ b }}</span>
+
+
+<p>
+	<span>first name: {{ firstname }}</span><br />
+	<span>last name: {{ lastname }}</span><br />
+	<span>full name: {{ fullname }}</span><br />
+
+</p>
+
+
+<script type="text/javascript" src="vue.js"></script>
+<script type="text/javascript">
+	var vm = new Vue({
+		el:'body',
+		data: {
+			a:1,
+			firstname: 'Foo',
+			lastname: 'Bar',
+			// fullname: 'Foo Bar'
+		},
+		computed:{
+			// 一个计算属性的 getter
+			b: function(){
+				// this 指向 vm 实例
+				return this.a + 1;
+			},
+			fullname: function(){
+				return this.firstname + ' - ' + this.lastname;
+			},
+			fullnameSet: {
+				get: function(){
+					return '呵呵大';
+				},
+				set: function(newval) {
+					var names = newval.split('');
+					this.firstname = names[0];
+					this.lastname = names[1];
+				}
+			}
+		},
+		// watch:{
+		// 	'firstname':function(oldval,newval){
+		// 		console.info('firstname : ' + oldval + ' -> ' + newval);
+		// 		this.fullname = this.firstname + ' ' + this.lastname;
+		// 	},
+		// 	'lastname':function(oldval,newval){
+		// 		console.info('lastname : ' + oldval + ' -> ' + newval);
+		// 		this.fullname = this.firstname + ' ' + this.lastname;
+		// 	}
+		// }
+	});
+
+	// vm.$watch('firstname',function(oldval,newval){
+	// 	console.info('firstname : ' + oldval + ' -> ' + newval);
+	// 	this.fullname = this.firstname + ' ' + this.lastname;
+	// });
+
+	// vm.$watch('lastname',function(oldval,newval){
+	// 	console.info('lastname : ' + oldval + ' -> ' + newval);
+	// 	this.fullname = this.firstname + ' ' + this.lastname;
+	// });
+
+</script>
+</body>
+</html>
+

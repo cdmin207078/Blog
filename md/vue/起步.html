@@ -1,0 +1,67 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+	<title>起步</title>
+</head>
+<body>
+	<div id="app">
+
+		<h1>{{ message }}</h1>
+		<input type="text" v-model="message" />
+
+
+		<ul>
+			<li v-for="todo in todos">
+				{{ todo.text }}
+			</li>
+		</ul>
+
+		<button v-on:click="reverseMessage">Reverse Message</button>
+
+		<h1>杜甫三章</h1>
+		<input v-model="poemInput" v-on:keyup.enter="addPoem"/>
+		<ul>
+			<li v-for="p in poem">
+				<span>{{ p.text }}</span>
+				<button v-on:click="removePoem($index)">X</button>
+			</li>
+		</ul>
+	</div>
+
+
+	<script type="text/javascript" src="vue.js"></script>
+	<script type="text/javascript">
+	var vue = new Vue({
+		el : '#app',
+		data: {
+			message: 'Hello Vuejs.',
+			todos: [
+				{ text: '剑外忽传收蓟北， 初闻涕泪满衣裳。'},
+				{ text: '却看妻子愁何在， 漫卷诗书喜欲狂。'},
+				{ text: '白日放歌须纵酒， 青春作伴好还乡。'},
+				{ text: '即从巴峡穿巫峡， 便下襄阳向洛阳。'}
+			],
+			poemInput:'',
+			poem: [
+				{ text: '人生不相见，动如参与商。'}
+			]
+		},
+		methods: {
+			reverseMessage: function () {
+				this.message = this.message.split('').reverse().join('');
+			},
+			addPoem: function() {
+				var text = this.poemInput.trim();
+				if(text) {
+					this.poem.push({ text: text });
+					this.poemInput = '';
+				}
+			},
+			removePoem: function(index) {
+				this.poem.splice(index,1);
+			}
+		}
+	});
+	</script>
+</body>
+</html>

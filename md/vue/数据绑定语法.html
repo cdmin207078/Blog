@@ -1,0 +1,87 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+	<title>数据绑定语法</title>
+</head>
+<body>
+
+<h1>{{* message }}</h1>	
+{{{ post }}}<br />
+{{ number + 1 }}<br />
+{{ ok ? 'YES' : 'NO' }}<br />
+{{ message.split('').reverse().join('') }} <br />
+{{ message | capitalize }} <br />
+
+<br />
+{{ message | reverse '你好'  '先生' }}
+<p><span v-text="message | reverse 'Mr.' '你好'"></span></p>
+
+<p v-if="greeting">hello</p>
+
+<a v-bind:href="url">百度一下</a><br />
+<a v-bind:href.literal="http://www.baidu.com">百度一下</a><br />
+
+<!-- 完整写法 -->
+<a v-bind:href="url">百度一下 v-bind:href="url" </a><br/>
+<!-- 缩写 -->
+<a :href="url">百度一下 :href="url"</a><br />
+
+<!-- v-on 完整写法 -->
+<a v-on:click="dosomething">点我一下 v-on:click</a><br />
+
+<a @click="dosomething">点我一下  @click</a><br />
+
+<img :src="p_logo" /><br />
+
+
+<p>
+	<ul>
+		<li v-for="skill in skills">
+			<span>{{ skill.text }}</span>
+		</li>
+	</ul>
+</p>
+
+<script type="text/javascript" src="vue.js"></script>
+<script type="text/javascript">
+
+	Vue.filter('reverse',function (value,begin,end) {
+
+		console.info(begin);
+		console.warn(value);
+		console.info(end);
+		
+		return  begin + ' ' + value.split('').reverse().join('') + ' ' + end;
+	});
+	
+	var vm = new Vue({
+		el: 'body',
+		data: {
+			message : '陈莉',
+			post: '<strong>呵呵大</strong>',
+			number: 1,
+			ok: '',
+			greeting: 'true',
+			url: 'http://www.baidu.com',
+			p_logo: 'http://cn.vuejs.org/images/logo.png',
+			skills: [
+				
+				{ text: 'C#' },
+				{ text: 'Java' },
+			]
+		},
+		methods: {
+			'dosomething':function(){
+				alert('点击');
+			}
+		}
+	});
+
+
+
+
+	
+</script>
+</body>
+</html>
+

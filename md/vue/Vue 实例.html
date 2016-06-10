@@ -1,0 +1,40 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+	<title>Vue 实例</title>
+</head>
+<body>
+<div id="app">
+	
+</div>
+
+<script type="text/javascript" src="vue.js"></script>
+<script type="text/javascript">
+	var vm = new Vue({
+		el: '#app',
+		data:{
+			name: '燕池'
+		},
+		created: function () {
+			console.info('vue is created.');
+			console.info('name is ' + this.name);
+		},
+		compiled: function () {
+			console.info('vue is compiled.');
+		},
+		ready: function () {
+			console.info('vue has ready.');
+		},
+		destoryed: function () {
+			console.info('vue has destoryed.')
+		}
+	});
+
+	// $watch 是一个实例方法,这个回调将在 vm.name  改变后调用
+	vm.$watch('name',function (oldval,newval) {
+		console.info('name \'' + oldval + '\' change to \'' + newval + '\'');
+	});
+</script>
+</body>
+</html>
+
