@@ -1,0 +1,54 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+	<title>css 与 style 绑定</title>
+	<style type="text/css">
+
+	.c1 { }
+	.strong { font-weight: bolder; }
+	.fs20 { font-size: 20px; }
+	.red { color: #f00; }
+	</style>
+</head>
+<body>
+
+
+<h1>绑定 HTML Class</h1>
+<span class="c1" v-bind:class="style1">v-bind:class</span> <br />
+
+<span class="c1" v-bind:class="[c1, c2]">v-bind:class[classA, classB]</span><br />
+
+<h1>绑定内联样式</h1>
+
+<span v-bind:style = "{ color: innerColor, fontSize: innerFontSize + 'px' }">v-bind:style="{color: innerColor, font-size:innerFontSize + 'px'}"</span><br />
+
+<span v-bind:style = "innerStyle">v-bind:style = "innerStyle"</span><br />
+
+
+<script type="text/javascript" src="vue.js"></script>
+<script type="text/javascript">
+	var vm = new Vue({
+		el: 'html',
+		
+		data : {
+			c1 : 'c1',
+			c2 : 'strong',
+			innerColor: 'red',
+			innerFontSize: 20,
+			style1 : {
+				'red' : true,
+				'fs20' : true,
+				'strong' : true
+
+			},
+			innerStyle: {
+				color: '#f00',
+				fontSize: '20px'
+			}
+		},
+	});
+
+</script>
+</body>
+</html>
+

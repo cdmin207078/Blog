@@ -1,0 +1,42 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+	<title>条件渲染</title>
+</head>
+<body>
+
+<template v-if="ok">
+	<div>
+	  <h1>Title</h1>
+	  <p>Paragraph 1</p>
+	  <p>Paragraph 2</p>
+	</div>
+</template>
+
+
+<h1 v-if="ok">Yes</h1>
+<h1 v-else>No</h1>
+
+
+<h2 v-show="ok">v-show="ok"</h2>
+
+<div v-if="Math.random() > 0.5">
+	Sorry
+</div>
+<div v-else>
+	No sorry
+</div>
+
+<script type="text/javascript" src="vue.js"></script>
+<script type="text/javascript">
+	var vm = new Vue({
+		el: 'html',
+		data: {
+			ok : true
+		}
+	});
+
+</script>
+</body>
+</html>
+
