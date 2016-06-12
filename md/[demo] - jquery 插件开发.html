@@ -145,12 +145,25 @@
 </script>
 
 <script type="text/javascript">
-var undefined = 8;
 
-(function(undefined){
-	alert(window.undefined);
-	alert(undefined);
-})();
+// (function(){…})();
+(function(arg1){
+	alert(arg1);
+})('呵呵哒');
+
+
+// (function(){…}());
+(function(arg1){
+	alert(arg1)
+}('这也可以？'));
+
+
+// var undefined = 8;
+
+// (function(undefined){
+// 	alert(window.undefined);
+// 	alert(undefined);
+// })();
 </script>
 </body>
 </html>
