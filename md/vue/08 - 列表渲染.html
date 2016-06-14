@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
@@ -35,6 +36,16 @@
 	</template>
 </ul>
 
+<h1>v-for object</h1>
+<ul>
+	<li v-for="(key, value) in user">
+		{{ key }} : {{ value }}
+	</li>
+</ul>
+
+<h1>v-for numeric</h1>
+<span v-for="n in 15">{{ n }},</span>
+
 <script type="text/javascript" src="vue.js"></script>
 <script type="text/javascript">
 	var vm = new Vue({
@@ -44,7 +55,12 @@
 			items: [
 				{ message: 'Foo' },
 				{ message: 'Bar' }
-			]
+			],
+			user: {
+				uid: 1,
+				name: '雪霜茂茂',
+				time: new Date()
+			},
 		}
 	});
 </script>
