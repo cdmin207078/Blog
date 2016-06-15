@@ -19,3 +19,4 @@ var MyComponent = Vue.extend({
 // 所有的 `MyComponent` 实例都将以预定义的扩展选项被创建
 var myComponentInstance = new MyComponent()
 ```
+
