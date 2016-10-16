@@ -2,6 +2,7 @@
 *.suo
 
 #过滤文件夹Debug,Release,obj
+bin/
 Debug/
 Release/
 obj/
