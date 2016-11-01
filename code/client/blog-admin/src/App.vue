@@ -1,44 +1,37 @@
 <template>
   <div id="app">
-    <!--<img src="./assets/logo.png">-->
-    <!--<hello></hello>-->
-
-    <router-link to="/foo">Go to Foo</router-link>
-    <router-link :to="'/Bar'">Go to Bar</router-link>
+    <img src="./assets/logo.png" alt="">
+    <h1>{{ msg }}</h1>
+    <first-component></first-component>
     
-    <!-- 命名的路由 -->
-    <router-link :to="{ name: 'user', params: { userId: 123 }}">User</router-link>
-    
-    <!-- 带查询参数，下面的结果为 /register?plan=private -->
-    <router-link :to="{ path: 'register', query: { plan: 'private' }}">Register</router-link>
+    <ul>
+      <li><router-link to="/first">first page</router-link></li>
+      <li><router-link to="/second">second page</router-link></li>
+    </ul>
 
-
-    <!--<router-view></router-view>-->
+    <router-view class="view"></router-view>
   </div>
 </template>
 
 <script>
-import Hello from './components/Hello'
+import FirstComponent from './components/firstcomponent'
+import SecondComponent from './components/secondcomponent'
 
 export default {
-  name: 'app',
   components: {
-    Hello
+    FirstComponent,
+    SecondComponent
+  },
+  data () {
+    return {
+      msg: 'Hello Vue!'
+    }
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-.active {
-  color: yellow;
-  background-color:red;
-}
+  body {
+    font-family: "Myriad Set Pro","Helvetica Neue","Helvetica","Arial",sans-serif
+  }
 </style>
