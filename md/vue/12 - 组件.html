@@ -6,38 +6,146 @@
 </head>
 <body>
 
-<h1>使用组件 &lt;my-component&gt; </h1>
-<my-component></my-component>
+<div id="example">
+	<my-component></my-component>
+	<parent-component></parent-component>
+
+	<div v-if="greeting">{{ name }}</div>
+
+
+	<!--绑定 父组建数据-->
+	<div>
+		<input v-model="age" type="number">
+		<br />
+		<child :prop-A="age"></child>
+	</div>
+
+	<div id="example-2">
+		<simple-counter></simple-counter>
+		<simple-counter></simple-counter>
+		<simple-counter></simple-counter>
+	</div>
+
+
+	<div id="counter-event-example">
+		<p>{{ total }}</p>
+		<button-counter v-on:increment="incrementTotal"></button-counter>
+		<button-counter v-on:increment="incrementTotal"></button-counter>
+		<button-counter v-on:increment="incrementTotal"></button-counter>
+	</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <script type="text/javascript" src="vue.js"></script>
 <script type="text/javascript">
 
+// 定义
+var MyComponent = Vue.extend({
+	template: '<div>A custom component!</div>'
+});
 
-	// var Child = Vue.extend({
-	// 	template: ''
-	// });
+// 注册 - 全局注册
+Vue.component('my-component',MyComponent);
 
-	// 定义组件
-	var MyComponent = Vue.extend({
-		template: '<div>A custom component! <br /><my-componentchild></my-componentchild></div>',
-		components: {
-			'my-componentchild': {
-				template: '<b>空を押し上げて,手を伸ばす君　五月のこと</b>'
-			},
+
+// 局部注册使用
+var Child  = Vue.extend({
+	template: '<b>Johann Sebastian Bach.</b>'
+});
+
+var Parent = Vue.extend({
+	template: '<div> Album - <child-component></child-component></div>',
+	components:{
+		'child-component': Child
+	}
+});
+
+Vue.component('parent-component',Parent);
+
+/* 语法糖
+Vue.component('parent-component',{
+	template: '<div> Album - <child-component></child-component></div>',
+	components: {
+		'child-component': Child
+	}
+});
+*/
+
+// Props  传递数据
+Vue.component('child',{
+	props: {
+		propA: {
+			type: Number,
+			required: true,
+		},
+	},
+	template: '<div>Parent are old : <i>{{ propA }}</i><br /></div>'
+});
+
+
+// data 必须是函数
+
+Vue.component('simple-counter', {
+	template: '<button @click="counter+=1">{{ counter }}</button>',
+	data() {
+		return {
+			counter: 0
+		};
+	}
+});
+
+// v-on 绑定自定义事件
+
+Vue.component('button-counter',{
+	template: '<button v-on:click="increment">{{ counter }}</button>',
+	data() {
+		return {
+			counter: 0,
 		}
-	});
+	},
+	methods: {
+		increment: function () {
+			this.counter += 1
+			this.$emit('increment')
+		}
+	}
+
+});
+
+var data = {
+	name: 'Goldberg Variatio',
+	greeting: true,
+	size: 115,
+	age: 15,
+	counter: 0,
+	total: 0,
+}
 
 
+// 创建根实例
+new Vue({
+	el: '#example',
+	data: data,
+	methods: {
+		incrementTotal: function () {
+			this.total += 1
+		}
+	}
+})
 
-	// 注册组件
-	Vue.component('my-component',MyComponent);
-
-	//创建根实例
-	var vm = new Vue({
-		el: 'html',
-	});
 </script>
 </body>
 </html>
