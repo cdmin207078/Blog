@@ -4,9 +4,11 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
 
+import routes from './routes'
+
 import App from './App'
-import FirstComponent from './components/firstcomponent'
-import SecondComponent from './components/secondcomponent'
+// import FirstComponent from './components/firstcomponent'
+// import SecondComponent from './components/secondcomponent'
 
 // import ToDo from './components/todo.vue'
 
@@ -31,28 +33,32 @@ import SecondComponent from './components/secondcomponent'
 //   linkActiveClass: 'active' // 全局配置 <router-link> 的默认『激活 class 类名』, 默认值: "router-link-active"
 // })
 
+const router = new VueRouter({
+  routes,
+  linkActiveClass: 'active'
+})
+
 Vue.use(VueRouter)
 Vue.use(VueResource)
 
-const router = new VueRouter({
-  model: 'history',
-  base: __dirname,
-  routes: [
-    {
-      path: '/first',
-      component: FirstComponent
-    },
-    {
-      path: '/Second',
-      component: SecondComponent
-    }
-  ]
-})
+// const router = new VueRouter({
+//   model: 'history',
+//   base: __dirname,
+//   routes: [
+//     {
+//       path: '/first',
+//       component: FirstComponent
+//     },
+//     {
+//       path: '/Second',
+//       component: SecondComponent
+//     }
+//   ]
+// })
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router: router,
   render: h => h(App)
-  // router: router
 }).$mount('#app')

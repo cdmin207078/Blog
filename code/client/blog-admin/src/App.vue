@@ -1,26 +1,26 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png" alt="">
-    <h1>{{ msg }}</h1>
-    <first-component></first-component>
-    
-    <ul>
-      <li><router-link to="/first">first page</router-link></li>
-      <li><router-link to="/second">second page</router-link></li>
-    </ul>
-
-    <router-view class="view"></router-view>
+    <navbar></navbar>
+    <sidebar></sidebar>
+    <app-main></app-main>
   </div>
 </template>
 
 <script>
-import FirstComponent from './components/firstcomponent'
-import SecondComponent from './components/secondcomponent'
+import FirstComponent from 'components/firstcomponent'
+import SecondComponent from 'components/secondcomponent'
+
+import Navbar from 'components/layout/Navbar'
+import Sidebar from 'components/layout/Sidebar'
+import AppMain from 'components/layout/AppMain'
 
 export default {
   components: {
     FirstComponent,
-    SecondComponent
+    SecondComponent,
+    Navbar,
+    Sidebar,
+    AppMain
   },
   data () {
     return {
@@ -31,7 +31,5 @@ export default {
 </script>
 
 <style>
-  body {
-    font-family: "Myriad Set Pro","Helvetica Neue","Helvetica","Arial",sans-serif
-  }
+  @import '~bulma/css/bulma.css'
 </style>
