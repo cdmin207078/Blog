@@ -4,16 +4,14 @@ import ArticleEdit from './views/article/edit'
 export default [
   {
     path: '/article',
-    component: ArticleIndex,
-    children: [
-      {
-        path: 'add',
-        component: ArticleEdit
-      },
-      {
-        path: 'edit/:id',
-        component: ArticleEdit
-      }
-    ]
+    component: ArticleIndex
+  },
+  {
+    path: '/article/add',
+    component: ArticleEdit
+  },
+  {
+    path: '/article/edit:id',
+    component: ArticleEdit
   }
 ]

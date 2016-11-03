@@ -3,11 +3,8 @@
 
   <p class="menu-label">内容管理</p>
   <ul class="menu-list">
-    <li>
-      <router-link></router-link>
-    </li>
-    <li><a>写文章</a></li>    
-    <li><a class="is-active">文章管理</a></li>
+    <li><router-link to="/article/add">写文章</router-link></li>
+    <li><router-link to="/article">文章管理</router-link></li>
   </ul>
 
   <p class="menu-label">用户管理</p>

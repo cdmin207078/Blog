@@ -7,17 +7,12 @@
 </template>
 
 <script>
-import FirstComponent from 'components/firstcomponent'
-import SecondComponent from 'components/secondcomponent'
-
 import Navbar from 'components/layout/Navbar'
 import Sidebar from 'components/layout/Sidebar'
 import AppMain from 'components/layout/AppMain'
 
 export default {
   components: {
-    FirstComponent,
-    SecondComponent,
     Navbar,
     Sidebar,
     AppMain
@@ -30,6 +25,8 @@ export default {
 }
 </script>
 
+
 <style>
-  @import '~bulma/css/bulma.css'
+  @import '~bulma/css/bulma.css';
+  @import './css/fix-bulma.css';
 </style>

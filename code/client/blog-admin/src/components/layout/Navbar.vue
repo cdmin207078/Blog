@@ -1,17 +1,8 @@
 <template>
   <section class="hero is-bold app-navbar animated">
-      <center>
-        <h1>某某后台管理系统<h1>
-      </center>
+    <h1 class="title">Title</h1>
   </section>
 </template>
-
-<script>
-// import Tooltip from 'vue-bulma-tooltip'
-
-export default {
-}
-</script>
 
 <style>
   .app-navbar {

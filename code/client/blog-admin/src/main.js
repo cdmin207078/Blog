@@ -35,7 +35,7 @@ import App from './App'
 
 const router = new VueRouter({
   routes,
-  linkActiveClass: 'active'
+  linkActiveClass: 'is-active'
 })
 
 Vue.use(VueRouter)

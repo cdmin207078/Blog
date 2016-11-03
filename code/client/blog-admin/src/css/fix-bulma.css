@@ -1,0 +1,20 @@
+  /* fix bulma css */
+
+  .content a:not(.button):visited {
+    color: #00d1b2;
+  }
+
+  .content a:not(.button) {
+    border: none;
+  }
+
+  
+  .input,
+  .textarea,
+  .button {
+    border-radius: 0px;
+  }
+  .box,
+  .menu-list a {
+    border-radius: 0px;
+  }
