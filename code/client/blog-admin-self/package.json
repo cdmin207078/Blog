@@ -1,0 +1,26 @@
+{
+  "name": "blog-admin",
+  "version": "1.0.0",
+  "description": "blog admin center",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --inline"
+  },
+  "author": "cdmin207078",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-core": "^6.18.2",
+    "babel-loader": "^6.2.7",
+    "babel-preset-es2015": "^6.18.0",
+    "bulma": "^0.2.3",
+    "css-loader": "^0.25.0",
+    "html-webpack-plugin": "^2.24.1",
+    "style-loader": "^0.13.1",
+    "vue": "^2.0.5",
+    "vue-loader": "^9.8.1",
+    "vue-resource": "^1.0.3",
+    "vue-router": "^2.0.1",
+    "webpack": "^1.13.3",
+    "webpack-dev-server": "^1.16.2"
+  }
+}
