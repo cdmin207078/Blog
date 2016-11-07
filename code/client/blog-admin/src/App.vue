@@ -16,11 +16,6 @@ export default {
     Navbar,
     Sidebar,
     AppMain
-  },
-  data () {
-    return {
-      msg: 'Hello Vue!'
-    }
   }
 }
 </script>
