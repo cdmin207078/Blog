@@ -1,17 +1,34 @@
 <template>
   <div id="app">
-    <ul>
-      <li>我从崖边跌落</li>
-      <li>落入星空辽阔</li>
-      <li>银河不清不浊</li>
-      <li>不知何以摆脱</li>
-    </ul>
+    <navbar></navbar>
+    <sidebar></sidebar>
+
+    <div class="app-main">
+      <div class="container is-fluid is-marginless">
+        <router-view></router-view>
+      </div>
+    </div>
+
   </div>
 </template>
 
+<script>
+import Navbar from './view/Navbar'
+import Sidebar from './view/SideBar'
+
+export default {
+  components: {
+    Navbar,
+    Sidebar
+  }
+}
+</script>
+
 <style>
+  @import "css/bulma.css";
   
-  li {
-    list-style: none;
+  .app-main {
+    margin-left: 190px;
+    padding-top: 60px;
   }
 </style>

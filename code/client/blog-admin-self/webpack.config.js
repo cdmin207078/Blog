@@ -19,7 +19,10 @@ module.exports = {
       // AppStore : 'js/stores/AppStores.js',//后续直接 require('AppStore') 即可
       // AppAction : 'js/actions/AppAction.js',
       // 'src': path.resolve(__dirname, '../src'),
+      'css': path.resolve(__dirname,'../src/css'),
       'assets': path.resolve(__dirname, '../src/assets'),
+      'json': path.resolve(__dirname, '../src/json'),
+      // 'views': path.resolve(__dirname,'../src/view'),
       'components': path.resolve(__dirname, '../src/components')
     }
   },
@@ -32,6 +35,10 @@ module.exports = {
   },
   module: {
     loaders: [
+      {
+        test: /\.css$/,
+        loader: 'style-loader!css-loader'
+      },
       {
         test: /\.js$/,
         exclude: /node_modules/,

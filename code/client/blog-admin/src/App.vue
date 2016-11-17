@@ -21,6 +21,7 @@ export default {
 </script>
 
 
+
 <style>
   @import '~bulma/css/bulma.css';
   @import './css/fix-bulma.css';
