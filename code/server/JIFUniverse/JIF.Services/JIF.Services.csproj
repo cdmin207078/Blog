@@ -40,7 +40,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Articles\ArticleService.cs" />
+    <Compile Include="Articles\IArticleService.cs" />
+    <Compile Include="BaseService.cs" />
+    <Compile Include="IBaseService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\JIF.Core\JIF.Core.csproj">
+      <Project>{F39EE58F-A9EC-4E88-B577-28EAAD155713}</Project>
+      <Name>JIF.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

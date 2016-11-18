@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace JIF.Core.Domain.Articles
 {
-    public partial class Article : __Base_CU
+    public partial class Article : BaseEntity, ISoftDelete
     {
         /// <summary>
         /// 文章标题
@@ -27,5 +27,15 @@ namespace JIF.Core.Domain.Articles
         /// 是否已经发布
         /// </summary>
         public bool Published { get; set; }
+
+        public bool IsDeleted { get; set; }
+
+        public DateTime CreateTime { get; set; }
+
+        public int CreateUserId { get; set; }
+
+        public DateTime? UpdateTime { get; set; }
+
+        public int? UpdateUserId { get; set; }
     }
 }
