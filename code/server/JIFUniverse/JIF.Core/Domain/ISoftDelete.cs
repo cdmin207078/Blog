@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JIF.Core.Domain.Articles
+namespace JIF.Core.Domain
 {
-    public partial class Category : BaseEntity
+    public interface ISoftDelete
     {
         /// <summary>
-        /// 分类名称
+        /// 记录是否被 '删除'
         /// </summary>
-        public string Name { get; set; }
+        bool IsDeleted { get; set; }
     }
 }
