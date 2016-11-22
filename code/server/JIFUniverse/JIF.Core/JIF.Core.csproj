@@ -46,6 +46,8 @@
     <Compile Include="Domain\Articles\Category.cs" />
     <Compile Include="Domain\ISoftDelete.cs" />
     <Compile Include="Domain\Users\User.cs" />
+    <Compile Include="IPagedList.cs" />
+    <Compile Include="PagedList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

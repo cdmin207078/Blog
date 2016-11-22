@@ -11,7 +11,13 @@ namespace JIF.Blog.WebApi
     {
         protected void Application_Start()
         {
+            // 配置路由
             GlobalConfiguration.Configure(WebApiConfig.Register);
+
+
+            var config = GlobalConfiguration.Configuration;
+            // 注册依赖
+            new DependencyRegistrar().RegisterDependencies(config);
         }
     }
 }

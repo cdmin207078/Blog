@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Linq.Expressions;
 
 namespace JIF.Services
 {
@@ -21,6 +22,16 @@ namespace JIF.Services
         public T Get(object id)
         {
             return _repository.Get(id);
+        }
+
+        public IPagedList<T> Search(Expression<Func<T, bool>> whereLambda, int pageIndex = 0, int pageSize = int.MaxValue)
+        {
+            var query = _repository.Table;
+
+            if (whereLambda != null)
+                query = query.Where(whereLambda);
+
+            return new PagedList<T>(query, pageIndex, pageSize);
         }
     }
 }

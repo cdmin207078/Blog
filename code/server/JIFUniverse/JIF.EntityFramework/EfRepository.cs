@@ -20,7 +20,6 @@ namespace JIF.EntityFramework
             _context = context;
         }
 
-
         /// <summary>
         /// Get full error
         /// </summary>
