@@ -86,35 +86,37 @@ sql_mode = NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES
 首次安装好是没有密码的,需要修改密码
 
 使用 root 登陆
-> mysql -u root
+> `mysql -u root`
 
 修改密码
 
-> use mysql;
-> update user set password=PASSWORD('123456') WHERE user='root';  --修改密码
-> fluesh privileges;  --刷新授权,使修改生效
-> quit;
+> `mysql>` `use mysql;`
+
+> `mysql>` `update user set password=PASSWORD('123456') WHERE user='root';  --修改密码`
+
+> `mysql>` `fluesh privileges;  --刷新授权,使修改生效`
 
 ### 开启远程登陆配置
 
-> mysql> GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'youpassword' WITH GRANT OPTION;
-> mysql> FLUSH PRIVILEGES;
+> `mysql>` `GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'youpassword' WITH GRANT OPTION;`
+
+> `mysql>` `FLUSH PRIVILEGES;`
 
 
 
 ## mysql 常用命令
 1. mysql 服务启动 / 停止
-> net start mysql
-  net stop mysql
+> `net start mysql`
+  `net stop mysql`
 
 2. 连接到本机上的MYSQL
-> mysql -u [username] -p 
+> `mysql -u [username] -p `
 
   回车之后,输入密码
 
 3. 连接到远程主机上的MYSQL
 假设远程主机的IP为：110.110.110.110, 数据库为blog 用户名为root
-> mysql -h 110.110.110.110 -u root -p blog
+> `mysql -h 110.110.110.110 -u root -p blog`
 
 
 
