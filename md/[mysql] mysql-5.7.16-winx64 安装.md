@@ -17,36 +17,43 @@ http://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-5.7.16-winx64.zip
 
 *下方罗列了基本配置,其它高级配置,可以参考文末,参考链接.*
 ```ini
-[client]
-
-# 设置mysql客户端默认字符集
-default-character-set = utf8
- 
-# 设置mysql客户端连接服务端时默认使用的端口
-port = 9527 
-
-
 [mysqld]
 
-# 默认字符集为utf8
-default-character-set = utf8
+# 
+character_set_server = utf8
 
 # mysql服务端默认监听(listen on)的TCP/IP端口
-port = 9527 
+port = 9527
 
 # 基准路径，其他路径都相对于这个路径
-basedir = "D:\mysql-5.7.16-winx64/" 
+basedir = "D:\mysql-5.7.16-winx64\"
 
 # mysql数据库文件所在目录
-datadir = "D:\mysql-5.7.16-winx64/data/" 
+datadir = "D:\mysql-5.7.16-winx64\data\" 
 
 # mysql服务器支持的最大并发连接数(用户数)
 # 但总会预留其中的一个连接给管理员使用超级权限登录，即使连接数目达到最大限制。
 # 如果设置得过小而用户比较多，会经常出现“Too many connections”错误。
 max_connections = 100
 
+
+# Remove leading # to set options mainly useful for reporting servers.
+# The server defaults are faster for transactions and fast SELECTs.
+# Adjust sizes as needed, experiment to find the optimal values.
+# join_buffer_size = 128M
+# sort_buffer_size = 2M
+# read_rnd_buffer_size = 2M 
+
 # SQL模式为strict模式
+
 sql_mode = NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES 
+
+
+# general logs
+log-output = FILE
+general-log = 1
+general_log_file = "mysql.log"
+
 
 ```
 
