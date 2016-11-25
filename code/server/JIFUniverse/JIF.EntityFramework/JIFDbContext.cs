@@ -1,4 +1,6 @@
-﻿using System;
+﻿using JIF.Core.Domain.Articles;
+using MySql.Data.Entity;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -7,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace JIF.EntityFramework
 {
+    [DbConfigurationType(typeof(MySqlEFConfiguration))]
     public class JIFDbContext : DbContext
     {
         public JIFDbContext(string nameOrConnectionString)
@@ -17,6 +20,8 @@ namespace JIF.EntityFramework
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Article>().ToTable("Article").HasKey(d => d.Id);
+
             base.OnModelCreating(modelBuilder);
         }
     }

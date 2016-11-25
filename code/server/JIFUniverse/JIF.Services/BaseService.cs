@@ -31,7 +31,7 @@ namespace JIF.Services
             if (whereLambda != null)
                 query = query.Where(whereLambda);
 
-            return new PagedList<T>(query, pageIndex, pageSize);
+            return new PagedList<T>(query.OrderByDescending(d => d.Id), pageIndex, pageSize);
         }
     }
 }

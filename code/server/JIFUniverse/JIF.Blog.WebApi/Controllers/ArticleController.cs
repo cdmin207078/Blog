@@ -1,10 +1,5 @@
 ﻿using JIF.Core.Domain.Articles;
 using JIF.Services.Articles;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace JIF.Blog.WebApi.Controllers
@@ -19,18 +14,20 @@ namespace JIF.Blog.WebApi.Controllers
         }
 
 
+        [HttpPost]
         public IHttpActionResult Add(Article model)
         {
-            return Ok("Add");
+            _articleService.Insert(model);
+            return Ok(new { status = "ok", data = model });
         }
-
 
         [HttpGet]
         public IHttpActionResult Search()
         {
-            return Ok("Search");
+            return Ok(_articleService.Search(null));
         }
 
+        [HttpGet]
         public IHttpActionResult GetArticleById()
         {
             return Ok("GetArticleById");

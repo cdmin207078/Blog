@@ -1,5 +1,7 @@
-﻿using System;
+﻿using MySql.Data.Entity;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
@@ -11,6 +13,9 @@ namespace JIF.Blog.WebApi
     {
         protected void Application_Start()
         {
+            // ef-mysql configuration
+            DbConfiguration.SetConfiguration(new MySqlEFConfiguration());
+
             // 配置路由
             GlobalConfiguration.Configure(WebApiConfig.Register);
 
