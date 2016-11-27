@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using JIF.Core.Data;
+using JIF.Core;
+using System.Linq.Expressions;
 
 namespace JIF.Services.Articles
 {

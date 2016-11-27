@@ -85,8 +85,11 @@ general_log_file = "mysql.log"
 #### net start mysql无法启动
 
 高级版本mysql解压出来, 不含`data`目录, 需要初始化一下
+
 使用 `mysqld --initialize` 或者 `--initialize-insecure`
+
 使用`--initialize` 初始化的需要看日志，会显示一个随机密码，使用此密码登陆
+
 使用`--initialize-insecure` 初始化的，可以直接进行`mysql -u root`登陆，如果不行，可以使用`mysql -u root --skip-password`登陆，登陆成功后修改密码。
 
 

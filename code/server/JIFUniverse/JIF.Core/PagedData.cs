@@ -6,10 +6,18 @@ using System.Threading.Tasks;
 
 namespace JIF.Core
 {
-    [Serializable]
-    public class PagedList<T> : List<T>, IPagedList<T>
+    public class PagedData<T>
     {
-        public PagedList(IQueryable<T> source, int pageIndex, int pageSize)
+        public PagedData(IPagedList<T> source)
+        {
+            this.Items = source;
+            this.PageIndex = source.PageIndex;
+            this.PageSize = source.PageSize;
+            this.TotalCount = source.TotalCount;
+            this.TotalPages = source.TotalPages;
+        }
+
+        public PagedData(IQueryable<T> source, int pageIndex, int pageSize)
         {
             int total = source.Count();
             this.TotalCount = total;
@@ -21,23 +29,11 @@ namespace JIF.Core
             this.PageSize = pageSize;
             this.PageIndex = pageIndex < 1 ? 1 : pageIndex;
 
-            this.AddRange(source.Skip((PageIndex - 1) * PageSize).Take(PageSize).ToList());
+            this.Items = source.Skip((PageIndex - 1) * PageSize).Take(PageSize).ToList();
+
         }
 
-        public PagedList(IList<T> source, int pageIndex, int pageSize)
-        {
-            TotalCount = source.Count();
-            TotalPages = TotalCount / pageSize;
-
-            if (TotalCount % pageSize > 0)
-                TotalPages++;
-
-            this.PageSize = pageSize;
-            this.PageIndex = pageIndex;
-            this.AddRange(source.Skip(pageIndex * pageSize).Take(pageSize).ToList());
-        }
-
-        public PagedList(IEnumerable<T> source, int pageIndex, int pageSize, int totalCount)
+        public PagedData(IEnumerable<T> source, int pageIndex, int pageSize, int totalCount)
         {
             TotalCount = totalCount;
             TotalPages = TotalCount / pageSize;
@@ -47,7 +43,9 @@ namespace JIF.Core
 
             this.PageSize = pageSize;
             this.PageIndex = pageIndex;
-            this.AddRange(source);
+
+
+            this.Items = source;
         }
 
         public int PageIndex { get; private set; }
@@ -57,20 +55,14 @@ namespace JIF.Core
 
         public bool HasPreviousPage
         {
-            get { return (PageIndex > 0); }
+            get { return (PageIndex > 1); }
         }
         public bool HasNextPage
         {
             get { return (PageIndex + 1 < TotalPages); }
         }
-    }
 
+        public IEnumerable<T> Items { get; set; }
 
-    public static class PagedListExtends
-    {
-        public static PagedData<T> ToPagedData<T>(this IPagedList<T> source)
-        {
-            return new PagedData<T>(source);
-        }
     }
 }

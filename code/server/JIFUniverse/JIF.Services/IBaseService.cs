@@ -22,6 +22,6 @@ namespace JIF.Services
         /// </summary>
         /// <param name="whereLambda"></param>
         /// <returns></returns>
-        IPagedList<T> Search(Expression<Func<T, bool>> whereLambda, int pageIndex = 0, int pageSize = int.MaxValue);
+        IPagedList<T> Search(Expression<Func<T, bool>> whereLambda = null, int pageIndex = 0, int pageSize = int.MaxValue);
     }
 }

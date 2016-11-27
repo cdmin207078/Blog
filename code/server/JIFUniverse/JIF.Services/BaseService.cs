@@ -24,7 +24,7 @@ namespace JIF.Services
             return _repository.Get(id);
         }
 
-        public IPagedList<T> Search(Expression<Func<T, bool>> whereLambda, int pageIndex = 0, int pageSize = int.MaxValue)
+        public virtual IPagedList<T> Search(Expression<Func<T, bool>> whereLambda = null, int pageIndex = 0, int pageSize = int.MaxValue)
         {
             var query = _repository.Table;
 

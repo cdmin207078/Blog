@@ -7,3 +7,5 @@ Debug/
 Release/
 obj/
 packages/
+.vs/
+.vscode/

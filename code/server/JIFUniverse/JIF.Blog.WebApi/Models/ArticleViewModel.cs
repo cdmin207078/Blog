@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
-namespace JIF.Core.Domain.Articles
+namespace JIF.Blog.WebApi.Models
 {
-    public partial class Article : BaseEntity, ISoftDelete
+    public class ArticleDto
     {
         /// <summary>
         /// 文章标题
@@ -21,30 +20,21 @@ namespace JIF.Core.Domain.Articles
         /// <summary>
         /// 是否允许评论
         /// </summary>
-        public bool AllowComments { get; set; }
+        public bool? AllowComments { get; set; }
 
         /// <summary>
         /// 是否已经发布
         /// </summary>
-        public bool Published { get; set; }
+        public bool? Published { get; set; }
 
         /// <summary>
         /// 是否已删除
         /// </summary>
-        public bool IsDeleted { get; set; }
-
-
-        public DateTime CreateTime { get; set; }
-
-        public int CreateUserId { get; set; }
-
-        public DateTime? UpdateTime { get; set; }
-
-        public int? UpdateUserId { get; set; }
+        public bool? IsDeleted { get; set; }
 
         /// <summary>
         /// 所属分类编号
         /// </summary>
-        public int CategoryId { get; set; }
+        public int? CategoryId { get; set; }
     }
 }
