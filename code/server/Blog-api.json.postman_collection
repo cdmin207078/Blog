@@ -1,22 +1,40 @@
 {
-	"id": "e74c6bbf-e2f8-5719-bc15-8c8984b0416c",
+	"id": "fef4934a-db5f-4244-9dbd-2d09a377685b",
 	"name": "Blog-api",
 	"description": "Blog-api test",
-	"order": [
-		"bcad6317-c799-008f-571f-b1937ee0e5af",
-		"ff01c304-f08e-38f6-8323-3ef52fd84933",
-		"74e17757-be62-ef10-f87c-f5a44cde36c1"
+	"order": [],
+	"folders": [
+		{
+			"id": "975c0cf9-ccd3-2915-7349-f3049191861b",
+			"name": "文章管理",
+			"description": "",
+			"order": [
+				"502d2936-b356-d208-b976-e61b9883dc20",
+				"52d0f3de-e701-a51c-5220-228091e688c0",
+				"9ee0533f-2b79-1956-6485-445e949d446e",
+				"a82d8ffe-98b3-f4b3-7cb3-904f983d258a",
+				"db5eca70-c070-5c39-63f4-43476f963042"
+			],
+			"owner": 0,
+			"collectionId": "fef4934a-db5f-4244-9dbd-2d09a377685b"
+		},
+		{
+			"id": "4d66a5b3-fbcd-4870-bc86-fded5f27e265",
+			"name": "用户管理",
+			"description": "",
+			"order": [],
+			"owner": 0
+		}
 	],
-	"folders": [],
 	"timestamp": 1479262577982,
 	"owner": 0,
 	"remoteLink": "",
 	"public": false,
 	"requests": [
 		{
-			"id": "74e17757-be62-ef10-f87c-f5a44cde36c1",
+			"id": "502d2936-b356-d208-b976-e61b9883dc20",
 			"headers": "Content-Type: application/json\n",
-			"url": "http://localhost:60001/api/article/add",
+			"url": "http://localhost:60001/api/articles/add",
 			"preRequestScript": null,
 			"pathVariables": {},
 			"method": "POST",
@@ -25,17 +43,54 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1480067575417,
+			"time": 1480583698976,
 			"name": "添加文章",
 			"description": "",
-			"collectionId": "e74c6bbf-e2f8-5719-bc15-8c8984b0416c",
+			"collectionId": "fef4934a-db5f-4244-9dbd-2d09a377685b",
 			"responses": [],
-			"rawModeData": "{\r\n    \"title\": \"九九八十一\",\r\n    \"content\": \"英雄名不堪得 何必较我混沌徒费口沫\"\r\n}"
+			"rawModeData": "{\r\n    \"title\": \"Explosions \",\r\n    \"content\": \"But my love you know its coming\"\r\n}"
 		},
 		{
-			"id": "bcad6317-c799-008f-571f-b1937ee0e5af",
+			"id": "52d0f3de-e701-a51c-5220-228091e688c0",
 			"headers": "Content-Type: application/json\n",
-			"url": "http://localhost:60001/api/article/search",
+			"url": "http://localhost:60001/api/articles/delete?id=1234",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [],
+			"dataMode": "params",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1480588206835,
+			"name": "删除文章",
+			"description": "",
+			"collectionId": "fef4934a-db5f-4244-9dbd-2d09a377685b",
+			"responses": []
+		},
+		{
+			"id": "9ee0533f-2b79-1956-6485-445e949d446e",
+			"headers": "Content-Type: application/json\n",
+			"url": "http://localhost:60001/api/articles/update",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1480589227669,
+			"name": "修改文章",
+			"description": "",
+			"collectionId": "fef4934a-db5f-4244-9dbd-2d09a377685b",
+			"responses": [],
+			"rawModeData": "{\r\n    \"id\": 101,\r\n    \"title\": \"Johann Sebastian Bach: Goldberg Variatio\",\r\n    \"content\": \"Variatio 16 - Ouverture a 1 Clav. \",\r\n    \"AllowComments\": true,\r\n    \"Published\": true,\r\n    \"IsDeleted\": false,\r\n    \"CategoryId\": 15\r\n}"
+		},
+		{
+			"id": "a82d8ffe-98b3-f4b3-7cb3-904f983d258a",
+			"headers": "Authorization: Basic YWRtaW46YWRtaW4=\n",
+			"url": "http://localhost:60001/api/articles/list/?pageindex=10&pagesize=100 ",
 			"preRequestScript": null,
 			"pathVariables": {},
 			"method": "GET",
@@ -45,17 +100,17 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1480067573177,
+			"time": 1480589190853,
 			"name": "文章搜索",
 			"description": "",
-			"collectionId": "e74c6bbf-e2f8-5719-bc15-8c8984b0416c",
+			"collectionId": "fef4934a-db5f-4244-9dbd-2d09a377685b",
 			"responses": [],
-			"rawModeData": "{\r\n    \"msgId\":\"1000000000000000\",\r\n    \"msgType\":\"1\",\r\n    \"msgTime\":\"168250143233\",\r\n    \"msgTimeOut\":\"0\",\r\n    \"msgContent\":{\r\n        \"userId\":\"102\",\r\n        \"userCompany\":\"frank\",\r\n        \"userIndustry\":\"frank\",\r\n        \"userIcon\":\"frank\",\r\n        \"userPhone\":\"frank\",\r\n        \"weChatInfo\":{\r\n            \"weChatId\":\"1\",\r\n            \"weChatName\":\"zeropartner@mail.cn\",\r\n            \"weChatAccount\":\"12523333\",\r\n            \"weChatIcon\":\"http://wenxin.com/a.png\"\r\n        }\r\n    }\r\n}"
+			"rawModeData": ""
 		},
 		{
-			"id": "ff01c304-f08e-38f6-8323-3ef52fd84933",
+			"id": "db5eca70-c070-5c39-63f4-43476f963042",
 			"headers": "",
-			"url": "http://localhost:60001/api/article/GetArticleById",
+			"url": "http://localhost:60001/api/articles/detail?id=101",
 			"preRequestScript": null,
 			"pathVariables": {},
 			"method": "GET",
@@ -65,10 +120,10 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1480067574522,
+			"time": 1480589245157,
 			"name": "文章详情",
 			"description": "",
-			"collectionId": "e74c6bbf-e2f8-5719-bc15-8c8984b0416c",
+			"collectionId": "fef4934a-db5f-4244-9dbd-2d09a377685b",
 			"responses": []
 		}
 	]
