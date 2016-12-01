@@ -1,4 +1,5 @@
 ﻿using JIF.Core.Domain.Articles;
+using JIF.Core.Domain.Articles.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,13 +15,13 @@ namespace JIF.Services.Articles
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        Article Insert(Article model);
+        void Insert(CreateArticleInputDto model);
 
         /// <summary>
         /// 修改文章
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        Article Update(Article model);
+        void Update(UpdateArticleInputDto model);
     }
 }

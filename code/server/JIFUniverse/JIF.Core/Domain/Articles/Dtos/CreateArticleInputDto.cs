@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace JIF.Blog.WebApi.Models
+namespace JIF.Core.Domain.Articles.Dtos
 {
-    public class ArticleDto
+    public class CreateArticleInputDto
     {
         /// <summary>
         /// 文章标题
@@ -20,21 +21,16 @@ namespace JIF.Blog.WebApi.Models
         /// <summary>
         /// 是否允许评论
         /// </summary>
-        public bool? AllowComments { get; set; }
+        public bool AllowComments { get; set; }
 
         /// <summary>
         /// 是否已经发布
         /// </summary>
-        public bool? Published { get; set; }
-
-        /// <summary>
-        /// 是否已删除
-        /// </summary>
-        public bool? IsDeleted { get; set; }
+        public bool Published { get; set; }
 
         /// <summary>
         /// 所属分类编号
         /// </summary>
-        public int? CategoryId { get; set; }
+        public int CategoryId { get; set; }
     }
 }

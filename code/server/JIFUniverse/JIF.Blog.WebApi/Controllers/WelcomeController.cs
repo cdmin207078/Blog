@@ -19,9 +19,7 @@ namespace JIF.Blog.WebApi.Controllers
                 return AjaxFail(null, "");
             }
 
-            FormsAuthenticationTicket token = new FormsAuthenticationTicket();
-
-
+            //FormsAuthenticationTicket token = new FormsAuthenticationTicket();
 
             return Ok("登录成功");
         }

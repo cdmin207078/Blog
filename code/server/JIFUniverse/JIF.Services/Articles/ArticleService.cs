@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using JIF.Core.Data;
 using JIF.Core;
 using System.Linq.Expressions;
+using JIF.Core.Domain.Articles.Dtos;
 
 namespace JIF.Services.Articles
 {
@@ -20,7 +21,7 @@ namespace JIF.Services.Articles
             _articleRepository = articleRepository;
         }
 
-        public Article Insert(Article model)
+        public void Insert(CreateArticleInputDto model)
         {
             if (model == null)
             {
@@ -33,15 +34,22 @@ namespace JIF.Services.Articles
                 throw new ArgumentNullException("article title / content must not null");
             }
 
-            model.CreateTime = DateTime.Now;
-            //model.CreateUserId = 0;
+            var entity = new Article
+            {
+                Title = model.Title,
+                Content = model.Content,
+                CategoryId = model.CategoryId,
+                AllowComments = model.AllowComments,
+                Published = model.Published,
+                CreateTime = DateTime.Now,
+                //CreateUserId = 0
+            };
 
-            _articleRepository.Insert(model);
+            _articleRepository.Insert(entity);
 
-            return model;
         }
 
-        public Article Update(Article model)
+        public void Update(UpdateArticleInputDto model)
         {
             if (model == null)
             {
@@ -54,12 +62,23 @@ namespace JIF.Services.Articles
                 throw new ArgumentNullException("article title / content must not null");
             }
 
-            model.UpdateTime = DateTime.Now;
-            //model.UpdateUserId = 0;
+            var entity = Get(model.Id);
 
-            _articleRepository.Update(model);
+            if (entity == null)
+            {
+                throw new ArgumentNullException("article is not exists.");
+            }
 
-            return model;
+            entity.Title = model.Title;
+            entity.Content = model.Content;
+            entity.CategoryId = model.CategoryId;
+            entity.AllowComments = model.AllowComments;
+            entity.Published = model.Published;
+            entity.IsDeleted = model.IsDeleted;
+            entity.UpdateTime = DateTime.Now;
+            //entity.UpdateUserId = 0;
+
+            _articleRepository.Update(entity);
         }
     }
 }

@@ -1,72 +1,48 @@
-﻿using JIF.Blog.WebApi.Models;
+﻿
 using JIF.Core;
-using JIF.Core.Domain.Articles;
+using JIF.Core.Domain.Articles.Dtos;
 using JIF.Services.Articles;
-using System;
-using System.Net;
 using System.Web.Http;
 
 namespace JIF.Blog.WebApi.Controllers
 {
-    public class ArticleController : BaseController
+    public class ArticlesController : BaseController
     {
         private IArticleService _articleService;
 
-        public ArticleController(IArticleService articleService)
+        public ArticlesController(IArticleService articleService)
         {
             _articleService = articleService;
         }
 
-
-        public IHttpActionResult Post(Article model)
+        [HttpPost]
+        public IHttpActionResult Add(CreateArticleInputDto model)
         {
             _articleService.Insert(model);
-
-            return Ok(model);
+            return AjaxOk("添加成功");
         }
 
+        [HttpPost]
         public IHttpActionResult Delete(int id)
         {
-            return AjaxFail(id, "未实现");
+            return AjaxFail("删除功能 - 未实现");
         }
 
-        public IHttpActionResult Put(int id, ArticleDto model)
+        [HttpPost]
+        public IHttpActionResult Update(UpdateArticleInputDto model)
         {
-            var article = _articleService.Get(id);
-
-            if (article == null)
-                return NotFound();
-
-            article.Title = model.Title;
-            article.Content = model.Content;
-
-            if (model.Published.HasValue)
-            {
-                article.Published = model.Published.Value;
-            }
-
-            if (model.IsDeleted.HasValue)
-            {
-                article.IsDeleted = model.IsDeleted.Value;
-            }
-
-            if (model.AllowComments.HasValue)
-            {
-                article.AllowComments = model.AllowComments.Value;
-            }
-
-            _articleService.Update(article);
-
-            return AjaxOk(article);
+            _articleService.Update(model);
+            return AjaxOk("修改成功");
         }
 
-        [Authorize]
-        public IHttpActionResult Get(int pageIndex = 1, int pageSize = 20)
+        [HttpGet]
+        public IHttpActionResult List(int pageIndex = 1, int pageSize = 10)
         {
             return AjaxOk(_articleService.Search(pageIndex: pageIndex, pageSize: pageSize).ToPagedData());
         }
 
-        public IHttpActionResult Get(int id)
+        [HttpGet]
+        public IHttpActionResult Detail(int id)
         {
             return AjaxOk(_articleService.Get(id));
         }
