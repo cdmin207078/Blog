@@ -1,4 +1,5 @@
 ﻿using JIF.Core.Domain.Articles;
+using JIF.Core.Domain.Users;
 using MySql.Data.Entity;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,11 @@ namespace JIF.EntityFramework
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Article>().ToTable("Article").HasKey(d => d.Id);
+            modelBuilder.Entity<Article>().ToTable("Articles").HasKey(d => d.Id);
+            modelBuilder.Entity<ArticleComment>().ToTable("ArticleComments").HasKey(d => d.Id);
+            modelBuilder.Entity<User>().ToTable("Users").HasKey(d => d.Id);
+
+
 
             base.OnModelCreating(modelBuilder);
         }

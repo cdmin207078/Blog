@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JIF.Core.Domain.Users
+namespace JIF.Core.Domain.Users.Dtos
 {
-    public partial class User : BaseEntity
+    public class UpdateUserInputDto
     {
+        public int Id { get; set; }
+
         /// <summary>
         /// 性别
         /// </summary>
@@ -17,11 +19,6 @@ namespace JIF.Core.Domain.Users
         /// 出生日期
         /// </summary>
         public DateTime? Birthday { get; set; }
-
-        /// <summary>
-        /// 登陆 - 账号
-        /// </summary>
-        public string Account { get; set; }
 
         /// <summary>
         /// 登陆 - 密码
@@ -54,36 +51,8 @@ namespace JIF.Core.Domain.Users
         public int? QQ { get; set; }
 
         /// <summary>
-        /// 邮箱 - 是否验证通过
-        /// </summary>
-        public bool Email_Valid { get; set; }
-
-        /// <summary>
-        /// 手机 - 是否验证通过
-        /// </summary>
-        public bool Mobile_Valid { get; set; }
-
-        /// <summary>
         /// 是否已删除
         /// </summary>
         public bool IsDeleted { get; set; }
-
-        /// <summary>
-        /// 最后一次登陆时间
-        /// </summary>
-        public DateTime? LastLoginTime { get; set; }
-
-        /// <summary>
-        /// 最后一次登陆IP
-        /// </summary>
-        public string LastLoginIP { get; set; }
-
-        public DateTime CreateTime { get; set; }
-
-        public int CreateUserId { get; set; }
-
-        public DateTime? UpdateTime { get; set; }
-
-        public int? UpdateUserId { get; set; }
     }
 }

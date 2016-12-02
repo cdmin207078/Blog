@@ -33,6 +33,11 @@ namespace JIF.Core.Domain.Articles
         /// </summary>
         public bool IsDeleted { get; set; }
 
+        /// <summary>
+        /// 所属分类编号
+        /// </summary>
+        public int CategoryId { get; set; }
+
 
         public DateTime CreateTime { get; set; }
 
@@ -41,10 +46,5 @@ namespace JIF.Core.Domain.Articles
         public DateTime? UpdateTime { get; set; }
 
         public int? UpdateUserId { get; set; }
-
-        /// <summary>
-        /// 所属分类编号
-        /// </summary>
-        public int CategoryId { get; set; }
     }
 }

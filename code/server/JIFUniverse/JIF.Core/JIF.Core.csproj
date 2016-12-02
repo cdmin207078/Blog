@@ -44,17 +44,25 @@
     <Compile Include="BaseEntity.cs" />
     <Compile Include="Data\IRepository.cs" />
     <Compile Include="Domain\Articles\Article.cs" />
+    <Compile Include="Domain\Articles\ArticleComment.cs" />
     <Compile Include="Domain\Articles\Category.cs" />
     <Compile Include="Domain\Articles\Dtos\UpdateArticleInputDto.cs" />
     <Compile Include="Domain\Articles\Dtos\CreateArticleInputDto.cs" />
     <Compile Include="Domain\ISoftDelete.cs" />
+    <Compile Include="Domain\Users\Dtos\RegisterInputDto.cs" />
+    <Compile Include="Domain\Users\Dtos\LoginOutputDto.cs" />
+    <Compile Include="Domain\Users\Dtos\LoginInputDto.cs" />
+    <Compile Include="Domain\Users\Dtos\UpdateUserInputDto.cs" />
+    <Compile Include="Domain\Users\Dtos\CreateUserInputDto.cs" />
     <Compile Include="Domain\Users\User.cs" />
     <Compile Include="IPagedList.cs" />
+    <Compile Include="JIFException.cs" />
     <Compile Include="PagedData.cs" />
     <Compile Include="PagedList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Domain\Logging\" />
     <Folder Include="Security\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

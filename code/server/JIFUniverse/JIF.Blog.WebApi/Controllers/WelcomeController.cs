@@ -11,7 +11,7 @@ namespace JIF.Blog.WebApi.Controllers
 
     public class WelcomeController : BaseController
     {
-        [HttpPost, Route("api/account/login")]
+        //[HttpPost, Route("api/account/login")]
         public IHttpActionResult Login(string username, string password)
         {
             if (username != "admin" && password != "admin")

@@ -4,6 +4,7 @@ using JIF.Core.Data;
 using JIF.EntityFramework;
 using JIF.Services;
 using JIF.Services.Articles;
+using JIF.Services.Users;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -36,8 +37,8 @@ namespace JIF.Blog.WebApi
             builder.RegisterGeneric(typeof(EfRepository<>)).As(typeof(IRepository<>)).InstancePerLifetimeScope();
 
             // services
-            //builder.RegisterGeneric(typeof(BaseService<>)).As(typeof(IBaseService<>)).InstancePerLifetimeScope();
             builder.RegisterType<ArticleService>().As<IArticleService>().InstancePerLifetimeScope();
+            builder.RegisterType<UserService>().As<IUserService>().InstancePerLifetimeScope();
 
             //builder.RegisterAssemblyTypes(Assembly.Load("JIF.Services"))
             //    .Where(t => t.Name.EndsWith("Service"))
