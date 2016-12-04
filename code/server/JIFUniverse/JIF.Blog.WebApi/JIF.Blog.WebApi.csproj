@@ -135,16 +135,18 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\HTTPBasicAuthorizeAttribute.cs" />
+    <Compile Include="Filters\HTTPBasicAuthorizeAttribute.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\WelcomeController.cs" />
     <Compile Include="DependencyRegistrar.cs" />
+    <Compile Include="Filters\ValidateModelAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\UserViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Autofac.Integration.WebApi;
+using JIF.Core;
 using JIF.Core.Data;
 using JIF.EntityFramework;
 using JIF.Services;
@@ -25,12 +26,10 @@ namespace JIF.Blog.WebApi
             // register web api controllers
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
-            // OPTIONAL: register actofac filter provider.
+            // register actofac filter provider.
             //builder.RegisterWebApiFilterProvider(config);
 
-
-            // dbcontext 
-            //builder.RegisterType<JIFDbContext>().As<DbContext>().InstancePerLifetimeScope();
+            // register dbcontext 
             builder.Register<DbContext>(c => new JIFDbContext("name=JIF.Blog.DB")).InstancePerLifetimeScope();
 
             // repositores
@@ -43,6 +42,27 @@ namespace JIF.Blog.WebApi
             //builder.RegisterAssemblyTypes(Assembly.Load("JIF.Services"))
             //    .Where(t => t.Name.EndsWith("Service"))
             //    .InstancePerLifetimeScope();
+
+
+            //HTTP context and other related stuff
+            builder.Register(c => new HttpContextWrapper(HttpContext.Current) as HttpContextBase)
+                .As<HttpContextBase>()
+                .InstancePerLifetimeScope();
+            builder.Register(c => c.Resolve<HttpContextBase>().Request)
+                .As<HttpRequestBase>()
+                .InstancePerLifetimeScope();
+            builder.Register(c => c.Resolve<HttpContextBase>().Response)
+                .As<HttpResponseBase>()
+                .InstancePerLifetimeScope();
+            builder.Register(c => c.Resolve<HttpContextBase>().Server)
+                .As<HttpServerUtilityBase>()
+                .InstancePerLifetimeScope();
+            builder.Register(c => c.Resolve<HttpContextBase>().Session)
+                .As<HttpSessionStateBase>()
+                .InstancePerLifetimeScope();
+
+            //web helper
+            builder.RegisterType<WebHelper>().As<IWebHelper>().InstancePerLifetimeScope();
 
 
             // Set the dependency resolver to be Autofac

@@ -1,4 +1,5 @@
-﻿using MySql.Data.Entity;
+﻿using JIF.Blog.WebApi.Filters;
+using MySql.Data.Entity;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -22,6 +23,9 @@ namespace JIF.Blog.WebApi
             var config = GlobalConfiguration.Configuration;
             // 注册依赖
             new DependencyRegistrar().RegisterDependencies(config);
+
+            // 全局model validate 过滤
+            config.Filters.Add(new ValidateModelAttribute());
         }
     }
 }

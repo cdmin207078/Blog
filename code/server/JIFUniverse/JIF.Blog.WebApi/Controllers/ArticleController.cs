@@ -8,7 +8,7 @@ namespace JIF.Blog.WebApi.Controllers
 {
     public class ArticlesController : BaseController
     {
-        private IArticleService _articleService;
+        private readonly IArticleService _articleService;
 
         public ArticlesController(IArticleService articleService)
         {

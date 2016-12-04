@@ -1,4 +1,6 @@
-﻿using JIF.Core.Domain.Users.Dtos;
+﻿using JIF.Blog.WebApi.Models;
+using JIF.Core;
+using JIF.Core.Domain.Users.Dtos;
 using JIF.Services.Users;
 using System;
 using System.Collections.Generic;
@@ -12,21 +14,37 @@ namespace JIF.Blog.WebApi.Controllers
 {
     public class AccountController : BaseController
     {
-        private IUserService _userService;
+        private readonly IUserService _userService;
+        private readonly IWebHelper _webHelper;
 
-        public AccountController(IUserService userService)
+
+        public AccountController(IUserService userService,
+            IWebHelper webHelper)
         {
             _userService = userService;
+            _webHelper = webHelper;
         }
+
+        #region Customer's
 
         /// <summary>
         /// 用户注册
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public IHttpActionResult Register(string account, string password)
+        public IHttpActionResult Register(RegisterViewModel model)
         {
-            return AjaxOk(new { account, password });
+            string ipAddress = _webHelper.GetCurrentIpAddress();
+
+            var data = new RegisterInputDto
+            {
+                Account = model.account,
+                Password = model.password,
+                IP = ipAddress
+            };
+
+
+            return AjaxOk(data);
         }
 
         /// <summary>
@@ -34,15 +52,21 @@ namespace JIF.Blog.WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public IHttpActionResult Login(LoginModel model)
+        public IHttpActionResult Login(LoginViewModel model)
         {
-            return AjaxOk(model);
-        }
+            if (ModelState.IsValid)
+            {
+                return AjaxOk(model);
+            }
+            else
+            {
+                foreach (var err in ModelState)
+                {
+                    var e = err.Value.Errors.FirstOrDefault();
+                }
 
-        public class LoginModel
-        {
-            public string account { get; set; }
-            public string password { get; set; }
+                return AjaxFail(ModelState.Select(d => d.Value.Errors.Select(ind => ind.ErrorMessage)));
+            }
         }
 
         /// <summary>
@@ -55,12 +79,26 @@ namespace JIF.Blog.WebApi.Controllers
             return Ok();
         }
 
+        #endregion
+
+        #region Admin's
+
         /// <summary>
         /// 新增用户
         /// </summary>
         /// <returns></returns>
         [HttpPost]
         public IHttpActionResult Add()
+        {
+            return Ok();
+        }
+
+        /// <summary>
+        /// 删除用户
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public IHttpActionResult Delete(int id)
         {
             return Ok();
         }
@@ -75,15 +113,6 @@ namespace JIF.Blog.WebApi.Controllers
             return Ok();
         }
 
-        /// <summary>
-        /// 删除用户
-        /// </summary>
-        /// <returns></returns>
-        [HttpPost]
-        public IHttpActionResult Delete(int id)
-        {
-            return Ok();
-        }
 
         /// <summary>
         /// 获取用户列表分页
@@ -107,5 +136,7 @@ namespace JIF.Blog.WebApi.Controllers
         {
             return Ok();
         }
+
+        #endregion
     }
 }
