@@ -15,14 +15,10 @@ namespace JIF.Blog.WebApi.Controllers
     public class AccountController : BaseController
     {
         private readonly IUserService _userService;
-        private readonly IWebHelper _webHelper;
 
-
-        public AccountController(IUserService userService,
-            IWebHelper webHelper)
+        public AccountController(IUserService userService)
         {
             _userService = userService;
-            _webHelper = webHelper;
         }
 
         #region Customer's
@@ -34,17 +30,13 @@ namespace JIF.Blog.WebApi.Controllers
         [HttpPost]
         public IHttpActionResult Register(RegisterViewModel model)
         {
-            string ipAddress = _webHelper.GetCurrentIpAddress();
-
-            var data = new RegisterInputDto
+            _userService.Register(new RegisterInputDto
             {
-                Account = model.account,
-                Password = model.password,
-                IP = ipAddress
-            };
+                Account = model.Account,
+                Password = model.Password
+            });
 
-
-            return AjaxOk(data);
+            return AjaxOk(model);
         }
 
         /// <summary>
@@ -54,19 +46,13 @@ namespace JIF.Blog.WebApi.Controllers
         [HttpPost]
         public IHttpActionResult Login(LoginViewModel model)
         {
-            if (ModelState.IsValid)
+            var userInfo = _userService.Login(new LoginInputDto
             {
-                return AjaxOk(model);
-            }
-            else
-            {
-                foreach (var err in ModelState)
-                {
-                    var e = err.Value.Errors.FirstOrDefault();
-                }
+                Account = model.Account,
+                Password = model.Password
+            });
 
-                return AjaxFail(ModelState.Select(d => d.Value.Errors.Select(ind => ind.ErrorMessage)));
-            }
+            return AjaxOk(userInfo);
         }
 
         /// <summary>

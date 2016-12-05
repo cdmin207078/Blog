@@ -12,12 +12,16 @@ namespace JIF.Services.Users
 {
     public partial class UserService : BaseService<User>, IUserService
     {
-        private IRepository<User> _userRepository;
+        private readonly IRepository<User> _userRepository;
 
-        public UserService(IRepository<User> userRepository)
+        private readonly IWebHelper _webHelper;
+
+        public UserService(IRepository<User> userRepository,
+            IWebHelper webHelper)
             : base(userRepository)
         {
             _userRepository = userRepository;
+            _webHelper = webHelper;
         }
 
         /// <summary>
@@ -111,7 +115,28 @@ namespace JIF.Services.Users
                 throw new JIFException("信息不能为空");
             }
 
-            throw new NotImplementedException();
+            if (string.IsNullOrWhiteSpace(model.Account)
+                || string.IsNullOrWhiteSpace(model.Password))
+            {
+                throw new JIFException("账号 / 密码 不能为空");
+            }
+
+            var entity = _userRepository.Table.FirstOrDefault(d =>
+                                d.Account.ToLower().Trim() == model.Account.ToLower().Trim()
+                             && d.Password.ToLower().Trim() == model.Password.ToLower().Trim());
+
+            if (entity == null)
+                throw new JIFException("账号 / 密码 不正确");
+
+            entity.LastLoginTime = DateTime.Now;
+            entity.LastLoginIP = _webHelper.GetCurrentIpAddress();
+
+            _userRepository.Update(entity);
+
+            return new LoginOutputDto
+            {
+                UserId = entity.Id
+            };
         }
 
         /// <summary>
@@ -120,10 +145,11 @@ namespace JIF.Services.Users
         /// <param name="model"></param>
         public void Register(RegisterInputDto model)
         {
-            if (model == null)
+            Insert(new CreateUserInputDto
             {
-                throw new JIFException("信息不能为空");
-            }
+                Account = model.Account,
+                Password = model.Password
+            });
         }
     }
 }

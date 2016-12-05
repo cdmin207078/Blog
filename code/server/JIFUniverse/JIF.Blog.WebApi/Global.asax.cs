@@ -26,6 +26,7 @@ namespace JIF.Blog.WebApi
 
             // 全局model validate 过滤
             config.Filters.Add(new ValidateModelAttribute());
+            config.Filters.Add(new AppExceptionAttribute());
         }
     }
 }

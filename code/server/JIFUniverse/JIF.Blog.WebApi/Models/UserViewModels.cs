@@ -15,13 +15,13 @@ namespace JIF.Blog.WebApi.Models
         /// 登录帐号
         /// </summary>
         [Required(AllowEmptyStrings = false, ErrorMessage = "帐号不能为空")]
-        public string account { get; set; }
+        public string Account { get; set; }
 
         /// <summary>
         /// 密码
         /// </summary>
         [Required(AllowEmptyStrings = false, ErrorMessage = "密码不能为空")]
-        public string password { get; set; }
+        public string Password { get; set; }
 
         /// <summary>
         /// 验证码
@@ -39,20 +39,20 @@ namespace JIF.Blog.WebApi.Models
         /// 登录帐号
         /// </summary>
         [Required(AllowEmptyStrings = false, ErrorMessage = "帐号不能为空")]
-        public string account { get; set; }
+        public string Account { get; set; }
 
         /// <summary>
         /// 密码
         /// </summary>
         [Required(AllowEmptyStrings = false, ErrorMessage = "密码不能为空")]
-        public string password { get; set; }
+        public string Password { get; set; }
 
         /// <summary>
         /// 确认密码
         /// </summary>
         [Required(AllowEmptyStrings = false, ErrorMessage = "确认密码不能为空")]
-        [Compare("password", ErrorMessage = "两次密码不一致")]
-        public string confirm_password { get; set; }
+        [Compare("Password", ErrorMessage = "两次密码不一致")]
+        public string Confirm_password { get; set; }
 
         /// <summary>
         /// 验证码

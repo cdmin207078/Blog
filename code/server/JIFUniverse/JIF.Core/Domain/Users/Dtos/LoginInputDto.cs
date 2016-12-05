@@ -17,10 +17,5 @@ namespace JIF.Core.Domain.Users.Dtos
         /// 密码
         /// </summary>
         public string Password { get; set; }
-
-        /// <summary>
-        /// IP地址信息
-        /// </summary>
-        public string IP { get; set; }
     }
 }
