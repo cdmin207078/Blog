@@ -13,7 +13,6 @@ namespace JIF.Services.Users
     public partial class UserService : BaseService<User>, IUserService
     {
         private readonly IRepository<User> _userRepository;
-
         private readonly IWebHelper _webHelper;
 
         public UserService(IRepository<User> userRepository,
