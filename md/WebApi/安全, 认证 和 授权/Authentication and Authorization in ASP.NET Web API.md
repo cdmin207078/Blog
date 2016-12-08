@@ -95,7 +95,7 @@ public class ValuesController : ApiController
 }
 ```
 
-另外，你还可以约束一个controller访问的,单允许匿名访问特殊的Action，这需要使用 `[AllowAnonymous]` 属性。在下面的示例中，Post方法被约束了，而Get方法允许被匿名访问：
+另外，你还可以约束一个 controller 的访问, 但允许匿名访问指定的 Action，这需要使用 `[AllowAnonymous]` 属性。在下面的示例中，Post 方法被约束了，而 Get 方法允许被匿名访问：
 
 ```csharp
 [Authorize]
@@ -108,15 +108,64 @@ public class ValuesController : ApiController
 }
 ```
 
+在之前的例子中，过滤器只允许认证通过的用户访问限制性资源，未通过的则被禁止访问。你也可以针对 **特定用户** 或者 **特定角色** 来做访问限制。
 
+```csharp
+// 访问用户限制:
+[Authorize(Users = "Alice,Bob")]
+public class ValuesController : ApiController { ... }
+   
+// 访问角色限制:
+[Authorize(Roles = "Administrators")]
+public class ValuesController : ApiController { ... }
+```
+
+> Web API控制器的 AuthorizeAttribute 过滤器位于 System.Web.Http 命名空间中。 对于 System.Web.Mvc 命名空间中的MVC控制器有一个类似的过滤器，它与Web API控制器不兼容。
+
+### 自定义 Authorization Filters
+
+一个自定义 authorization filter 需要派生自以下几个类型：
+
+- **AuthorizeAttribute**  派生自此类，基于当前用户 和 用户的角色 执行授权逻辑。
+- **AuthorizationFilterAttribute** 派生自此类，以执行不必基于 当前用户 或 角色 的同步授权逻辑。
+- **IAuthorizationFilter** 实现此接口，以执行异步授权逻辑逻辑。例如：如果您的授权逻辑需要进行异步I/O或网络调用。(如果你的授权逻辑是 CPU-bound(cpu密集型)的，那么直接继承自 AuthorizationFilterAttribute将会更简单，这样便不需要编写异步方法了。)
+
+下图展示了AuthorizeAttribute类的类层次结构
+
+![](https://media-www-asp.azureedge.net/media/3994467/webapi_auth02.png)
+
+### 在Controller Action 中授权
+
+在很多情况下，您可能允许请求继续，然后根据 `principal` 来确定改变接下来的行为。例如：您返回的信息可能会根据用户的角色而有所不同。在 controller 的方法中，你可以通过 `ApiController.user` 属性得到当前的`principal` 对象。
+
+```csharp
+public HttpResponseMessage Get()
+{
+    if (User.IsInRole("Administrators"))
+    {
+        // ...
+    }
+}
+```
+
+
+## 总结
+这篇文章属于 ASP.NET **授权** 与 **认证** 的概览文章，其中第一部分讲述了认证流程：何时认证、在何处认证。认证的方法，设置 principal(安全主体) 对象。第二部分讲述了认证之后，授权的时间，授权方法。全局授权过滤，controller级授权过滤，以及具体action级授权过滤，或者也可以在 action 中根据 principal 来做逻辑判断。
 
 -------------------
 
 ## 参考文献
 
 原文链接: https://www.asp.net/web-api/overview/security/authentication-and-authorization-in-aspnet-web-api
-ASP.NET Web API身份验证和授权: http://www.cnblogs.com/youring2/archive/2013/03/09/2950992.html
+
+[翻译参考] ASP.NET Web API身份验证和授权: http://www.cnblogs.com/youring2/archive/2013/03/09/2950992.html
+
 HttpModule的认识: http://www.cnblogs.com/tangself/archive/2011/03/28/1998007.html
 
+[0]. **principal (安全主体)** ：http://www.cnblogs.com/artech/archive/2011/06/30/principal_Identity02.html
 [1]. **安全上下文** ：http://www.cnblogs.com/fish-li/archive/2012/05/07/2486840.html#_label4
+
+
+
+
 
