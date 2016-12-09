@@ -22,7 +22,7 @@ namespace JIF.EntityFramework
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Article>().ToTable("Articles").HasKey(d => d.Id);
-            modelBuilder.Entity<ArticleComment>().ToTable("Article_Comments").HasKey(d => d.Id);
+            modelBuilder.Entity<ArticleComment>().ToTable("ArticleComments").HasKey(d => d.Id);
             modelBuilder.Entity<User>().ToTable("Users").HasKey(d => d.Id);
 
             base.OnModelCreating(modelBuilder);
