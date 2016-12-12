@@ -60,15 +60,19 @@
     <Compile Include="Domain\Users\User.cs" />
     <Compile Include="IPagedList.cs" />
     <Compile Include="IWebHelper.cs" />
+    <Compile Include="JIFConsts.cs" />
     <Compile Include="JIFException.cs" />
     <Compile Include="PagedData.cs" />
     <Compile Include="PagedList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\EncyptHelper.cs" />
     <Compile Include="WebHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Domain\Logging\" />
-    <Folder Include="Security\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

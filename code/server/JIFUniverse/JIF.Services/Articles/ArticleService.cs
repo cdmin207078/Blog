@@ -42,7 +42,7 @@ namespace JIF.Services.Articles
                 AllowComments = model.AllowComments,
                 Published = model.Published,
                 CreateTime = DateTime.Now,
-                //CreateUserId = 0
+                CreateUserId = JIFConsts.sys_defaultUID
             };
 
             _articleRepository.Insert(entity);
@@ -75,8 +75,9 @@ namespace JIF.Services.Articles
             entity.AllowComments = model.AllowComments;
             entity.Published = model.Published;
             entity.IsDeleted = model.IsDeleted;
+
             entity.UpdateTime = DateTime.Now;
-            //entity.UpdateUserId = 0;
+            entity.UpdateUserId = JIFConsts.sys_defaultUID;
 
             _articleRepository.Update(entity);
         }

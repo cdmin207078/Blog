@@ -17,9 +17,9 @@ using System.Web.Mvc;
 
 namespace JIF.Blog.WebApi
 {
-    public class DependencyRegistrar
+    public static class DependencyRegistrar
     {
-        internal void RegisterDependencies(HttpConfiguration config)
+        internal static void RegisterDependencies(HttpConfiguration config)
         {
             var builder = new ContainerBuilder();
 

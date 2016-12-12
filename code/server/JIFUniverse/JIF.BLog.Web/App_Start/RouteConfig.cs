@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace JIF.BLog.Web
+namespace JIF.Blog.Web
 {
     public class RouteConfig
     {
@@ -16,7 +16,8 @@ namespace JIF.BLog.Web
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
+                namespaces: new string[] { "JIF.Blog.Web.Controllers" }
             );
         }
     }

@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace JIF.BLog.Web
+namespace JIF.Blog.Web
 {
     public class MvcApplication : System.Web.HttpApplication
     {
@@ -13,6 +13,11 @@ namespace JIF.BLog.Web
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+            // autofac register
+            DependencyRegistrar.RegisterDependencies();
+
+
         }
     }
 }

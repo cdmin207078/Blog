@@ -1,0 +1,87 @@
+﻿@model JIF.Core.IPagedList<JIF.Core.Domain.Articles.Article>
+@{
+    ViewBag.Title = "文章列表";
+}
+
+<div class="box">
+    <div class="box-header with-border">
+        <span class="box-title">查询</span>
+    </div>
+
+    <div class="box-body">
+
+    </div>
+</div>
+
+<div class="box">
+    <div class="box-header with-border">
+        <h3 class="box-title">所有文章</h3>
+        &nbsp;&nbsp;
+        <button type="submit" class="btn btn-success"><i class="fa fa-pencil-square-o"></i><span> 写文章</span></button>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        <table class="table table-striped table-condensed table-bordered">
+            <tbody>
+                <tr>
+                    <th style="width:10px;">
+                        <label><input type="checkbox" class="minimal"></label>
+                    </th>
+                    <th>文章标题</th>
+                    <th>作者</th>
+                    <th>文章分类</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td><label><input type="checkbox" class="minimal"></label></td>
+                        <td>
+                            <span>@item.Title</span>
+                            <i>&nbsp;</i>
+                            <a class="btn btn-primary btn-xs btn-flat">知乎</a>
+                            <a class="btn btn-primary btn-xs btn-flat">者也</a>
+                        </td>
+                        <td>@item.CreateUserId</td>
+                        <td>@item.CategoryId</td>
+                        <td>
+                            <span class="fa fa-search-plus badge badge-flat bg-teal"> 8888</span>
+                            <span class="fa fa-thumbs-o-up badge bg-teal"> 3</span>
+                            <span class="fa  fa-comment-o badge bg-teal "> 10</span>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-success">查看</button>
+                            @Html.ActionLink("编辑", "Edit", new { id = item.Id }, new { @class = "btn btn-sm btn-primary" })
+                            <button type="button" class="btn btn-sm btn-danger">删除</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <!-- /.box-body -->
+    <div class="box-footer clearfix">
+        <ul class="pagination pagination-sm no-margin pull-left">
+            <li><a href="#">«</a></li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">»</a></li>
+        </ul>
+    </div>
+</div>
+
+
+@section Scripts{
+
+    <script type="text/javascript">
+        $(function () {
+            //iCheck for checkbox and radio inputs
+            $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+                checkboxClass: 'icheckbox_minimal-blue',
+                radioClass: 'iradio_minimal-blue'
+            });
+        });
+    </script>
+}

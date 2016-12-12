@@ -1,0 +1,86 @@
+﻿@model JIF.Core.Domain.Articles.Article
+@{
+    ViewBag.Title = "撰写文章";
+}
+
+@section Styles {
+    <link href="~/Areas/Admin/Content/simditor/styles/simditor.css" rel="stylesheet" />
+}
+
+
+@using (Html.BeginForm("Edit", "Article", FormMethod.Post))
+{
+    @Html.Hidden("id", Model.Id)
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="box box-primary">
+                <div class="box-body">
+                    <div class="form-group">
+                        <label for="txtTitle">文章标题</label>
+                        <input type="text" class="form-control" id="txtTitle" name="Title" placeholder="请输入文章标题" value="@Model.Title">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>正文内容</label>
+                        <textarea class="form-control" rows="3" id="editor" name="Content" placeholder="请输入正文内容">@Model.Content</textarea>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>文章分类</label>
+                        <select class="form-control">
+                            <option>option 1</option>
+                            <option>option 2</option>
+                            <option>option 3</option>
+                            <option>option 4</option>
+                            <option>option 5</option>
+                        </select>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-2 col-md-2">
+                            <label><input type="checkbox" class="minimal" name="AllowComments" value="@Model.AllowComments" checked="@Model.AllowComments" @(Model.AllowComments ? "checked" : "")> 允许评论</label>
+                        </div>
+
+                        <div class="col-sm-2 col-md-2">
+                            <label><input type="checkbox" class="minimal" name="Published" value="@Model.Published" checked="@Model.Published" @(Model.Published ? "checked" : "")> 公开发布</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary btn-lg btn-flat">保 存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+@section Scripts{
+
+    <script src="~/Areas/Admin/Content/simditor/scripts/module.js"></script>
+    <script src="~/Areas/Admin/Content/simditor/scripts/hotkeys.js"></script>
+    <script src="~/Areas/Admin/Content/simditor/scripts/uploader.js"></script>
+    <script src="~/Areas/Admin/Content/simditor/scripts/simditor.js"></script>
+
+
+    <script type="text/javascript">
+        var editor = new Simditor({
+            textarea: $('#editor')
+            //optional options
+        });
+
+        $(function () {
+            //iCheck for checkbox and radio inputs
+            $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+                checkboxClass: 'icheckbox_minimal-blue',
+                radioClass: 'iradio_minimal-blue'
+            });
+        });
+
+
+    </script>
+}

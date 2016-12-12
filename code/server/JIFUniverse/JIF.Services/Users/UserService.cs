@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using JIF.Core.Domain.Users.Dtos;
 using JIF.Core.Data;
 using JIF.Core;
+using System.Security.Cryptography;
 
 namespace JIF.Services.Users
 {
@@ -47,13 +48,11 @@ namespace JIF.Services.Users
                 throw new JIFException("账号:" + model.Account + ",已存在");
             }
 
-            entity = new User
-            {
-                Account = model.Account,
-                Password = model.Password,
-                CreateTime = DateTime.Now,
-                //CreateUserId = 0
-            };
+            entity = new User();
+            entity.CreateTime = DateTime.Now;
+            entity.CreateUserId = JIFConsts.sys_defaultUID;
+            entity.Account = model.Account;
+            entity.Password = string.Format("{0}-{1}", model.Password, DateTime.Now.ToString(JIFConsts.datetime_normal));
 
             _userRepository.Insert(entity);
         }

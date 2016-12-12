@@ -21,8 +21,9 @@ namespace JIF.Blog.WebApi
             GlobalConfiguration.Configure(WebApiConfig.Register);
 
             var config = GlobalConfiguration.Configuration;
-            // 注册依赖
-            new DependencyRegistrar().RegisterDependencies(config);
+
+            // autofac register
+            DependencyRegistrar.RegisterDependencies(config);
 
             // 全局model validate 过滤
             config.Filters.Add(new ValidateModelAttribute());
