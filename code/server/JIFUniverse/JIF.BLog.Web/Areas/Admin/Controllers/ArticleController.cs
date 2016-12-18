@@ -1,4 +1,5 @@
-﻿using JIF.Core.Domain.Articles;
+﻿using JIF.Core;
+using JIF.Core.Domain.Articles;
 using JIF.Core.Domain.Articles.Dtos;
 using JIF.Services.Articles;
 using System;
@@ -6,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Webdiyer.WebControls.Mvc;
 
 namespace JIF.Blog.Web.Areas.Admin.Controllers
 {
@@ -19,31 +21,42 @@ namespace JIF.Blog.Web.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public ActionResult Index(int pageIndex = 1, int pageSize = 10)
+        public ActionResult Index(int pageIndex = JIFConsts.sys_page_index, int pageSize = JIFConsts.sys_page_size)
         {
-            var vm = _articleService.Search(pageIndex: pageIndex, pageSize: pageSize);
-            return View(vm);
+            var model = _articleService.Search(pageIndex: pageIndex, pageSize: pageSize);
+
+            return View(model);
         }
 
         [HttpGet]
-        public ActionResult Edit(int? id)
+        public ActionResult Add()
         {
             var article = new Article();
-
-            if (id.HasValue)
-            {
-                article = _articleService.Get(id);
-            }
-
-            return View(article);
+            return View("Edit", article);
         }
 
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            var article = _articleService.Get(id);
+            return View("Edit", article);
+        }
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Edit(UpdateArticleInputDto model)
+        public ActionResult Edit(int? id, UpdateArticleInputDto model)
         {
-            if (model.Id == 0)
+            if (Request["AllowComments"] != null)
+            {
+                model.AllowComments = true;
+            }
+
+            if (Request["Published"] != null)
+            {
+                model.Published = true;
+            }
+
+            if (!id.HasValue)
             {
                 _articleService.Insert(model);
 
@@ -55,6 +68,14 @@ namespace JIF.Blog.Web.Areas.Admin.Controllers
 
                 return RedirectToAction("Edit", "Article", new { id = model.Id });
             }
+        }
+
+        [HttpPost]
+        public JsonResult Delete(int id)
+        {
+            _articleService.Delete(id);
+
+            return Ok();
         }
     }
 }

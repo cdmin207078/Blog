@@ -24,14 +24,15 @@ namespace JIF.Blog.WebApi.Filters
                 foreach (var item in actionContext.ModelState)
                 {
                     // 复合类型会以 {参数名.字段} 格式作为key, 例如 : model.name
-                    if (item.Key.Contains('.'))
-                    {
-                        err.Add(item.Key.Split('.')[1], item.Value.Errors.Select(d => d.ErrorMessage).ToArray());
-                    }
-                    else
-                    {
-                        err.Add(item.Key, item.Value.Errors.Select(d => d.ErrorMessage).ToArray());
-                    }
+                    //if (item.Key.Contains('.'))
+                    //{
+                    //    err.Add(item.Key.Split('.')[1], item.Value.Errors.Select(d => d.ErrorMessage).ToArray());
+                    //}
+                    //else
+                    //{
+                    //    err.Add(item.Key, item.Value.Errors.Select(d => d.ErrorMessage).ToArray());
+                    //}
+                    err.Add(item.Key, item.Value.Errors.Select(d => d.ErrorMessage).ToArray());
                 }
 
                 response.Content = new StringContent(JsonConvert.SerializeObject(new

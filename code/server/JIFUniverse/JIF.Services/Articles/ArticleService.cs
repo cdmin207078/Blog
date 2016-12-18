@@ -25,13 +25,13 @@ namespace JIF.Services.Articles
         {
             if (model == null)
             {
-                throw new ArgumentNullException("article is null.");
+                throw new JIFException("article is null.");
             }
 
             if (string.IsNullOrWhiteSpace(model.Title)
                 || string.IsNullOrWhiteSpace(model.Content))
             {
-                throw new ArgumentNullException("article title / content must not null");
+                throw new JIFException("article title / content must not null");
             }
 
             var entity = new Article
@@ -53,20 +53,20 @@ namespace JIF.Services.Articles
         {
             if (model == null)
             {
-                throw new ArgumentNullException("article is null.");
+                throw new JIFException("article is null.");
             }
 
             if (string.IsNullOrWhiteSpace(model.Title)
                 || string.IsNullOrWhiteSpace(model.Content))
             {
-                throw new ArgumentNullException("article title / content must not null");
+                throw new JIFException("article title / content must not null");
             }
 
             var entity = Get(model.Id);
 
             if (entity == null)
             {
-                throw new ArgumentNullException("article is not exists.");
+                throw new JIFException("article is not exists.");
             }
 
             entity.Title = model.Title;
@@ -80,6 +80,16 @@ namespace JIF.Services.Articles
             entity.UpdateUserId = JIFConsts.sys_defaultUID;
 
             _articleRepository.Update(entity);
+        }
+
+        public void Delete(int id)
+        {
+            var entity = _articleRepository.Get(id);
+
+            if (entity == null)
+                throw new JIFException("article is null.");
+
+            _articleRepository.Delete(entity);
         }
     }
 }

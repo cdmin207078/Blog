@@ -14,10 +14,10 @@ namespace JIF.Blog.Web
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
+            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+
             // autofac register
             DependencyRegistrar.RegisterDependencies();
-
-
         }
     }
 }

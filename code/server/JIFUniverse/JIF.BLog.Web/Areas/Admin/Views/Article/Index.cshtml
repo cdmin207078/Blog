@@ -1,27 +1,28 @@
-﻿@model JIF.Core.IPagedList<JIF.Core.Domain.Articles.Article>
+﻿@*@using Webdiyer.WebControls.Mvc;
+    @model PagedList<JIF.Core.Domain.Articles.Article>*@
+
+@model JIF.Core.IPagedList<JIF.Core.Domain.Articles.Article>
 @{
     ViewBag.Title = "文章列表";
 }
 
-<div class="box">
-    <div class="box-header with-border">
-        <span class="box-title">查询</span>
-    </div>
-
-    <div class="box-body">
-
-    </div>
-</div>
+@section Styles {
+    <style type="text/css">
+        .blur {
+            -webkit-filter: blur(1px);
+        }
+    </style>
+}
 
 <div class="box">
     <div class="box-header with-border">
         <h3 class="box-title">所有文章</h3>
         &nbsp;&nbsp;
-        <button type="submit" class="btn btn-success"><i class="fa fa-pencil-square-o"></i><span> 写文章</span></button>
+        <a href="/admin/article/add" class="btn btn-success"><i class="fa fa-pencil-square-o"></i><span> 写文章</span></a>
     </div>
     <!-- /.box-header -->
-    <div class="box-body">
-        <table class="table table-striped table-condensed table-bordered">
+    <div class="box-body no-padding">
+        <table class="table table-hover table-condensed">
             <tbody>
                 <tr>
                     <th style="width:10px;">
@@ -39,9 +40,8 @@
                         <td><label><input type="checkbox" class="minimal"></label></td>
                         <td>
                             <span>@item.Title</span>
-                            <i>&nbsp;</i>
-                            <a class="btn btn-primary btn-xs btn-flat">知乎</a>
-                            <a class="btn btn-primary btn-xs btn-flat">者也</a>
+                            <span class="label label-info">知乎</span>
+                            <span class="label label-info">者也</span>
                         </td>
                         <td>@item.CreateUserId</td>
                         <td>@item.CategoryId</td>
@@ -51,9 +51,9 @@
                             <span class="fa  fa-comment-o badge bg-teal "> 10</span>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-sm btn-success">查看</button>
-                            @Html.ActionLink("编辑", "Edit", new { id = item.Id }, new { @class = "btn btn-sm btn-primary" })
-                            <button type="button" class="btn btn-sm btn-danger">删除</button>
+                            <a href="javascript:;" class="btn btn-xs btn-success">查看</a>
+                            <a href="admin/article/edit/@item.Id" class="btn btn-xs btn-primary">编辑</a>
+                            <a href="javascript:;" class="btn btn-xs btn-danger btn-del" data-id="@item.Id" data-name="@item.Title">删除</a>
                         </td>
                     </tr>
                 }
@@ -61,27 +61,49 @@
         </table>
     </div>
     <!-- /.box-body -->
+
     <div class="box-footer clearfix">
-        <ul class="pagination pagination-sm no-margin pull-left">
-            <li><a href="#">«</a></li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">»</a></li>
-        </ul>
+        @Html.Partial("_Pager", Model)
     </div>
 </div>
 
 
 @section Scripts{
-
     <script type="text/javascript">
         $(function () {
-            //iCheck for checkbox and radio inputs
-            $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-                checkboxClass: 'icheckbox_minimal-blue',
-                radioClass: 'iradio_minimal-blue'
+
+            $('.btn-del').on('click', function () {
+
+                var id = $(this).attr('data-id');
+                var text = $(this).attr('data-name');
+
+                $('.alert').addClass('bounce animated');
+
+                $.confirm({
+                    type: 'red',
+                    title: '操作',
+                    content: '确认删除 : <span class="text-light-blue">' + text + '</span>',
+                    buttons: {
+                        confirm: function () {
+                            $.post('/admin/article/delete/' + id, function (result) {
+                                if (result.success) {
+                                    $.alert('删除成功');
+                                } else {
+                                    $.alert({
+                                        type: 'orange',
+                                        content: '删除失败: ' + result.message
+                                    });
+                                }
+                            });
+                        },
+                        cancel: function () {
+                            return;
+                        }
+                    }
+
+                });
             });
         });
+
     </script>
 }

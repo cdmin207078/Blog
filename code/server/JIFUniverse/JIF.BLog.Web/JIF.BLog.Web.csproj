@@ -104,6 +104,10 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="Webdiyer.MvcPager, Version=3.0.2015.802, Culture=neutral, PublicKeyToken=f6872c5a09aed72c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Webdiyer.MvcPager.3.0.1.1\lib\Webdiyer.MvcPager.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Web.Razor">
@@ -995,7 +999,10 @@
     <Content Include="Areas\Admin\Content\AdminLTE\plugins\timepicker\bootstrap-timepicker.js" />
     <Content Include="Areas\Admin\Content\AdminLTE\plugins\timepicker\bootstrap-timepicker.min.css" />
     <Content Include="Areas\Admin\Content\AdminLTE\plugins\timepicker\bootstrap-timepicker.min.js" />
+    <Content Include="Areas\Admin\Content\css\animate.css" />
     <Content Include="Areas\Admin\Content\fonts\fontawesome-webfont.svg" />
+    <Content Include="Areas\Admin\Content\jquery-confirm\jquery-confirm.min.css" />
+    <Content Include="Areas\Admin\Content\jquery-confirm\jquery-confirm.min.js" />
     <Content Include="Areas\Admin\Content\simditor\images\image.png" />
     <Content Include="Areas\Admin\Content\simditor\scripts\hotkeys.js" />
     <Content Include="Areas\Admin\Content\simditor\scripts\hotkeys.min.js" />
@@ -1007,17 +1014,19 @@
     <Content Include="Areas\Admin\Content\simditor\scripts\uploader.js" />
     <Content Include="Areas\Admin\Content\simditor\scripts\uploader.min.js" />
     <Content Include="Areas\Admin\Content\simditor\styles\simditor.css" />
+    <Content Include="Areas\Admin\Scripts\Layout.js" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\ArticleController.cs" />
     <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
+    <Compile Include="App_Start\JIFExceptionAttribute.cs" />
     <Compile Include="Areas\Admin\Models\ArticleViewModels.cs" />
     <Compile Include="Areas\Admin\Models\UserViewModels.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -1085,6 +1094,7 @@
     <Content Include="Areas\Admin\Views\Article\Index.cshtml" />
     <Content Include="Areas\Admin\Views\User\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\User\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Pager.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

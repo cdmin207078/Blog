@@ -29,7 +29,13 @@
 
     <!-- iCheck for checkboxes and radio inputs -->
     <link href="~/Areas/Admin/Content/AdminLTE/plugins/iCheck/all.css" rel="stylesheet" />
-    
+
+    <!-- animate css -->
+    <link href="~/Areas/Admin/Content/css/animate.css" rel="stylesheet" />
+
+    <!-- jquery-confirm -->
+    <link href="~/Areas/Admin/Content/jquery-confirm/jquery-confirm.min.css" rel="stylesheet" />
+    <!-- custom styles -->
     @RenderSection("Styles", false)
 
 
@@ -75,9 +81,9 @@
                 <!-- sidebar menu: : style can be found in sidebar.less -->
                 <ul class="sidebar-menu">
                     <li class="header">功能</li>
-                    <li><a href="/admin/home/index"><i class="fa fa-align-justify"></i><span>控制面板</span></a></li>
+                    <li><a href="/admin/home/index"><i class="fa fa-dashboard"></i><span>控制面板</span></a></li>
                     <li class="header">文章</li>
-                    <li><a href="/admin/article/edit"><i class="fa fa-circle-o"></i><span>撰写文章</span></a></li>
+                    <li><a href="/admin/article/add"><i class="fa fa-circle-o"></i><span>撰写文章</span></a></li>
                     <li><a href="/admin/article/index"><i class="fa fa-circle-o"></i><span>文章列表</span></a></li>
                     <li class="header">用户</li>
                     <li><a href="/admin/user/index"><i class="fa fa-circle-o text-circle-o"></i> <span>用户管理</span></a></li>
@@ -113,11 +119,16 @@
     <script src="~/Areas/Admin/Content/AdminLTE/plugins/iCheck/icheck.min.js"></script>
     <!-- FastClick -->
     <script src="~/Areas/Admin/Content/AdminLTE/plugins/fastclick/fastclick.js"></script>
+
+    <!-- jquery-confirm -->
+    <script src="~/Areas/Admin/Content/jquery-confirm/jquery-confirm.min.js"></script>
+
     <!-- AdminLTE App -->
     <script src="~/Areas/Admin/Content/AdminLTE/dist/js/app.min.js"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="~/Areas/Admin/Content/AdminLTE/dist/js/demo.js"></script>
 
+
+    <!-- Layout Js -->
+    <script src="~/Areas/Admin/Scripts/Layout.js"></script>
     @RenderSection("Scripts", false)
 </body>
 </html>

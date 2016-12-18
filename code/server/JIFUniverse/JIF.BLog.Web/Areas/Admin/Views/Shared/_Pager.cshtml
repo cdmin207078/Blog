@@ -1,0 +1,161 @@
+﻿@using System.Linq;
+@model JIF.Core.IPaged
+
+@{
+    var _pagenums = new List<int>();                    // 页码数字
+    int _individualpage = 5;                            // 页码同时显示个数
+    int _pageindex = Model.PageIndex;                   // 当前页码
+    int _pagesize = Model.PageSize;                     // 每页记录数
+    int _totalitems = Model.TotalCount;                 // 总记录数
+    int _totalpages = Model.TotalPages;                 // 总页数
+    var _query = string.Empty;                          // 其他查询条件
+
+    // 计算页码
+
+    // 若总页数不足页码显示总数, 则直接显示所有页码
+    if (_totalpages <= _individualpage)
+    {
+        for (int i = 0; i < _totalpages; i++)
+        {
+            _pagenums.Add(i);
+        }
+    }
+    else
+    {
+        int minnum, maxnum;
+
+        // 显示奇数页码
+        minnum = _pageindex - _individualpage / 2;
+        maxnum = _pageindex + _individualpage / 2;
+
+        while (minnum < 1)
+        {
+            minnum++;
+            maxnum++;
+        }
+
+        while (maxnum > _totalpages)
+        {
+            minnum--;
+            maxnum--;
+        }
+
+        for (int p = minnum; p <= maxnum; p++)
+        {
+            _pagenums.Add(p);
+        }
+
+        if (!_pagenums.Contains(1))
+        {
+            if (minnum != 2)
+            {
+                _pagenums.Insert(0, 0);
+            }
+            // 如果没有第一页,则插入第一页
+            _pagenums.Insert(0, 1);
+        }
+
+        if (!_pagenums.Contains(_totalpages))
+        {
+            if (maxnum != _totalpages - 1)
+            {
+                _pagenums.Add(0);
+            }
+            // 如果没有最后一页,则插入第一页
+            _pagenums.Add(_totalpages);
+        }
+
+        /*
+         * total      pi       indeiv      min(calc)  max(calc)
+         *  100       1         5          -1,0,1      3,4,5
+         *            5         5           3          7
+         *            99        5           97,96      101,100
+         *            97        5           95         99
+         *  6         1         5          -1,0,1      3,4,5
+         *  6         2         5           0,1        4,5
+         *  6         3         5           1          5
+         *  6         4         5           2          6
+         *  7         3         5           1          5
+         */
+    }
+
+    // 其它查询条件拼接
+    var query = new List<string>();
+
+    foreach (string key in Request.QueryString.Keys)
+    {
+        if (key.ToLower().Trim() != "pageindex" && key.ToLower().Trim() != "pagesize")
+        {
+            query.Add(string.Format("{0}={1}", key, Request.QueryString[key]));
+        }
+    }
+
+    query.Add("pageindex={0}");
+
+    if (!string.IsNullOrWhiteSpace(Request.QueryString["pagesize"]))
+    {
+        query.Add("pagesize={1}");
+    }
+
+    if (query.Any())
+    {
+        _query = query.Aggregate((a, b) => string.Format("{0}&{1}", a, b));
+    }
+}
+
+@*<div>
+        <span class="help-block has-success">pageIndex -> @Model.PageIndex</span>
+        <span class="help-block has-success">PageSize -> @Model.PageSize</span>
+        <span class="help-block has-success">TotalPages -> @Model.TotalPages</span>
+        <span class="help-block has-success">TotalCount -> @Model.TotalCount</span>
+        <span class="help-block has-success">HasPreviousPage -> @Model.HasPreviousPage</span>
+        <span class="help-block has-success">HasNextPage -> @Model.HasNextPage</span>
+
+        <span class="help-block has-success">@Request.Url</span>
+        <span class="help-block has-success">@Request.Url.ToString()</span>
+        <span class="help-block has-success">AbsolutePath -> @Request.Url.AbsolutePath</span>
+        <span class="help-block has-success">AbsoluteUri -> @Request.Url.AbsoluteUri</span>
+        <span class="help-block has-success">Query -> @Request.Url.Query</span>
+        <span class="help-block has-success">PathAndQuery -> @Request.Url.PathAndQuery</span>
+        <span class="help-block has-success">OriginalString -> @Request.Url.OriginalString</span>
+        <span class="help-block has-success">QueryString -> @Request.QueryString</span>
+
+
+        <span class="help-block has-success">QueryString["w"] -> @Request.QueryString["w"]</span>
+        <span class="help-block has-success">q -> @q</span>
+
+
+    </div>*@
+
+
+<div class="form-inline">
+    @*<select class="form-control pull-left" style="margin-right:10px; height: 30px;">
+            <option>20</option>
+            <option>50</option>
+            <option>100</option>
+        </select>*@
+
+    <ul class="pagination pagination-sm no-margin pull-left">
+        @*<li><a href="javascript:;">上一页</a></li>*@
+
+
+        @foreach (var num in _pagenums)
+        {
+            if (num == 0)
+            {
+                <li><span>...</span></li>
+            }
+            else
+            {
+                if (num == _pageindex)
+                {
+                    <li class="active"><span>@num</span></li>
+                }
+                else
+                {
+                    <li><a href="@(Request.Url.AbsolutePath + "?" + string.Format(_query,num,_pagesize))">@num</a></li>
+                }
+            }
+        }
+    </ul>
+</div>

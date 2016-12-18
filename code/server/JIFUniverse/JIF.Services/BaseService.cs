@@ -19,12 +19,20 @@ namespace JIF.Services
             _repository = repository;
         }
 
+        public IQueryable<T> Tables
+        {
+            get
+            {
+                return _repository.Table;
+            }
+        }
+
         public T Get(object id)
         {
             return _repository.Get(id);
         }
 
-        public virtual IPagedList<T> Search(Expression<Func<T, bool>> whereLambda = null, int pageIndex = 0, int pageSize = int.MaxValue)
+        public virtual IPagedList<T> Search(Expression<Func<T, bool>> whereLambda = null, int pageIndex = 1, int pageSize = int.MaxValue)
         {
             var query = _repository.Table;
 

@@ -31,8 +31,6 @@ namespace JIF.Blog.WebApi.Controllers
         [HttpPost]
         public IHttpActionResult Update(UpdateArticleInputDto model)
         {
-
-
             _articleService.Update(model);
             return AjaxOk("修改成功");
         }

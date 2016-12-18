@@ -52,19 +52,58 @@ namespace JIF.Core
 
         public int PageIndex { get; private set; }
         public int PageSize { get; private set; }
+        //public int IndividualPagesDisplayedCount { get; private set; }
         public int TotalCount { get; private set; }
         public int TotalPages { get; private set; }
 
         public bool HasPreviousPage
         {
-            get { return (PageIndex > 0); }
+            get { return (PageIndex > 1); }
         }
         public bool HasNextPage
         {
             get { return (PageIndex + 1 < TotalPages); }
         }
-    }
 
+        //public int FirstIndividualPageIndex
+        //{
+        //    get
+        //    {
+        //        if ((this.TotalPages < this.IndividualPagesDisplayedCount) ||
+        //          ((this.PageIndex - (this.IndividualPagesDisplayedCount / 2)) < 0))
+        //        {
+        //            return 1;
+        //        }
+        //        if ((this.PageIndex + (this.IndividualPagesDisplayedCount / 2)) >= this.TotalPages)
+        //        {
+        //            return (this.TotalPages - this.IndividualPagesDisplayedCount);
+        //        }
+        //        return (this.PageIndex - (this.IndividualPagesDisplayedCount / 2));
+        //    }
+        //}
+
+        //public int LastIndividualPageIndex
+        //{
+        //    get
+        //    {
+        //        int num = this.IndividualPagesDisplayedCount / 2;
+        //        if ((this.IndividualPagesDisplayedCount % 2) == 0)
+        //        {
+        //            num--;
+        //        }
+        //        if ((this.TotalPages < this.IndividualPagesDisplayedCount) ||
+        //            ((this.PageIndex + num) >= this.TotalPages))
+        //        {
+        //            return (this.TotalPages - 1);
+        //        }
+        //        if ((this.PageIndex - (this.IndividualPagesDisplayedCount / 2)) < 0)
+        //        {
+        //            return (this.IndividualPagesDisplayedCount - 1);
+        //        }
+        //        return (this.PageIndex + num);
+        //    }
+        //}
+    }
 
     public static class PagedListExtends
     {

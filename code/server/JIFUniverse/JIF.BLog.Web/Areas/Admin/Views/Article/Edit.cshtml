@@ -10,8 +10,6 @@
 
 @using (Html.BeginForm("Edit", "Article", FormMethod.Post))
 {
-    @Html.Hidden("id", Model.Id)
-
     <div class="row">
         <div class="col-md-8">
             <div class="box box-primary">
@@ -21,12 +19,10 @@
                         <input type="text" class="form-control" id="txtTitle" name="Title" placeholder="请输入文章标题" value="@Model.Title">
                     </div>
 
-
                     <div class="form-group">
                         <label>正文内容</label>
                         <textarea class="form-control" rows="3" id="editor" name="Content" placeholder="请输入正文内容">@Model.Content</textarea>
                     </div>
-
 
                     <div class="form-group">
                         <label>文章分类</label>
@@ -41,11 +37,11 @@
 
                     <div class="row">
                         <div class="col-sm-2 col-md-2">
-                            <label><input type="checkbox" class="minimal" name="AllowComments" value="@Model.AllowComments" checked="@Model.AllowComments" @(Model.AllowComments ? "checked" : "")> 允许评论</label>
+                            <label><input type="checkbox" class="minimal" name="AllowComments" @(Model.AllowComments ? "checked" : "")> 允许评论</label>
                         </div>
 
                         <div class="col-sm-2 col-md-2">
-                            <label><input type="checkbox" class="minimal" name="Published" value="@Model.Published" checked="@Model.Published" @(Model.Published ? "checked" : "")> 公开发布</label>
+                            <label><input type="checkbox" class="minimal" name="Published" @(Model.Published ? "checked" : "")> 公开发布</label>
                         </div>
                     </div>
                 </div>
@@ -72,15 +68,6 @@
             textarea: $('#editor')
             //optional options
         });
-
-        $(function () {
-            //iCheck for checkbox and radio inputs
-            $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-                checkboxClass: 'icheckbox_minimal-blue',
-                radioClass: 'iradio_minimal-blue'
-            });
-        });
-
 
     </script>
 }
