@@ -50,7 +50,7 @@ namespace JIF.Core.Security
         public static bool IsHashMatch(HashAlgorithm hashAlgorithm, string hashedText, string unhashedText)
         {
             string hashedTextToCompare = Encrypt(hashAlgorithm, unhashedText);
-            return (String.Compare(hashedText, hashedTextToCompare, false) == 0);
+            return (string.Compare(hashedText, hashedTextToCompare, false) == 0);
         }
 
 

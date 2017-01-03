@@ -33,5 +33,14 @@ namespace JIF.Services.Users
         /// 注册用户
         /// </summary>
         void Register(RegisterInputDto model);
+
+        /// <summary>
+        /// 修改密码
+        /// </summary>
+        /// <param name="userId">用户系统编号</param>
+        /// <param name="pwd">原始密码</param>
+        /// <param name="newpwd"></param>
+        /// <param name="repwd"></param>
+        void ModifyPwd(int uid, string originPwd, string newPwd);
     }
 }

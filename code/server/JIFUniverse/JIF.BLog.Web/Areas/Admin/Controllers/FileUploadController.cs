@@ -1,9 +1,10 @@
-﻿using System.IO;
+﻿using JIF.Web.Framework.Controllers;
+using System.IO;
 using System.Web.Mvc;
 
 namespace JIF.Blog.Web.Areas.Admin.Controllers
 {
-    public class FileUploadController : Controller
+    public class FileUploadController : AdminControllerBase
     {
 
         // GET: Admin/FileUpload

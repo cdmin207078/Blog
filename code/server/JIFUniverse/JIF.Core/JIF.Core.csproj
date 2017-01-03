@@ -47,6 +47,7 @@
     <Compile Include="CommonHelper.cs" />
     <Compile Include="Data\IRepository.cs" />
     <Compile Include="Domain\Articles\Article.cs" />
+    <Compile Include="Domain\Articles\ArticleCategory.cs" />
     <Compile Include="Domain\Articles\ArticleComment.cs" />
     <Compile Include="Domain\Articles\Category.cs" />
     <Compile Include="Domain\Articles\Dtos\UpdateArticleInputDto.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="Domain\Users\User.cs" />
     <Compile Include="IPagedList.cs" />
     <Compile Include="IWebHelper.cs" />
+    <Compile Include="IWorkContext.cs" />
     <Compile Include="JIFConsts.cs" />
     <Compile Include="JIFException.cs" />
     <Compile Include="PagedData.cs" />

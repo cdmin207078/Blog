@@ -14,7 +14,7 @@ namespace JIF.Blog.Web
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
-            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            GlobalFilters.Filters.Add(new JIFExceptionAttribute());
 
             // autofac register
             DependencyRegistrar.RegisterDependencies();

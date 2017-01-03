@@ -11,8 +11,6 @@ namespace JIF.Blog.Web
 {
     public class JIFExceptionAttribute : IExceptionFilter
     {
-
-
         //public override void OnException(ExceptionContext context)
         //{
         //    if (context.Exception is JIFException)
@@ -34,6 +32,8 @@ namespace JIF.Blog.Web
         //        }
         //    }
         //}
+
+
         public void OnException(ExceptionContext context)
         {
             if (context.Exception is JIFException)
@@ -51,10 +51,26 @@ namespace JIF.Blog.Web
                             date = DateTime.Now
                         }
                     };
-
-                    context.ExceptionHandled = true;
                 }
+                else
+                {
+                    var referrer = context.RequestContext.HttpContext.Request.UrlReferrer.ToString();
+                    context.Controller.TempData["JIFExceptionMessage"] = context.Exception.Message;
+                    context.Result = new RedirectResult(referrer);
+                }
+
+                context.ExceptionHandled = true;
             }
         }
     }
+
+
+    public class AppExceptionAttribute : HandleErrorAttribute
+    {
+        public override void OnException(ExceptionContext context)
+        {
+            base.OnException(context);
+        }
+    }
+
 }

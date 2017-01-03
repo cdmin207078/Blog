@@ -21,6 +21,7 @@ namespace JIF.EntityFramework
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<ArticleCategory>().ToTable("ArticleCategories").HasKey(d => d.Id);
             modelBuilder.Entity<Article>().ToTable("Articles").HasKey(d => d.Id);
             modelBuilder.Entity<ArticleComment>().ToTable("ArticleComments").HasKey(d => d.Id);
             modelBuilder.Entity<User>().ToTable("Users").HasKey(d => d.Id);

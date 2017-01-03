@@ -13,12 +13,20 @@ namespace JIF.Services.Articles
 {
     public partial class ArticleService : BaseService<Article>, IArticleService
     {
-        private IRepository<Article> _articleRepository;
+        private readonly IRepository<Article> _articleRepository;
+        private readonly IRepository<ArticleCategory> _articleCategoryRepository;
 
-        public ArticleService(IRepository<Article> articleRepository)
+        private readonly IWorkContext _workContext;
+
+        public ArticleService(
+            IRepository<Article> articleRepository,
+            IRepository<ArticleCategory> articleCategoryRepository,
+            IWorkContext workContext)
             : base(articleRepository)
         {
             _articleRepository = articleRepository;
+            _articleCategoryRepository = articleCategoryRepository;
+            _workContext = workContext;
         }
 
         public void Insert(CreateArticleInputDto model)
@@ -31,7 +39,7 @@ namespace JIF.Services.Articles
             if (string.IsNullOrWhiteSpace(model.Title)
                 || string.IsNullOrWhiteSpace(model.Content))
             {
-                throw new JIFException("article title / content must not null");
+                throw new JIFException("文章 标题 / 内容 不能为空");
             }
 
             var entity = new Article
@@ -42,7 +50,7 @@ namespace JIF.Services.Articles
                 AllowComments = model.AllowComments,
                 Published = model.Published,
                 CreateTime = DateTime.Now,
-                CreateUserId = JIFConsts.sys_defaultUID
+                CreateUserId = _workContext.CurrentUser.Id
             };
 
             _articleRepository.Insert(entity);
@@ -75,9 +83,8 @@ namespace JIF.Services.Articles
             entity.AllowComments = model.AllowComments;
             entity.Published = model.Published;
             entity.IsDeleted = model.IsDeleted;
-
             entity.UpdateTime = DateTime.Now;
-            entity.UpdateUserId = JIFConsts.sys_defaultUID;
+            entity.UpdateUserId = _workContext.CurrentUser.Id;
 
             _articleRepository.Update(entity);
         }
@@ -90,6 +97,11 @@ namespace JIF.Services.Articles
                 throw new JIFException("article is null.");
 
             _articleRepository.Delete(entity);
+        }
+
+        public IList<ArticleCategory> GetCategory()
+        {
+            return _articleCategoryRepository.Table.ToList();
         }
     }
 }

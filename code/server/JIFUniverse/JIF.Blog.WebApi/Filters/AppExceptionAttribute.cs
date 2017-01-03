@@ -13,9 +13,9 @@ namespace JIF.Blog.WebApi.Filters
 {
     public class AppExceptionAttribute : ExceptionFilterAttribute
     {
-        public override void OnException(HttpActionExecutedContext actionExecutedContext)
+        public override void OnException(HttpActionExecutedContext context)
         {
-            if (actionExecutedContext.Exception is JIFException)
+            if (context.Exception is JIFException)
             {
                 var response = new HttpResponseMessage();
 
@@ -23,10 +23,10 @@ namespace JIF.Blog.WebApi.Filters
                 response.Content = new StringContent(JsonConvert.SerializeObject(new
                 {
                     success = false,
-                    message = actionExecutedContext.Exception.Message
+                    message = context.Exception.Message
                 }), Encoding.UTF8, "application/json");
 
-                actionExecutedContext.Response = response;
+                context.Response = response;
             }
         }
     }

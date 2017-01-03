@@ -1016,20 +1016,22 @@
     <Content Include="Areas\Admin\Content\simditor\styles\simditor.css" />
     <Content Include="Areas\Admin\Scripts\Layout.js" />
     <Content Include="Global.asax" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\ArticleController.cs" />
-    <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\FileUploadController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="App_Start\JIFExceptionAttribute.cs" />
+    <Compile Include="Areas\Admin\Controllers\WelcomeController.cs" />
     <Compile Include="Areas\Admin\Models\ArticleViewModels.cs" />
     <Compile Include="Areas\Admin\Models\UserViewModels.cs" />
+    <Compile Include="Areas\Admin\Models\WelcomeViewModels.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DependencyRegistrar.cs" />
     <Compile Include="Global.asax.cs">
@@ -1096,6 +1098,7 @@
     <Content Include="Areas\Admin\Views\User\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\User\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Pager.cshtml" />
+    <Content Include="Areas\Admin\Views\Welcome\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1122,6 +1125,10 @@
     <ProjectReference Include="..\JIF.Services\JIF.Services.csproj">
       <Project>{29315E8F-F64E-4A3F-91BE-5FAFE1512A95}</Project>
       <Name>JIF.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JIF.Web.Framework\JIF.Web.Framework.csproj">
+      <Project>{DDCE7AC3-C178-471A-A8C3-FE8A5D3BE4A2}</Project>
+      <Name>JIF.Web.Framework</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

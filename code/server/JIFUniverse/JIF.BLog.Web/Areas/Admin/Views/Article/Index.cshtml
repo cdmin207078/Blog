@@ -16,8 +16,6 @@
 
 <div class="box">
     <div class="box-header with-border">
-        <h3 class="box-title">所有文章</h3>
-        &nbsp;&nbsp;
         <a href="/admin/article/add" class="btn btn-success"><i class="fa fa-pencil-square-o"></i><span> 写文章</span></a>
     </div>
     <!-- /.box-header -->
@@ -52,7 +50,7 @@
                         </td>
                         <td>
                             <a href="javascript:;" class="btn btn-xs btn-success">查看</a>
-                            <a href="admin/article/edit/@item.Id" class="btn btn-xs btn-primary">编辑</a>
+                            @Html.ActionLink("编辑", "edit", new { id = item.Id }, new { @class = "btn btn-xs btn-primary" })
                             <a href="javascript:;" class="btn btn-xs btn-danger btn-del" data-id="@item.Id" data-name="@item.Title">删除</a>
                         </td>
                     </tr>
@@ -71,13 +69,9 @@
 @section Scripts{
     <script type="text/javascript">
         $(function () {
-
             $('.btn-del').on('click', function () {
-
                 var id = $(this).attr('data-id');
                 var text = $(this).attr('data-name');
-
-                $('.alert').addClass('bounce animated');
 
                 $.confirm({
                     type: 'red',

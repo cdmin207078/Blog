@@ -4,7 +4,9 @@ using JIF.Core;
 using JIF.Core.Data;
 using JIF.EntityFramework;
 using JIF.Services.Articles;
+using JIF.Services.Authentication;
 using JIF.Services.Users;
+using JIF.Web.Framework;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -44,12 +46,19 @@ namespace JIF.Blog.Web
             // OPTIONAL: repositores
             builder.RegisterGeneric(typeof(EfRepository<>)).As(typeof(IRepository<>)).InstancePerLifetimeScope();
 
-            // OPTIONAL: services
-            builder.RegisterType<ArticleService>().As<IArticleService>().InstancePerLifetimeScope();
-            builder.RegisterType<UserService>().As<IUserService>().InstancePerLifetimeScope();
-
             // OPTIONAL: web helper
             builder.RegisterType<WebHelper>().As<IWebHelper>().InstancePerLifetimeScope();
+
+            // OPTIONAL: work context
+            builder.RegisterType<WebWorkContext>().As<IWorkContext>().InstancePerLifetimeScope().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
+
+            // OPTIONAL: services
+            builder.RegisterType<ArticleService>().As<IArticleService>().InstancePerLifetimeScope().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
+            builder.RegisterType<UserService>().As<IUserService>().InstancePerLifetimeScope().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
+
+            // OPTIONAL: AuthenticationService
+            builder.RegisterType<FormsAuthenticationService>().As<IAuthenticationService>().InstancePerLifetimeScope().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
+
 
             // Set the dependency resolver to be Autofac.
             var container = builder.Build();

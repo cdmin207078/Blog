@@ -8,12 +8,15 @@ using JIF.Core.Domain.Users.Dtos;
 using JIF.Core.Data;
 using JIF.Core;
 using System.Security.Cryptography;
+using JIF.Core.Security;
 
 namespace JIF.Services.Users
 {
     public partial class UserService : BaseService<User>, IUserService
     {
-        private readonly IRepository<User> _userRepository;
+        public IWorkContext _workContext { get; set; }
+
+        public IRepository<User> _userRepository;
         private readonly IWebHelper _webHelper;
 
         public UserService(IRepository<User> userRepository,
@@ -48,11 +51,13 @@ namespace JIF.Services.Users
                 throw new JIFException("账号:" + model.Account + ",已存在");
             }
 
+            var now = DateTime.Now;
+
             entity = new User();
-            entity.CreateTime = DateTime.Now;
+            entity.CreateTime = now;
             entity.CreateUserId = JIFConsts.sys_defaultUID;
             entity.Account = model.Account;
-            entity.Password = string.Format("{0}-{1}", model.Password, DateTime.Now.ToString(JIFConsts.datetime_normal));
+            entity.Password = EncyptHelper.Encrypt(MD5.Create(), string.Format("{0}-{1}", model.Password, now.ToString(JIFConsts.datetime_normal)));
 
             _userRepository.Insert(entity);
         }
@@ -119,12 +124,15 @@ namespace JIF.Services.Users
                 throw new JIFException("账号 / 密码 不能为空");
             }
 
-            var entity = _userRepository.Table.FirstOrDefault(d =>
-                                d.Account.ToLower().Trim() == model.Account.ToLower().Trim()
-                             && d.Password.ToLower().Trim() == model.Password.ToLower().Trim());
+            var entity = _userRepository.Table.FirstOrDefault(d => d.Account.ToLower().Trim() == model.Account.ToLower().Trim());
 
             if (entity == null)
-                throw new JIFException("账号 / 密码 不正确");
+                throw new JIFException("账号不存在");
+
+            if (!EncyptHelper.IsHashMatch(MD5.Create(), entity.Password, string.Format("{0}-{1}", model.Password, entity.CreateTime.ToString(JIFConsts.datetime_normal))))
+            {
+                throw new JIFException("密码不正确");
+            }
 
             entity.LastLoginTime = DateTime.Now;
             entity.LastLoginIP = _webHelper.GetCurrentIpAddress();
@@ -148,6 +156,26 @@ namespace JIF.Services.Users
                 Account = model.Account,
                 Password = model.Password
             });
+        }
+
+        public void ModifyPwd(int uid, string originPwd, string newPwd)
+        {
+            if (string.IsNullOrWhiteSpace(originPwd)
+                 || string.IsNullOrWhiteSpace(newPwd))
+            {
+                throw new JIFException("原始密码 / 密码 不能为空");
+            }
+
+            var entity = Get(uid);
+
+            if (!EncyptHelper.IsHashMatch(MD5.Create(), entity.Password, string.Format("{0}-{1}", originPwd, entity.CreateTime.ToString(JIFConsts.datetime_normal))))
+            {
+                throw new JIFException("原始密码不正确");
+            }
+
+            entity.Password = EncyptHelper.Encrypt(MD5.Create(), string.Format("{0}-{1}", newPwd, entity.CreateTime.ToString(JIFConsts.datetime_normal))); ;
+
+            _userRepository.Update(entity);
         }
     }
 }

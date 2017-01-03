@@ -8,17 +8,18 @@ namespace JIF.Blog.Web.Areas.Admin
         {
             get
             {
-                return "Admin";
+                return "admin";
             }
         }
 
         public override void RegisterArea(AreaRegistrationContext context)
         {
+
             context.MapRoute(
-                "Admin_default",
-                "Admin/{controller}/{action}/{id}",
-                new { controller = "Home", action = "Index", id = UrlParameter.Optional },
-                new string[] { "JIF.Blog.Web.Areas.Admin.Controllers" }
+                name: "Admin_default",
+                url: AreaName + "/{controller}/{action}/{id}",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
+                namespaces: new string[] { "JIF.Blog.Web.Areas.Admin.Controllers" }
             );
         }
     }

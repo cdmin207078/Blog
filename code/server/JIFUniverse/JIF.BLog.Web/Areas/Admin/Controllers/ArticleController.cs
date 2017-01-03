@@ -1,7 +1,9 @@
-﻿using JIF.Core;
+﻿using JIF.Blog.Web.Areas.Admin.Models;
+using JIF.Core;
 using JIF.Core.Domain.Articles;
 using JIF.Core.Domain.Articles.Dtos;
 using JIF.Services.Articles;
+using JIF.Web.Framework.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +13,7 @@ using Webdiyer.WebControls.Mvc;
 
 namespace JIF.Blog.Web.Areas.Admin.Controllers
 {
-    public class ArticleController : BaseController
+    public class ArticleController : AdminControllerBase
     {
         private readonly IArticleService _articleService;
 
@@ -31,15 +33,26 @@ namespace JIF.Blog.Web.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Add()
         {
-            var article = new Article();
-            return View("Edit", article);
+            var vm = new ArticleEditViewModel
+            {
+                Article = new Article(),
+                Categories = _articleService.GetCategory()
+            };
+
+
+            return View("Edit", vm);
         }
 
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            var article = _articleService.Get(id);
-            return View("Edit", article);
+            var vm = new ArticleEditViewModel
+            {
+                Article = _articleService.Get(id),
+                Categories = _articleService.GetCategory()
+            };
+
+            return View("Edit", vm);
         }
 
         [HttpPost]
@@ -75,7 +88,7 @@ namespace JIF.Blog.Web.Areas.Admin.Controllers
         {
             _articleService.Delete(id);
 
-            return Ok();
+            return AjaxOk();
         }
     }
 }

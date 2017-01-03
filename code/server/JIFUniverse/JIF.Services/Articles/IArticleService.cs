@@ -30,5 +30,12 @@ namespace JIF.Services.Articles
         /// </summary>
         /// <param name="id"></param>
         void Delete(int id);
+
+
+        /// <summary>
+        /// 获取文章分类
+        /// </summary>
+        /// <returns></returns>
+        IList<ArticleCategory> GetCategory();
     }
 }
