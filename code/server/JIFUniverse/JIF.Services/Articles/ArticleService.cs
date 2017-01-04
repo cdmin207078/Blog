@@ -29,6 +29,8 @@ namespace JIF.Services.Articles
             _workContext = workContext;
         }
 
+        #region article
+
         public void Insert(CreateArticleInputDto model)
         {
             if (model == null)
@@ -99,9 +101,67 @@ namespace JIF.Services.Articles
             _articleRepository.Delete(entity);
         }
 
-        public IList<ArticleCategory> GetCategory()
+        #endregion
+
+        #region article-category
+
+
+        public void Insert(ArticleCategory category)
+        {
+            _articleCategoryRepository.Insert(category);
+        }
+
+        public void Update(ArticleCategory category)
+        {
+            _articleCategoryRepository.Update(category);
+        }
+
+
+        public ArticleCategory GetCategory(int id)
+        {
+            return _articleCategoryRepository.Get(id);
+        }
+
+        public IEnumerable<ArticleCategory> GetCategories()
         {
             return _articleCategoryRepository.Table.ToList();
+        }
+
+        public IEnumerable<ArticleCategory> GetCategoriesTree()
+        {
+            var source = GetCategories();
+
+            var result = new List<ArticleCategory>();
+
+            // 第一层直接查出
+            result.AddRange(source.Where(d => d.ParentId == 0));
+
+            foreach (var cur in result)
+            {
+                SetCategoriesTree(cur, source);
+            }
+
+
+            return result;
+        }
+
+        private void SetCategoriesTree(ArticleCategory cur, IEnumerable<ArticleCategory> categories)
+        {
+            foreach (var cate in categories)
+            {
+
+            }
+        }
+
+        #endregion
+    }
+
+
+    public static class ArticleServiceExtends
+    {
+        public static IEnumerable<ArticleCategory> AsTree(this IEnumerable<ArticleCategory> source)
+        {
+            return source;
         }
     }
 }

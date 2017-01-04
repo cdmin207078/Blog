@@ -32,10 +32,26 @@ namespace JIF.Services.Articles
         void Delete(int id);
 
 
+        void Insert(ArticleCategory category);
+
+        void Update(ArticleCategory category);
+
         /// <summary>
-        /// 获取文章分类
+        /// 获取具体文章分类信息
         /// </summary>
         /// <returns></returns>
-        IList<ArticleCategory> GetCategory();
+        ArticleCategory GetCategory(int id);
+
+        /// <summary>
+        /// 获取所有文章分类
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<ArticleCategory> GetCategories();
+
+        /// <summary>
+        /// 获取所有文章分类 [属性数据结构]
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<ArticleCategory> GetCategoriesTree();
     }
 }

@@ -11,13 +11,14 @@ using System.Linq;
 using System.Web.Hosting;
 using System.IO;
 using System.Net;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace JIF.Core
 {
     /// <summary>
     /// Represents a common helper
     /// </summary>
-    public partial class CommonHelper
+    public static class CommonHelper
     {
         /// <summary>
         /// Ensures the subscriber email or throw.
@@ -372,6 +373,23 @@ namespace JIF.Core
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
             path = path.Replace("~/", "").TrimStart('/').Replace('/', '\\');
             return Path.Combine(baseDirectory, path);
+        }
+
+
+
+        /// <summary>
+        /// deep copy object
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="o"></param>
+        /// <returns></returns>
+        public static T DeepClone<T>(this T o)
+        {
+            BinaryFormatter bFormatter = new BinaryFormatter();
+            MemoryStream stream = new MemoryStream();
+            bFormatter.Serialize(stream, o);
+            stream.Seek(0, SeekOrigin.Begin);
+            return (T)bFormatter.Deserialize(stream);
         }
     }
 }

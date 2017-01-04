@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace JIF.Core.Domain.Articles
 {
-    public partial class ArticleCategory : BaseEntity
+    public partial class ArticleCategory : BaseEntity, ITreeObject<ArticleCategory>
     {
         /// <summary>
         /// 分类名称
@@ -18,10 +18,20 @@ namespace JIF.Core.Domain.Articles
         /// </summary>
         public int Order { get; set; }
 
-        /// <summary>
-        /// 父级分类
-        /// </summary>
-        public int ParentCategoryId { get; set; }
 
+        /// <summary>
+        /// 所属父级分类
+        /// </summary>
+        public virtual ArticleCategory Parent { get; set; }
+
+        /// <summary>
+        /// 所属父级分类编号
+        /// </summary>
+        public int ParentId { get; set; }
+
+        /// <summary>
+        /// 包含子分类列表
+        /// </summary>
+        public virtual IEnumerable<ArticleCategory> Subs { get; set; }
     }
 }

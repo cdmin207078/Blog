@@ -33,12 +33,8 @@ namespace JIF.Blog.Web.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Add()
         {
-            var vm = new ArticleEditViewModel
-            {
-                Article = new Article(),
-                Categories = _articleService.GetCategory()
-            };
-
+            var vm = new ArticleEditViewModel();
+            vm.Categories = _articleService.GetCategories();
 
             return View("Edit", vm);
         }
@@ -46,11 +42,9 @@ namespace JIF.Blog.Web.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            var vm = new ArticleEditViewModel
-            {
-                Article = _articleService.Get(id),
-                Categories = _articleService.GetCategory()
-            };
+            var vm = new ArticleEditViewModel();
+            vm.Article = _articleService.Get(id);
+            vm.Categories = _articleService.GetCategories();
 
             return View("Edit", vm);
         }
@@ -89,6 +83,15 @@ namespace JIF.Blog.Web.Areas.Admin.Controllers
             _articleService.Delete(id);
 
             return AjaxOk();
+        }
+
+        // 文章分类列表页面
+        [HttpGet]
+        public ActionResult Categorylist()
+        {
+            var vm = _articleService.GetCategories().AsTree();
+
+            return View(vm);
         }
     }
 }

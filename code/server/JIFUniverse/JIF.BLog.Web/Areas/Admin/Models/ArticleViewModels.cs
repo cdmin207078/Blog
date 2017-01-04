@@ -11,11 +11,11 @@ namespace JIF.Blog.Web.Areas.Admin.Models
         /// <summary>
         /// 文章信息
         /// </summary>
-        public Article Article { get; set; }
+        public Article Article { get; set; } = new Article();
 
         /// <summary>
         /// 文章分类列表
         /// </summary>
-        public IList<ArticleCategory> Categories { get; set; }
+        public IEnumerable<ArticleCategory> Categories { get; set; } = new List<ArticleCategory>();
     }
 }
