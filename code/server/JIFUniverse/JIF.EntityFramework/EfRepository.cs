@@ -1,5 +1,6 @@
 ﻿using JIF.Core;
 using JIF.Core.Data;
+using JIF.Core.Domain;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;

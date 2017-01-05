@@ -87,9 +87,11 @@ namespace JIF.Blog.Web.Areas.Admin.Controllers
 
         // 文章分类列表页面
         [HttpGet]
-        public ActionResult Categorylist()
+        public ActionResult Categories()
         {
             var vm = _articleService.GetCategories().AsTree();
+
+            vm = vm.OrderBy(d => new { d.ParentId, d.Order });
 
             return View(vm);
         }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JIF.Core
+namespace JIF.Core.Domain
 {
     public abstract partial class BaseEntity
     {

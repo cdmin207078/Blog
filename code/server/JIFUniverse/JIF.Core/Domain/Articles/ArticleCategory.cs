@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,7 +19,7 @@ namespace JIF.Core.Domain.Articles
         /// </summary>
         public int Order { get; set; }
 
-
+        //[JsonIgnore]
         /// <summary>
         /// 所属父级分类
         /// </summary>
@@ -32,6 +33,6 @@ namespace JIF.Core.Domain.Articles
         /// <summary>
         /// 包含子分类列表
         /// </summary>
-        public virtual IEnumerable<ArticleCategory> Subs { get; set; }
+        public virtual IList<ArticleCategory> Subs { get; set; }
     }
 }

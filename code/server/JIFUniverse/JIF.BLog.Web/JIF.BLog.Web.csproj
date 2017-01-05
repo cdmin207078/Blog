@@ -1099,6 +1099,7 @@
     <Content Include="Areas\Admin\Views\User\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Pager.cshtml" />
     <Content Include="Areas\Admin\Views\Welcome\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Article\Categories.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

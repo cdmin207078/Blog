@@ -12,6 +12,8 @@ using System.Web.Hosting;
 using System.IO;
 using System.Net;
 using System.Runtime.Serialization.Formatters.Binary;
+using Newtonsoft.Json;
+using JIF.Core.Domain;
 
 namespace JIF.Core
 {
@@ -376,20 +378,53 @@ namespace JIF.Core
         }
 
 
-
         /// <summary>
-        /// deep copy object
+        /// 对象深拷贝
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="o"></param>
         /// <returns></returns>
         public static T DeepClone<T>(this T o)
         {
-            BinaryFormatter bFormatter = new BinaryFormatter();
-            MemoryStream stream = new MemoryStream();
-            bFormatter.Serialize(stream, o);
-            stream.Seek(0, SeekOrigin.Begin);
-            return (T)bFormatter.Deserialize(stream);
+            var s = JsonConvert.SerializeObject(o);
+            return JsonConvert.DeserializeObject<T>(s);
+        }
+
+        /// <summary>
+        /// 设置列表树状关系
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source"></param>
+        public static IEnumerable<T> ToTree<T>(this IEnumerable<T> source) where T : ITreeObject<T>
+        {
+            foreach (var cate in source)
+            {
+                // setting children
+                var subs = source.Where(d => d.ParentId == cate.Id);
+                if (subs != null && subs.Count() > 1)
+                {
+                    cate.Subs = subs.ToList();
+                }
+
+                // setting parent
+                var parent = source.SingleOrDefault(d => d.Id == cate.ParentId);
+                if (parent == null)
+                    continue;
+
+                cate.Parent = parent;
+
+                if (parent.Subs == null)
+                    parent.Subs = new List<T>() { cate };
+                else
+                {
+                    if (!parent.Subs.Any(d => d.Id == cate.Id))
+                    {
+                        parent.Subs.Add(cate);
+                    }
+                }
+            }
+
+            return source;
         }
     }
 }

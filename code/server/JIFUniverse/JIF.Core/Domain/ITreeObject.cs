@@ -8,12 +8,13 @@ namespace JIF.Core.Domain
 {
     public interface ITreeObject<T>
     {
+        int Id { get; set; }
 
         int ParentId { get; set; }
 
         T Parent { get; set; }
 
-        IEnumerable<T> Subs { get; set; }
+        IList<T> Subs { get; set; }
 
     }
 }
