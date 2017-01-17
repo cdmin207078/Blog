@@ -33,11 +33,6 @@ namespace JIF.Services.Articles
 
         public void Insert(CreateArticleInputDto model)
         {
-            if (model == null)
-            {
-                throw new JIFException("article is null.");
-            }
-
             if (string.IsNullOrWhiteSpace(model.Title)
                 || string.IsNullOrWhiteSpace(model.Content))
             {
@@ -61,11 +56,6 @@ namespace JIF.Services.Articles
 
         public void Update(UpdateArticleInputDto model)
         {
-            if (model == null)
-            {
-                throw new JIFException("article is null.");
-            }
-
             if (string.IsNullOrWhiteSpace(model.Title)
                 || string.IsNullOrWhiteSpace(model.Content))
             {
@@ -105,17 +95,35 @@ namespace JIF.Services.Articles
 
         #region article-category
 
-
         public void Insert(ArticleCategory category)
         {
+            if (string.IsNullOrWhiteSpace(category.Name))
+            {
+                throw new JIFException("分类名称不能为空");
+            }
+
+            if (_articleCategoryRepository.Table.Any(d => d.Name == category.Name && d.Id != category.Id))
+            {
+                throw new JIFException("分类名称已经存在");
+            }
+
             _articleCategoryRepository.Insert(category);
         }
 
         public void Update(ArticleCategory category)
         {
+            if (string.IsNullOrWhiteSpace(category.Name))
+            {
+                throw new JIFException("分类名称不能为空");
+            }
+
+            if (_articleCategoryRepository.Table.Any(d => d.Name == category.Name && d.Id != category.Id))
+            {
+                throw new JIFException("分类名称已经存在");
+            }
+
             _articleCategoryRepository.Update(category);
         }
-
 
         public ArticleCategory GetCategory(int id)
         {

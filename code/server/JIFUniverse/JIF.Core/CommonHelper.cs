@@ -426,5 +426,17 @@ namespace JIF.Core
 
             return source;
         }
+
+        /// <summary>
+        /// œ»–Ú±È¿˙
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public static IEnumerable<T> ToPreOrderList<T>(this IEnumerable<T> source) where T : ITreeObject<T>
+        {
+
+            return source;
+        }
     }
 }

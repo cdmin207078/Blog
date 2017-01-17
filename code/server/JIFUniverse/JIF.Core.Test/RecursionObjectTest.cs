@@ -50,15 +50,13 @@ namespace JIF.Core.Test
 
                 };
 
-                //source = source.ToTree().ToList();
+                source = source.ToTree().ToList();
 
-                source = SortLoop(source, 0).ToList();
+                //source = SortLoop(source, 0).ToList();
 
                 Console.WriteLine(JsonConvert.SerializeObject(source.Where(d => d.ParentId == 0), new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore }));
             }
-
         }
-
 
         private List<ArticleCategory> SortLoop(List<ArticleCategory> source, int parentId)
         {
