@@ -378,6 +378,7 @@ namespace JIF.Core
         }
 
 
+
         /// <summary>
         /// ∂‘œÛ…ÓøΩ±¥
         /// </summary>
@@ -401,13 +402,13 @@ namespace JIF.Core
             {
                 // setting children
                 var subs = source.Where(d => d.ParentId == cate.Id);
-                if (subs != null && subs.Count() > 1)
+                if (subs != null && subs.Count() > 0)
                 {
-                    cate.Subs = subs.ToList();
+                    cate.Subs = subs.OrderBy(d => d.Order).ToList();
                 }
 
                 // setting parent
-                var parent = source.SingleOrDefault(d => d.Id == cate.ParentId);
+                var parent = source.FirstOrDefault(d => d.Id == cate.ParentId);
                 if (parent == null)
                     continue;
 
@@ -420,11 +421,12 @@ namespace JIF.Core
                     if (!parent.Subs.Any(d => d.Id == cate.Id))
                     {
                         parent.Subs.Add(cate);
+                        parent.Subs = parent.Subs.OrderBy(d => d.Order).ToList();
                     }
                 }
             }
 
-            return source;
+            return source.OrderBy(d => d.Order);
         }
 
         /// <summary>

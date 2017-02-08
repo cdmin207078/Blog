@@ -14,11 +14,6 @@ namespace JIF.Core.Domain.Articles
         /// </summary>
         public string Name { get; set; }
 
-        /// <summary>
-        /// 分类排序
-        /// </summary>
-        public int Order { get; set; }
-
         //[JsonIgnore]
         /// <summary>
         /// 所属父级分类
@@ -34,5 +29,10 @@ namespace JIF.Core.Domain.Articles
         /// 包含子分类列表
         /// </summary>
         public virtual IList<ArticleCategory> Subs { get; set; }
+
+        /// <summary>
+        /// 分类排序
+        /// </summary>
+        public int Order { get; set; }
     }
 }
