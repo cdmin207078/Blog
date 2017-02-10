@@ -34,19 +34,48 @@ sched.ScheduleJob(job, trigger);
 ```csharp
 public class HelloJob : IJob
 {
-	public void Execute(IJobExecutionContext context)
-	{
-		Console.WriteLine("HelloJob is executing.");
-	}
+  public void Execute(IJobExecutionContext context)
+  {
+    Console.WriteLine("HelloJob is executing.");
+  }
 }
 ```
 > **注意** 我们给 scheduler(调度器) 传入了一个 `JobDetail` 实例，而且这个 `JobDetail` 实例只是简单提供了类名来引用被执行的 Job. 每次 scheduler 执行 job 时, 它就创建这个类的新实例, 然后调用该实例的 `Execute` 方法. 这种行为的后果之一是 `Job` 必须具有一个无参数构造函数。另一个后果是，在 `Job` 类上定义数据字段没有意义 - **因为它们的值不会在 Job 执行之间保留**
 
-你可能现在想要问"如何为作业实例提供属性/配置？"和"如何跟踪作业在执行之间的状态？"这些问题的答案都是一样︰ 关键是JobDataMap, 它是JobDetail对象的一部分.
+你可能现在想要问"如何为作业实例提供属性/配置？"和"如何跟踪作业在执行之间的状态？"这些问题的答案都是一样︰ 关键是 `JobDataMap`, 它是 `JobDetail` 对象的一部分.
 
 ## JobDataMap
+JobDataMap被用来保存一系列的(序列化的) 对象, 这些对象在Job执行时可以得到。JobDataMap实现了IDictionary接口, 而且还增加了一些存储和读取基本类型数据的便捷方法。
 
+> 在 Job 添加到 Scheduler 之前,将数据放入 JobDataMap 中:
 
+```csharp
+// define the job and tie it to our DumbJob class
+IJobDetail job = JobBuilder.Create<DumbJob>()
+	.WithIdentity("myJob", "group1") // name "myJob", group "group1"
+	.UsingJobData("jobSays", "Hello World!")
+	.UsingJobData("myFloatValue", 3.141f)
+	.Build();
+```
+
+> Job 运行期间从 JobDataMap 中获取数据
+
+```csharp
+public class DumbJob : IJob
+{
+	public void Execute(JobExecutionContext context)
+	{
+	  JobKey key = context.JobDetail.Key;
+
+	  JobDataMap dataMap = context.JobDetail.JobDataMap;
+
+	  string jobSays = dataMap.GetString("jobSays");
+	  float myFloatValue = dataMap.GetFloat("myFloatValue");
+
+	  Console.Error.WriteLine("Instance " + key + " of DumbJob says: " + jobSays + ", and val is: " + myFloatValue);
+	}
+} 
+```
 
 
 
