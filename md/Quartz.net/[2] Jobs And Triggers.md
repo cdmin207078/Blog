@@ -36,7 +36,7 @@ static void Main(string[] args)
             .WithRepeatCount(15))
         .Build();
 
-    // 使用usingJobData 传递 job 参数
+    // 使用 JobData
     IJobDetail jobDumb = JobBuilder.Create<DumbJob>()
             .WithIdentity("jobDumb", "group1")
             .UsingJobData("version", "1.0.0.0")

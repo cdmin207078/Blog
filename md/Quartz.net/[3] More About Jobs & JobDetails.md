@@ -42,10 +42,10 @@ public class HelloJob : IJob
 ```
 > **注意** 我们给 scheduler(调度器) 传入了一个 `JobDetail` 实例，而且这个 `JobDetail` 实例只是简单提供了类名来引用被执行的 Job. 每次 scheduler 执行 job 时, 它就创建这个类的新实例, 然后调用该实例的 `Execute` 方法. 这种行为的后果之一是 `Job` 必须具有一个无参数构造函数。另一个后果是，在 `Job` 类上定义数据字段没有意义 - **因为它们的值不会在 Job 执行之间保留**
 
-你可能现在想要问"如何为作业实例提供属性/配置？"和"如何跟踪作业在执行之间的状态？"这些问题的答案都是一样︰ 关键是 `JobDataMap`, 它是 `JobDetail` 对象的一部分.
+你可能现在想要问"如何为Job实例提供属性/配置？"和"如何跟踪Job在执行之间的状态？"这些问题的答案都是一样︰ `JobDataMap`, 它是 `JobDetail` 对象的一部分.
 
 ## JobDataMap
-JobDataMap被用来保存一系列的(序列化的) 对象, 这些对象在Job执行时可以得到。JobDataMap实现了IDictionary接口, 而且还增加了一些存储和读取基本类型数据的便捷方法。
+JobDataMap被用来保存一系列的(序列化的)对象, 这些对象在Job执行时可以得到。JobDataMap实现了IDictionary接口, 而且还增加了一些存储和读取基本类型数据的便捷方法。
 
 > 在 Job 添加到 Scheduler 之前,将数据放入 JobDataMap 中:
 
@@ -76,6 +76,13 @@ public class DumbJob : IJob
 	}
 } 
 ```
+
+如果使用 JobStore, 那么必须注意存放在JobDataMap中的内容. 因为放入JobDataMap中的内容将被序列化, 而且容易出现类型转换问题. 很明显, 标准.NET类型将是非常安全的, 但除此之外的类型, 任何时候, 只要有人改变了你要序列化其实例的类的定义, 就要注意是否打破了程序的兼容性.
+
+或者, 您可以将AdoJobStore和JobDataMap设置为只有.net基本类型可以存储在映射中的模式,从而消除以后的序列化问题的任何可能性.
+
+
+
 
 
 
