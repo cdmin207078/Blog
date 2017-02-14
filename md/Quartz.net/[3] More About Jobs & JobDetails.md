@@ -118,21 +118,26 @@ class DumbJob : IJob
 ```
 
 ## Job "Instances" (作业实例)
-许多用户会困惑于究竟什么是 **Job Instance (作业实例)**, 在这个小节, 我们将解答您的疑惑, 并向您介绍 **Job State (作业状态)** 和 **并发**
 
-You can create a single job class, and store many ‘instance definitions’ of it within the scheduler by creating multiple instances of JobDetails - each with its own set of properties and JobDataMap - and adding them all to the scheduler.
+许多用户会困惑于究竟什么是 **Job Instance (作业实例)**, 在这个小节, 我们将解答您的疑惑. 并向您介绍 **Job State (作业状态)** 和 **并发**
 
-For example, you can create a class that implements the IJob interface called “SalesReportJob”. The job might be coded to expect parameters sent to it (via the JobDataMap) to specify the name of the sales person that the sales report should be based on. They may then create multiple definitions (JobDetails) of the job, such as “SalesReportForJoe” and “SalesReportForMike” which have “joe” and “mike” specified in the corresponding JobDataMaps as input to the respective jobs.
+你可以创建一个简单的 Job 类, 然后创建多个 JobDetail 实例, 并为它们配置各自的 JobDataMap 和 属性, 最后将它们添加到 scheduler(调度器) 中.
 
-When a trigger fires, the JobDetail (instance definition) it is associated to is loaded, and the job class it refers to is instantiated via the JobFactory configured on the Scheduler. The default JobFactory simply calls the default constructor of the job class using Activator.CreateInstance, then attempts to call setter properties on the class that match the names of keys within the JobDataMap. You may want to create your own implementation of JobFactory to accomplish things such as having your application’s IoC or DI container produce/initialize the job instance.
+例如, 创建一个 "SalesReportJob" 类, 让它实现 `IJob` 接口. 通过传入参数(使用JobDataMap)指定销售报告的销售员名字. 然后创建多个JobDetail, 比如: "SalesReportForJoe", "SalesReportForMike", 然后将 "Joe", "Mike" 添加到各自的 JobDataMap 中.
 
-In “Quartz speak”, we refer to each stored JobDetail as a “job definition” or “JobDetail instance”, and we refer to a each executing job as a “job instance” or “instance of a job definition”. Usually if we just use the word “job” we are referring to a named definition, or JobDetail. When we are referring to the class implementing the job interface, we usually use the term “job type”.
+当触发器触发时, 加载与其相关联的 JobDetail, 并通过在 Scheduler 上配置的 JobFactory 来实例化 JobDetail 引用的 Job 类. 默认情况下, JobFactory 使用 `Activator.CreateInstance` 简单地调用 Job 类的默认构造函数, 然后在Job 类中尝试查找与 JobDataMap 中参数名称相同的属性, 调用其 setter 进行赋值. 
+您可能希望创建自己的JobFactory实现, 例如使用 IOC or DI container 来完成 Job 实例的 创建与初始化.
+
+在 Quartz 中, 我们将每个 JobDetail 称之为 **"job definition(作业定义)"** 或者 **"JobDetail instance(JobDetail实例)"**, 我们将每个正在执行的 Job, 称之为 **"job instance(作业实例)"** 或 **"instance of job definition(作业定义的实例)"**, 通常我们单独说 Job 的时候, 是指一个命名的定义 或者 JobDetail. **"job type"** 表示实现作业接口的类.
 
 
 ## Job State and Concurrency (作业状态 与 并发)
 下来我们来了解一下作业的状态数据与并发. 这里有两个特性, 可以加在Job Class上, 用来影响Job 的行为
 
+**`DisallowConcurrentExecution`** is an attribute that can be added to the Job class that tells Quartz not to execute multiple instances of a given job definition (that refers to the given job class) concurrently. Notice the wording there, as it was chosen very carefully. In the example from the previous section, if “SalesReportJob” has this attribute, than only one instance of “SalesReportForJoe” can execute at a given time, but it can execute concurrently with an instance of “SalesReportForMike”. The constraint is based upon an instance definition (JobDetail), not on instances of the job class. However, it was decided (during the design of Quartz) to have the attribute carried on the class itself, because it does often make a difference to how the class is coded.
+
 **`DisallowConcurrentExecution`** - 通知 Quartz 不要同时执行该 Job
+
 
 **`PersistJobDataAfterExecution`** - 它在 Execute 方法成功完成(不抛出异常) 之后告知 Quartz 更新 JobDetail 的 JobDataMap 的存储副本, 以便下一次执行同一个 作业(JobDetail) 接收更新的值而不是原始存储的值. 与 **`DisallowConcurrentExecution`** 属性一样，这适用于 **Job definition instance(作业定义实例)**, 而不是 **Job class Instance(作业类实例)**, 
 
