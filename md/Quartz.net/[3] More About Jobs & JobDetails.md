@@ -134,31 +134,23 @@ class DumbJob : IJob
 ## Job State and Concurrency (作业状态 与 并发)
 下来我们来了解一下作业的状态数据与并发. 这里有两个特性, 可以加在Job Class上, 用来影响Job 的行为
 
-**`DisallowConcurrentExecution`** is an attribute that can be added to the Job class that tells Quartz not to execute multiple instances of a given job definition (that refers to the given job class) concurrently. Notice the wording there, as it was chosen very carefully. In the example from the previous section, if “SalesReportJob” has this attribute, than only one instance of “SalesReportForJoe” can execute at a given time, but it can execute concurrently with an instance of “SalesReportForMike”. The constraint is based upon an instance definition (JobDetail), not on instances of the job class. However, it was decided (during the design of Quartz) to have the attribute carried on the class itself, because it does often make a difference to how the class is coded.
-
-**`DisallowConcurrentExecution`** - 通知 Quartz 不要同时执行该 Job
-
+**`DisallowConcurrentExecution`** - 通知 Quartz 不要同时执行给定 JobDetail 的多个实例. 在上一小节的实例中, 如果 "SalesReportJob" 具有此特性, 则在给定的时间只能执行一个 "SalesReportForJoe" 的实例, 但它可以与 "SalesReportForMike" 实例同时执行. 即这个约束是基于 JobDetail 的, 而不是 Job 对象的实例. 
 
 **`PersistJobDataAfterExecution`** - 它在 Execute 方法成功完成(不抛出异常) 之后告知 Quartz 更新 JobDetail 的 JobDataMap 的存储副本, 以便下一次执行同一个 作业(JobDetail) 接收更新的值而不是原始存储的值. 与 **`DisallowConcurrentExecution`** 属性一样，这适用于 **Job definition instance(作业定义实例)**, 而不是 **Job class Instance(作业类实例)**, 
 
 > 如果您使用 **`PersistJobDataAfterExecution`** 属性, 你应该考虑同时使用 **`DisallowConcurrentExecution`** 属性, 以避免在同一作业（JobDetail）的两个实例同时执行时, 数据可能存在混淆（竞态条件）.
 
 ## Other Attributes Of Jobs
-Here’s a quick summary of the other properties which can be defined for a job instance via the JobDetail object:
 
-Durability - if a job is non-durable, it is automatically deleted from the scheduler once there are no longer any active triggers associated with it. In other words, non-durable jobs have a life span bounded by the existence of its triggers.
+以下是可以通过 JobDetail 对象为 Job 实例定义的其它特性
 
-RequestsRecovery - if a job “requests recovery”, and it is executing during the time of a ‘hard shutdown’ of the scheduler (i.e. the process it is running within crashes, or the machine is shut off), then it is re-executed when the scheduler is started again. In this case, the JobExecutionContext.Recovering property will return true.
+**`Durability`** - 如果一个 job 不是持久的, 则一旦不再有任何与其相关联的活动触发器, 它就从调度程序中自动删除. 换句话说, 非持久性 Job 的寿命受到其触发器的存在的限制. 
+
+**`RequestsRecovery`** - if a job “requests recovery”, and it is executing during the time of a ‘hard shutdown’ of the scheduler (i.e. the process it is running within crashes, or the machine is shut off), then it is re-executed when the scheduler is started again. In this case, the JobExecutionContext.Recovering property will return true.
 
 ## JobExecutionException
 
 Finally, we need to inform you of a few details of the IJob.Execute(..) method. The only type of exception that you should throw from the execute method is the JobExecutionException. Because of this, you should generally wrap the entire contents of the execute method with a ‘try-catch’ block. You should also spend some time looking at the documentation for the JobExecutionException, as your job can use it to provide the scheduler various directives as to how you want the exception to be handled.
-
-
-
-
-
-
 
 
 
