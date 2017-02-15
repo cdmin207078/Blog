@@ -1,5 +1,9 @@
 # Lesson 3: More About Jobs & JobDetails
 
+> 原文: https://www.quartz-scheduler.net/documentation/quartz-2.x/tutorial/more-about-jobs.html
+
+> 参考: http://www.cnblogs.com/shanyou/archive/2007/08/16/858854.html
+
 如你所见，`Job` 相当容易实现。本文将会向你介绍 `Jobs` 的相关详细信息. 关于 `Execute` 方法, `IJob` 接口, `JobDetails` 类
 
 `JobDetails` 实例使用 `JobBuilder` 类来创建. `JobBuilder` 允许你使用 Fluent 方式来描述配置你的 `Jobs`
@@ -142,16 +146,16 @@ class DumbJob : IJob
 
 ## Other Attributes Of Jobs
 
-以下是可以通过 JobDetail 对象为 Job 实例定义的其它特性
+以下是可以通过 JobDetail 对象为 Job 实例定义的其它属性
 
 **`Durability`** - 如果一个 job 不是持久的, 则一旦不再有任何与其相关联的活动触发器, 它就从调度程序中自动删除. 换句话说, 非持久性 Job 的寿命受到其触发器的存在的限制. 
 
-**`RequestsRecovery`** - if a job “requests recovery”, and it is executing during the time of a ‘hard shutdown’ of the scheduler (i.e. the process it is running within crashes, or the machine is shut off), then it is re-executed when the scheduler is started again. In this case, the JobExecutionContext.Recovering property will return true.
+**`RequestsRecovery`** - 如果 JobDetail 设置了 "RequestsRecovery", 在执行期间遭遇了 "hard shutdown(硬关闭)" (例如: 进程崩 或者 机器断电). 当 scheduler(调度程序) 再次启动的时候, **JobExecutionContext.Recovering** 将会返回 `true`
+
 
 ## JobExecutionException
 
-Finally, we need to inform you of a few details of the IJob.Execute(..) method. The only type of exception that you should throw from the execute method is the JobExecutionException. Because of this, you should generally wrap the entire contents of the execute method with a ‘try-catch’ block. You should also spend some time looking at the documentation for the JobExecutionException, as your job can use it to provide the scheduler various directives as to how you want the exception to be handled.
-
+在Execute方法执行时, 仅允许抛出一个JobExecutionException类型异常, 因此需要将整个要执行的内容包括在一个'try-catch'块中. 建议您花一些时间仔细阅读JobExecutionException文档, 因为Job能够使用它向scheduler提供各种指示, 你也可以知道怎么处理异常.
 
 
 
