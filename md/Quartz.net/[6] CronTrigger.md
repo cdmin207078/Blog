@@ -38,4 +38,91 @@ Cron表达式 被用来配置CronTrigger实例. Cron表达式 是一个由7个�
 
 '#' 表示表示月中的第几个周几, 例如：day-of-week域中的"6#3" 或者 "FRI#3"表示“月中第三个周五”. 
 
+## Example Cron Expressions (表达式示例)
+这里有几个表达式示例与说明, 更多内容可以参见 API 文档
 
+`"0 0/5 * * * ?"` -- **每5分钟执行一次**
+
+`"10 0/5 * * * ?"` -- **在每分钟的10秒后每隔5分钟触发一次的表达式(例如. 10:00:10 am, 10:05:10等.)**
+
+`"0 30 10-13 ? * WED,FRI"` -- **在每个周三和周五的10：30，11：30，12：30触发的表达式**
+
+`"0 0/30 8-9 5,20 * ?"` -- **在每个月的5号, 20号的8点和10点之间每隔半个小时触发一次且不包括10点, 只是8：30, 9：00, 9：30**
+
+> 有些情况, 无法用单个触发器表示, 例如“上午9:00至10:00之间每5分钟，下午1:00至10:00之间每20分钟”. 在这种情况下的解决方案是简单地创建两个触发器, 并注册它们以运行相同的作业。
+
+
+## Building CronTriggers (创建 CronTrigger)
+
+CronTrigger 实例使用 `TriggerBuilder`(用于触发器的主要属性) 和 `WithCronSchedule` 扩展方法(用于CronTrigger特定的属性)构建. 同时也可以使用 CronScheduleBuilder 的静态方法来创建.
+
+**每天 8:00 - 17:00, 从0分0秒开始, 每 2分钟时, 执行一次**
+
+```csharp
+trigger = TriggerBuilder.Create()
+    .WithIdentity("trigger3", "group1")
+    .WithCronSchedule("0 0/2 8-17 * * ?")
+    .ForJob("myJob", "group1")
+    .Build();
+```
+
+**每天 10:42 执行**
+
+```csharp
+// 使用 CronScheduleBuilder 静态方法创建
+trigger = TriggerBuilder.Create()
+    .WithIdentity("trigger3", "group1")
+    .WithSchedule(CronScheduleBuilder.DailyAtHourAndMinute(10, 42))
+    .ForJob(myJobKey)
+    .Build();
+```
+或者
+```csharp
+trigger = TriggerBuilder.Create()
+    .WithIdentity("trigger3", "group1")
+    .WithCronSchedule("0 42 10 * * ?")
+    .ForJob("myJob", "group1")
+    .Build();
+```
+
+
+**周三 10:43触发, 指定时区**
+
+```csharp
+trigger = TriggerBuilder.Create()
+    .WithIdentity("trigger3", "group1")
+    .WithSchedule(CronScheduleBuilder
+        .WeeklyOnDayAndHourAndMinute(DayOfWeek.Wednesday, 10, 42)
+        .InTimeZone(TimeZoneInfo.FindSystemTimeZoneById("Central America Standard Time")))
+    .ForJob(myJobKey)
+    .Build();
+```
+或者
+```csharp
+trigger = TriggerBuilder.Create()
+    .WithIdentity("trigger3", "group1")
+    .WithCronSchedule("0 42 10 ? * WED", x => x
+        .InTimeZone(TimeZoneInfo.FindSystemTimeZoneById("Central America Standard Time")))
+    .ForJob(myJobKey)
+    .Build();
+```
+
+## CronTrigger Misfire Instructions (CronTrigger 触发失败说明)
+
+下面指令, 用来告知Quartz.NET当触发失败时应该怎么做. 这些指令被定义作为常数, 该指令包括:
+
+- MisfireInstruction.IgnoreMisfirePolicy
+- MisfireInstruction.CronTrigger.DoNothing
+- MisfireInstruction.CronTrigger.FireOnceNow
+
+所有的 Trigger 默认的未触发指令为 **MisfireInstrution.SmartPolicy(智能策略)**, CronTrigger 为 **MisfireInstruction.CronTrigger.FireOnceNow**. API 文档的CronTrigger.UpdateAfterMisfire()方法有相关信息的详细介绍. 
+
+在创建 CronTrigger 时, 可以指定 未触发指令:
+```csharp
+trigger = TriggerBuilder.Create()
+    .WithIdentity("trigger3", "group1")
+    .WithCronSchedule("0 0/2 8-17 * * ?", x => x
+        .WithMisfireHandlingInstructionFireAndProceed())
+    .ForJob("myJob", "group1")
+    .Build();
+```
