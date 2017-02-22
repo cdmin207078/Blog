@@ -4,6 +4,9 @@
 
 > 参考: http://www.cnblogs.com/shanyou/archive/2007/08/25/869110.html
 
+> 参考: http://blog.csdn.net/Uhzgnaw/article/details/46358333  -java Quartz 储存方式之JDBC JobStoreTX & JobStoreCMT
+
+
 JobStroe 负责保存所有的 scheduler “工作数据”：Job、Trigger、Calendar 等等, 选择合适的JobStore就显得非常重要, 如果你理解了不同的JobStore之间的差别, 那么选择就变得非常简单. 在您提供给SchedulerFactory的属性文件(或对象) 中声明您的调度程序应使用哪个JobStore(以及它的配置设置), 用于生成您的调度程序实例.
 
 > 不要在代码中直接使用JobStore实例, 处于某些原因, 有很多开发者会这么做. JobStore 在 Quartz 中应该是在幕后工作, 你只需要告诉 Quartz 使用那个 JobStore (通过配置文件), 然后在你的代码中使用 Scheduler 对象即可.
@@ -25,6 +28,36 @@ quartz.jobStore.type = Quartz.Simpl.RAMJobStore, Quartz
 AdoJobStore 顾名思义, 它通过ADO.NET将所有的数据保存在数据库中. 因此, 配置比RAMJobStore 稍显复杂, 也没有RamJobStore那么快. 但是性能的缺陷不是非常差, 尤其是如果你在数据库表的主键上建立索引.
 
 要使用AdoJobStore, 首先必须创建一套Quartz使用的数据库表, 可以在Quartz 的database\tables找到创建库表的SQL脚本. 如果没有找到你的数据库类型的脚本, 那么找到一个已有的, 修改成为你数据库所需要的. 需要注意的一件事情就是所有Quartz库表名都以 QRTZ_ 作为前缀(例如：表"QRTZ_TRIGGERS",及"QRTZ_JOB_DETAIL"). 实际上, 可以你可以将前缀设置为任何你想要的前缀, 只要你告诉AdoJobStore那个前缀是什么即可(在你的Quartz属性文件中配置). 对于一个数据库中使用多个scheduler实例, 那么配置不同的前缀可以创建多套库表, 十分有用.
+
+目前, Job Store 的默认内部实现只有 JobStoreTX, 它自己创建事务. 这与 Java版的 Quartz不同, 你还可以选择JobStoreCMT, 使quartz通过JobStoreCMT来的使用来让你的应用容器管理quartz的事务
+
+最后, 需要设置一个数据源, 让 AdoJobStore 可以链接到你的数据库. Quartz属性中定义数据源的相关信息.
+
+**配置 AdoJobStore 使用 DriverDelegate**
+```xml
+quartz.jobStore.driverDelegateType = Quartz.Impl.AdoJobStore.StdAdoDelegate, Quartz
+```
+
+接下来, 需要为JobStore指定所使用的数据库表前缀
+
+**配置AdoJobStore 的数据库表前缀**
+```xml
+quartz.jobStore.tablePrefix = QRTZ_
+```
+
+然后, 您需要设置JobStore应该使用哪个数据源. 命名的数据源还必须在Quartz属性中定义. 在这里, 我们指定Quartz应该使用数据源名称“myDS”(在配置属性中的其他位置定义).
+
+**配置 AdoJobStore 使用数据源源的名字**
+```xml
+quartz.jobStore.dataSource = myDS
+```
+
+最后，需要配置数据源的使用的Ado.net数据提供者和数据库连接串，数据库连接串是标准的Ado.net 数据库连接的连接串。数据库提供者是关系数据库同Quartz.net之间保持低耦合的数据库的连接提供者.
+
+**配置 AdoJobStore 使用数据源源的数据库连接串和数据库提供者**
+```xml
+quartz.jobStore.dataSource = myDS
+```
 
 
 
