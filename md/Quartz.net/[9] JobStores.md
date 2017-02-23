@@ -56,7 +56,33 @@ quartz.jobStore.dataSource = myDS
 
 **配置 AdoJobStore 使用数据源源的数据库连接串和数据库提供者**
 ```xml
-quartz.jobStore.dataSource = myDS
+quartz.dataSource.myDS.connectionString = Server=localhost;Database=quartz;Uid=quartznet;Pwd=quartznet
+quartz.dataSource.myDS.provider = MySql-50
+```
+
+目前支持以下数据库提供程序, **您可以并应该使用最新版本的驱动程序（如果有更新版本），只需重新绑定程序集引用**
+
+- SqlServer-20 - SQL Server driver for .NET Framework 2.0
+- OracleODP-20 - Oracle’s Oracle Driver
+- OracleODPManaged-1123-40 Oracle’s managed driver for Oracle 11
+- OracleODPManaged-1211-40 Oracle’s managed driver for Oracle 12
+- MySql-50 - MySQL Connector/.NET v. 5.0 (.NET 2.0)
+- MySql-51 - MySQL Connector/:NET v. 5.1 (.NET 2.0)
+- MySql-65 - MySQL Connector/:NET v. 6.5 (.NET 2.0)
+- SQLite-10 - SQLite ADO.NET 2.0 Provider v. 1.0.56 (.NET 2.0)
+- Firebird-201 - Firebird ADO.NET 2.0 Provider v. 2.0.1 (.NET 2.0)
+- Firebird-210 - Firebird ADO.NET 2.0 Provider v. 2.1.0 (.NET 2.0)
+- Npgsql-20 - PostgreSQL Npgsql
+
+如果您的调度程序非常忙碌(几乎总是执行与线程池大小相同数量的作业, 那么您应该将数据源中的连接数设置为线程池大小1+ 1). 这通常配置在ADO.NET连接字符串中 -  有关详细信息，请参阅驱动程序详细信息
+
+
+“quartz.jobStore.useProperties”config参数可以设置为“true”(默认为false), 这表示AdoJobStore JobDataMaps中的所有值都是字符串, 能以“名字-值”对的方式存储而不是以复杂对象的序列化形式存储在BLOB字段中.
+这样做, 从长远来看非常安全, 这样避免了对存储在BLOB中的非字符串的序列化对象的类型转换问题.
+
+**配置AdoJobStore以将字符串用作JobDataMap值(推荐)**
+```xml
+quartz.jobStore.useProperties = true
 ```
 
 
