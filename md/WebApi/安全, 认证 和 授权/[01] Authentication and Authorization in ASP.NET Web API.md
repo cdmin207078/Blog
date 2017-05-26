@@ -59,7 +59,7 @@ private void SetPrincipal(IPrincipal principal)
 
 ### 使用 [Authorize] 属性
 Web API提供了一个内置的授权过滤器 `AuthorizeAttribute`。 此过滤器检查用户是否已通过身份验证。 如果没有，则返回HTTP状态代码401（Unauthorized），而不调用操作。
-你你已将过滤器应用到 globally(全局), 具体controller(控制器), 具体 action(动作)。
+你已将过滤器应用到 globally(全局), 具体controller(控制器), 具体 action(动作)。
 
 **Globally** (全局)：若要限制每个 web api 的访问，则在全局的过滤器列表中添加 `AuthorizeAttribute`
 

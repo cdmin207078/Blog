@@ -3,10 +3,19 @@
     <p class="menu-label">
       控制中心
     </p>
+    
     <ul class="menu-list">
+      <!-- 使用 router-link 组件来导航. -->
+      <!-- 通过传入 `to` 属性指定链接. -->
+      <!-- <router-link> 默认会被渲染成一个 `<a>` 标签 -->
       <li><router-link to="/article/add">写文章</router-link></li>
-      <li><router-link to="/article/list">文章列表</router-link></li>
+      <li><router-link to="/article/">文章列表</router-link></li>
     </ul>
+
+    <!-- 路由出口 -->
+    <!-- 路由匹配到的组件将渲染在这里 -->
+    <router-view></router-view>
+
   </aside>
 </template>
 

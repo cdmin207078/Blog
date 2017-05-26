@@ -69,7 +69,6 @@ namespace JIF.Core.Test
             }
 
             return result;
-        };
-
+        }
     }
 }
