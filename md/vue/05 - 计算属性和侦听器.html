@@ -1,0 +1,66 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>计算属性</title>
+</head>
+<body>
+<div id="app">
+
+    <h3>计算属性</h3>
+    <hr>
+
+    <h3>基础例子</h3>
+    <p>Original message: "{{ message }}"</p>
+    <p>Computed reversed message: "{{ reversedMessage }}"</p>
+    <p><input type="text" v-model="message"/>
+        <small style="color:#cc5b7b;"> * message 发生改变时, 依赖 message 的 computed : reversedMessage 也会更新</small>
+    </p>
+
+    <h3>计算属性缓存 vs 方法</h3>
+
+    <p>
+        <small>计算属性是基于它们的依赖进行缓存的, 调用方法将总会再次执行函数.</small>
+    </p>
+
+    <p>Computed 计算属性是基于它们的依赖进行缓存的</p>
+    <p v-for="t in times">{{ nowComputed }}</p>
+    <p>Function 每次都要执行函数</p>
+    <p v-for="t in times">{{ nowFunction() }}</p>
+
+    <p>
+        <button @click="addNow">addNow</button>
+    </p>
+
+</div>
+
+
+<script type="text/javascript" src="vue.js"></script>
+<script type="text/javascript">
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            message: 'hello world',
+            times: []
+        },
+        methods: {
+            addNow: function () {
+                this.times.push(1);
+            },
+            nowFunction: function () {
+                return new Date();
+            }
+        },
+        computed: {
+            reversedMessage: function () {
+                return this.message.split('').reverse().join('');
+            },
+            nowComputed: function () {
+                return new Date();
+            }
+        }
+    });
+
+</script>
+</body>
+</html>
+
