@@ -1,0 +1,99 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>模板语法</title>
+</head>
+<body>
+<div id="app">
+
+
+    <h3>插值</h3>
+    <hr>
+
+    <h4>文本</h4>
+    <p>Message: {{ message }}</p>
+    <p v-once>Once Message: {{ message }}</p>
+
+    <h4>原始 HTML</h4>
+    <p>Using mustache: {{ rawHtml}}</p>
+    <p>Using mustache: <span v-html="rawHtml"></span></p>
+
+    <h4>特性</h4>
+    <p>
+        <button v-bind:id="dynamicId" v-bind:disabled="isButtonDisabled">点击搜索</button>
+    </p>
+    <p>👆如果 isButtonDisabled 的值是 null、undefined 或 false，则 disabled 特性甚至不会被包含在渲染出来的 <code>&lt;button&gt;</code> 元素中。</p>
+
+    <h4>使用 JavaScript 表达式</h4>
+    <p>{{ number }} - {{ number + 1}}</p>
+    <p>{{ ok ? 'YES' : 'NO' }}</p>
+    <p>{{ message.split('').reverse().join('') }}</p>
+    <p>
+        <button v-bind:id="'btn-' + number">JavaScript 表达式, 右键查看我的id</button>
+    </p>
+
+    <h3>指令</h3>
+    <small>指令 (Directives) 是带有 v- 前缀的特殊特性。指令特性的值预期是单个 JavaScript 表达式 (v-for
+        是例外情况，稍后我们再讨论)。指令的职责是，当表达式的值改变时，将其产生的连带影响，响应式地作用于 DOM。回顾我们在介绍中看到的例子：
+    </small>
+    <p v-if="seen">v-if 指令测试</p>
+    <hr>
+
+    <h4>参数</h4>
+    <p><a v-bind:href="url" target="_blank">百度一下</a></p>
+    <p>
+        <button v-on:click="doSomething">doSomething</button>
+    </p>
+
+    <h4>修饰符</h4>
+    <p>
+    <form v-on:submit.prevent="onSubmit">
+        <small>修饰符 (Modifiers) 是以半角句号 . 指明的特殊后缀，用于指出一个指令应该以特殊方式绑定</small>
+        <br>
+        <small>例如，.prevent 修饰符告诉 v-on 指令对于触发的事件调用. <code>v-on:submit.prevent="onSubmit"</code></small>
+        <br>
+        <small><em>preventDefault() 方法阻止元素发生默认的行为（例如，当点击提交按钮时阻止对表单的提交）</em></small>
+        <br>
+        <input type="submit" name="" id="" value="提交表单">
+    </form>
+    </p>
+
+    <h3>缩写</h3>
+    <hr>
+
+    <h4>v-bind 缩写 - <code>:</code></h4>
+    <p><a v-bind:href="url" target="_blank">百度一下 - v-bind:href</a></p>
+    <p><a :href="url" target="_blank">百度一下 - :href</a></p>
+
+    <h4>v-on 缩写 - <code>@</code></h4>
+    <p><button v-on:click="doSomething">百度一下 - v-on:click</button></p>
+    <p><button @click="doSomething">百度一下 - @click</button></p>
+</div>
+
+<script type="text/javascript" src="vue.js"></script>
+<script type="text/javascript">
+
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            message: 'hello vue.js',
+            rawHtml: '<span style="color: #ff8c95">你好</span>',
+            dynamicId: 123,
+            isButtonDisabled: true,
+            number: 1,
+            seen: true,
+            url: 'https://www.baidu.com',
+        }, methods: {
+            doSomething: function () {
+                alert('doSomething done.');
+            },
+            onSubmit: function () {
+                alert('submit forms.');
+            }
+        }
+    });
+
+</script>
+</body>
+</html>
+
