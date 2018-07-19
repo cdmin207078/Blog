@@ -9,45 +9,105 @@
     <h3>计算属性</h3>
     <hr>
 
-    <h3>基础例子</h3>
+    <h4>基础例子</h4>
     <p>Original message: "{{ message }}"</p>
     <p>Computed reversed message: "{{ reversedMessage }}"</p>
     <p><input type="text" v-model="message"/>
         <small style="color:#cc5b7b;"> * message 发生改变时, 依赖 message 的 computed : reversedMessage 也会更新</small>
     </p>
 
-    <h3>计算属性缓存 vs 方法</h3>
+    <h4>计算属性缓存 vs 方法</h4>
 
     <p>
         <small>计算属性是基于它们的依赖进行缓存的, 调用方法将总会再次执行函数.</small>
     </p>
 
     <p>Computed 计算属性是基于它们的依赖进行缓存的</p>
-    <p v-for="t in times">{{ nowComputed }}</p>
+    <p v-if="times"><span style="color: #6ca3ff;">{{ nowComputed }}</span></p>
     <p>Function 每次都要执行函数</p>
-    <p v-for="t in times">{{ nowFunction() }}</p>
+    <p v-if="times"><span style="color: #ff3556;">{{ nowFunction() }}</span></p>
 
     <p>
-        <button @click="addNow">addNow</button>
+        <button @click="addNow">addNow - {{times}}</button>
     </p>
+
+    <h4>计算属性 vs 侦听属性</h4>
+    <p style="border: 1px #b3b6be dashed;">{{ fullName }}</p>
+    <p>
+        <input type="text" placeholder="firstName" v-model="firstName"/>
+        <input type="text" placeholder="lastName" v-model="lastName"/>
+    </p>
+
+    <h4>计算属性的 <strong>setter</strong></h4>
+
+    <p><input type="text" v-model="fullName" placeholder="fullName Computed setter"/></p>
+
+
+    <h3>侦听器</h3>
+    <hr>
+
+    <p>
+        <small>虽然计算属性在大多数情况下更合适，但有时也需要一个自定义的侦听器。这就是为什么 Vue 通过 watch
+            选项提供了一个更通用的方法，来响应数据的变化。当需要在数据变化时执行异步或开销较大的操作时，这个方式是最有用的。
+        </small>
+    </p>
+
+    <p>
+        <small>Ask a yes/no question:</small>
+        <input type="text" v-model="question"/>
+    </p>
+    <p>{{ answer }}</p>
 
 </div>
 
 
 <script type="text/javascript" src="vue.js"></script>
+<!-- 因为 AJAX 库和通用工具的生态已经相当丰富，Vue 核心代码没有重复 -->
+<!-- 提供这些功能以保持精简。这也可以让你自由选择自己更熟悉的工具。 -->
+<script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+
 <script type="text/javascript">
     var vm = new Vue({
         el: '#app',
         data: {
             message: 'hello world',
-            times: []
+            times: 1,
+            firstName: 'Foo',
+            lastName: 'Bar',
+            // fullName: 'Foo Bar', * 直接使用 computed 更方便, 替换 watch 做法
+            question: '',
+            answer: 'I cannot give you an answer until you ask a question!'
+        },
+        created: function () {
+            // `_.debounce` 是一个通过 Lodash 限制操作频率的函数。
+            // 在这个例子中，我们希望限制访问 yesno.wtf/api 的频率
+            // AJAX 请求直到用户输入完毕才会发出。想要了解更多关于
+            // `_.debounce` 函数 (及其近亲 `_.throttle`) 的知识，
+            // 请参考：https://lodash.com/docs#debounce
+            this.debouncedGetAnswer = _.debounce(this.getAnswer, 500);
         },
         methods: {
             addNow: function () {
-                this.times.push(1);
+                this.times++;
             },
             nowFunction: function () {
                 return new Date();
+            },
+            getAnswer: function () {
+                if (this.question.indexOf('?') === -1) {
+                    this.answer = 'Questions usually contain a question mark. ;-)';
+                    return;
+                }
+
+                this.answer = 'Thinking...';
+                var _this = this;
+
+                axios.get('https://yesno.wtf/api').then(function (response) {
+                    _this.answer = _.low(response.data.answer);
+                }).catch(function (reason) {
+                    _this.answer = 'Error! Could not reach the API. ' + reason;
+                });
             }
         },
         computed: {
@@ -56,6 +116,36 @@
             },
             nowComputed: function () {
                 return new Date();
+            },
+            // fullName: function () {
+            //     return this.firstName + ' ' + this.lastName;
+            // }
+            fullName: {
+                get: function () {
+                    return this.firstName + ' ' + this.lastName
+                },
+                set: function (val) {
+                    var names = val.split(' ');
+                    this.firstName = names[0];
+                    this.lastName = ' ' + names[names.length - 1];
+                }
+            }
+        },
+        watch: {
+            firstName: function (val) {
+                this.fullName = val + ' ' + this.lastName;
+            },
+            lastName: function (val) {
+                this.fullName = this.firstName + ' ' + val;
+            },
+            // 如果 `question` 发生改变，这个函数就会运行
+            question: function (recent, before) {
+                console.log('recent is : ' + recent);
+                console.log('before is : ' + before);
+
+                this.answer = 'Waiting for you to stop typing...';
+                this.debouncedGetAnswer();
+
             }
         }
     });
