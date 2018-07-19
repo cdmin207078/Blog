@@ -1,52 +1,141 @@
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
-	<title>css 与 style 绑定</title>
-	<style type="text/css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>css 与 style 绑定</title>
+    <style type="text/css">
+        .active {
+            border: 2px #4b88cc solid;
+        }
 
-	.c1 { }
-	.strong { font-weight: bolder; }
-	.fs20 { font-size: 20px; }
-	.red { color: #f00; }
-	</style>
+        .text-danger {
+            color: #ffffff;
+            background-color: #ff3556;
+        }
+
+        .btn {
+            display: inline-block;
+            width: 75px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+        }
+    </style>
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+
 </head>
 <body>
 
+<div id="app">
 
-<h1>绑定 HTML Class</h1>
-<span class="c1" v-bind:class="style1">v-bind:class</span> <br />
+    <h3>绑定 HTML Class</h3>
+    <hr>
 
-<span class="c1" v-bind:class="[c1, c2]">v-bind:class[classA, classB]</span><br />
+    <h4>对象语法</h4>
+    <p>
 
-<h1>绑定内联样式</h1>
+    <h5>数据属性</h5>
+    <pre><code class="html">&lt;a :class=&quot;{ active: isActive, &#x27;text-danger&#x27;: hasError}&quot;&gt;Google&lt;/a&gt;</code></pre>
 
-<span v-bind:style = "{ color: innerColor, fontSize: innerFontSize + 'px' }">v-bind:style="{color: innerColor, font-size:innerFontSize + 'px'}"</span><br />
+    <small>结果</small>
+    <pre><code
+            class="html">&lt;a href=&quot;javascript:;&quot; class=&quot;active text-danger&quot;&gt;Google&lt;/a&gt;</code></pre>
 
-<span v-bind:style = "innerStyle">v-bind:style = "innerStyle"</span><br />
+    <a href="javascript:;" :class="{ active: isActive, 'text-danger': hasError}" class="btn">Google</a>
+
+    <h5>绑定对象</h5>
+
+    <pre><code class="json">data: {
+  classObject: {
+    active: true,
+    'text-danger': false
+  }
+}</code></pre>
+    <pre><code class="html">&lt;div v-bind:class=&quot;classObject&quot;&gt;&lt;/div&gt;</code></pre>
+    <small>结果如上</small>
+    <a href="javascript:;" :class="classObject" class="btn">Google</a>
+
+    <h5>计算属性</h5>
+    <pre><code class="js">
+computed: {
+    classComputed: function () {
+        return {
+            active: this.isActive && !this.hasError,
+            'text-danger': this.hasError
+        }
+    }
+}
+    </code></pre>
+    <small>结果如上</small>
+    <a href="javascript:;" :class="classComputed" class="btn">Google</a>
+    </p>
 
 
+    <h4>数组语法</h4>
+    <small>我们可以把一个数组传给 v-bind:class，以应用一个 class 列表：</small>
+    <pre><code class="html">&lt;div v-bind:class=&quot;[activeClass, errorClass]&quot;&gt;&lt;/div&gt;</code></pre>
+    <pre><code class="javascript">
+data: {
+  activeClass: 'active',
+  errorClass: 'text-danger'
+}
+    </code></pre>
+
+    <small>渲染为:</small>
+    <pre><code class="html">&lt;div class=&quot;active text-danger&quot;&gt;&lt;/div&gt;</code></pre>
+
+    <a href="javascript:;" class="btn" :class="[activeClass, errorClass]">数组渲染</a>
+
+    <h4>用在组件上</h4>
+
+    <my-component></my-component>
+
+
+    <h3>绑定内联样式</h3>
+    <hr>
+
+    <h4>对象语法</h4>
+
+    <h4>数组语法</h4>
+
+    <h4>自动添加前缀</h4>
+
+    <h4>多重值</h4>
+
+
+</div>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 <script type="text/javascript" src="vue.js"></script>
 <script type="text/javascript">
-	var vm = new Vue({
-		el: 'html',
-		
-		data : {
-			c1 : 'c1',
-			c2 : 'strong',
-			innerColor: 'red',
-			innerFontSize: 20,
-			style1 : {
-				'red' : true,
-				'fs20' : true,
-				'strong' : true
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            isActive: true,
+            hasError: false,
+            classObject: {
+                active: true,
+                'text-danger': false, // vm.classObject['text-danger'] = true 修改代码
+            },
+            activeClass: 'active',
+            errorClass: 'text-danger',
+        },
+        mounted: function () {
+            hljs.initHighlightingOnLoad();
+        },
+        computed: {
+            classComputed: function () {
+                return {
+                    active: this.isActive && !this.hasError,
+                    'text-danger': this.hasError
+                }
+            }
+        }
+    });
 
-			},
-			innerStyle: {
-				color: '#f00',
-				fontSize: '20px'
-			}
-		},
-	});
+    Vue.component('my-component', {
+        template: '<p class="foo bar">Hi</p>'
+    });
 
 </script>
 </body>
