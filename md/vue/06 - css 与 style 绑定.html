@@ -21,7 +21,7 @@
         }
     </style>
 
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
 
 </head>
 <body>
@@ -88,26 +88,49 @@ data: {
 
     <h4>用在组件上</h4>
 
-    <my-component></my-component>
+    <pre><code class="javascript">
+// 定义组件
+Vue.component(&#x27;my-component&#x27;, {
+    template: &#x27;&lt;p class=&quot;foo bar&quot;&gt;Hi&lt;/p&gt;&#x27;
+});
 
+// 使用组件
+&lt;my-component class=&quot;baz boo&quot;&gt;&lt;/my-component&gt;
+
+// 渲染结果
+&lt;p class=&quot;foo bar baz boo&quot;&gt;Hi&lt;/p&gt;
+    </code></pre>
+
+    <small>实际渲染结果, 如下</small>
+    <my-component class="baz boo"></my-component>
 
     <h3>绑定内联样式</h3>
     <hr>
 
     <h4>对象语法</h4>
+    <div :style="styleObject">对象语法</div>
 
     <h4>数组语法</h4>
+    <div :style="[styleObject, bgColorObject]">数组语法</div>
 
     <h4>自动添加前缀</h4>
+    <div :style="transformObject">自动添加前缀</div>
+    <div :style="{width: '750px', height: '35px', backgroundColor: 'rgba(233, 108, 236, 0.57)', transform:'rotate(1deg)'}">自动添加前缀</div>
 
     <h4>多重值</h4>
+    <a href="https://cn.vuejs.org/v2/guide/class-and-style.html#%E5%A4%9A%E9%87%8D%E5%80%BC" target="_blank">[链接] 多重值 - cn.vuejs.org</a>
 
-
+    <br><br><br>
 </div>
 
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 <script type="text/javascript" src="vue.js"></script>
 <script type="text/javascript">
+
+    Vue.component('my-component', {
+        template: '<p class="foo bar">Hi</p>'
+    });
+
     var vm = new Vue({
         el: '#app',
         data: {
@@ -119,6 +142,20 @@ data: {
             },
             activeClass: 'active',
             errorClass: 'text-danger',
+            styleObject: {
+                color: 'red',
+                fontSize: '13px',
+                border: '1px #ccc solid'
+            },
+            bgColorObject: {
+                backgroundColor: '#ccc'
+            },
+            transformObject: {
+                width: '750px',
+                height: '35px',
+                backgroundColor: '#8ce',
+                transform: 'rotate(3deg)'
+            }
         },
         mounted: function () {
             hljs.initHighlightingOnLoad();
@@ -132,11 +169,6 @@ data: {
             }
         }
     });
-
-    Vue.component('my-component', {
-        template: '<p class="foo bar">Hi</p>'
-    });
-
 </script>
 </body>
 </html>
