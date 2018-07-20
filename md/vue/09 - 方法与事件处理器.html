@@ -1,48 +1,49 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
-	<title>方法与事件处理器</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>方法与事件处理器</title>
 </head>
 <body>
 
 <h2>v-on 指令 监听DOM事件</h2>
-<button v-on:click="greet">Greet</button>
+<button @click="greet">Greet</button>
 
 <h2>内联语句处理器</h2>
-<button v-on:click="say('hi');">Say Hi</button>
-<button v-on:click="say('what');">Say What</button>
-<button v-on:click="wel('what');">绑定非 vue method ,则无效. 会报错 scope.xxx is not a function</button>
+<button @click="say('hi');">Say Hi</button>
+<button @click="say('what');">Say What</button>
+<button @click="wel('what');">绑定非 vue method ,则无效. 会报错 scope.xxx is not a function</button>
 
 
 <script type="text/javascript" src="vue.js"></script>
 <script type="text/javascript">
-	var vm = new Vue({
-		el: 'html',
-		data: {
-			name: 'Vue.js',
-		},
-		methods:{
-			greet: function(event){
+    var vm = new Vue({
+        el: 'html',
+        data: {
+            name: 'Vue.js',
+        },
+        methods: {
+            greet: function (event) {
 
-				// 方法内 `this` 指向 vm
-				alert(this.name); 
+                // 方法内 `this` 指向 vm
+                alert(this.name);
 
-				// `event` 是原生 DOM 事件
-				alert(event.target.tagName);
-			},
-			say: function(msg){
-				alert(msg);
-			}
-		},
-	});
+                // `event` 是原生 DOM 事件
+                alert(event.target.tagName);
+            },
+            say: function (msg) {
+                alert(msg);
+            }
+        },
+    });
 
 
-	function wel(msg) {
-		alert(msg);
-	}
-	// 也可以 直接调用方法
-	// vm.greet(); 
+    function wel(msg) {
+        alert(msg);
+    }
+
+    // 也可以 直接调用方法
+    // vm.greet();
 </script>
 </body>
 </html>

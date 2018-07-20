@@ -1,40 +1,52 @@
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
-	<title>条件渲染</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>条件渲染</title>
 </head>
 <body>
+<div id="app">
 
-<template v-if="ok">
-	<div>
-	  <h1>Title</h1>
-	  <p>Paragraph 1</p>
-	  <p>Paragraph 2</p>
-	</div>
-</template>
+    <h3>v-if v-else v-else-if</h3>
+
+    <div v-if="type == 'A'">
+        A
+    </div>
+    <div v-else-if="type == 'B'">
+        B
+    </div>
+    <div v-else-if="type == 'C'">
+        C
+    </div>
+    <div v-else>
+        Not A / B / C
+    </div>
+
+    <p><input type="text" v-model="type"/></p>
 
 
-<h1 v-if="ok">Yes</h1>
-<h1 v-else>No</h1>
+    <h3>用 key 管理可复用的元素</h3>
+    <a href="https://cn.vuejs.org/v2/guide/conditional.html#%E7%94%A8-key-%E7%AE%A1%E7%90%86%E5%8F%AF%E5%A4%8D%E7%94%A8%E7%9A%84%E5%85%83%E7%B4%A0" target="_blank">[链接] 用 key 管理可复用的元素 - cn.vuejs.org</a>
 
 
-<h2 v-show="ok">v-show="ok"</h2>
+    <h3>v-show</h3>
+    <small>与 v-if 不同的是带有 v-show 的元素始终会被渲染并保留在 DOM 中。v-show 只是简单地切换元素的 CSS 属性 display</small>
 
-<div v-if="Math.random() > 0.5">
-	Sorry
-</div>
-<div v-else>
-	No sorry
+    <h3>v-if vs v-show</h3>
+    <p><small>v-if 是“真正”的条件渲染，因为它会确保在切换过程中条件块内的事件监听器和子组件适当地被销毁和重建。</small></p>
+    <p><small>v-if 也是惰性的：如果在初始渲染时条件为假，则什么也不做——直到条件第一次变为真时，才会开始渲染条件块。</small></p>
+    <p><small>相比之下，v-show 就简单得多——不管初始条件是什么，元素总是会被渲染，并且只是简单地基于 CSS 进行切换。</small></p>
+    <p><small>一般来说，v-if 有更高的切换开销，而 v-show 有更高的初始渲染开销。因此，如果需要非常频繁地切换，则使用 v-show 较好；如果在运行时条件很少改变，则使用 v-if 较好。</small></p>
+
 </div>
 
 <script type="text/javascript" src="vue.js"></script>
 <script type="text/javascript">
-	var vm = new Vue({
-		el: 'html',
-		data: {
-			ok : true
-		}
-	});
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            type: 'A'
+        }
+    });
 
 </script>
 </body>

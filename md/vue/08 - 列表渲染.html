@@ -1,68 +1,136 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
-	<title>列表渲染</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>列表渲染</title>
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
 </head>
 <body>
 
+<div id="app">
 
-<h1>v-for="item in items"</h1>
-<ul>
-	<li v-for="item of items">
-		{{ parentMessage}} - {{ $index }} - {{ item.message }}
-	</li>
-</ul>
+    <h3>用 v-for 把一个数组对应为一组元素</h3>
+    <hr>
 
-<h1>v-for="item <span style="color:red; font-weight:bolder;">of</span> items"</h1>
-<ul>
-	<li v-for="item of items">
-		{{ parentMessage}} - {{ $index }} - {{ item.message }}
-	</li>
-</ul>
+    <pre><code class="html">
+&lt;li v-for=&quot;item in items&quot;&gt;
+    { { item.message }}
+&lt;/li&gt;
+    </code></pre>
 
-<h1>v-for="(index,item) of items"</h1>
-<ul>
-	<li v-for="(index,item) of items">
-		{{ parentMessage}} - {{ index }} - {{ item.message }}
-	</li>
-</ul>
+    <small>渲染为</small>
 
-<h1>v-for in template</h1>
-<ul>
-	<template v-for="item in items">
-		<li>{{ item.message }}</li>
-		<li class="divider"></li>
-	</template>
-</ul>
+    <ul>
+        <li v-for="item in items">
+            {{ item.message }}
+        </li>
+    </ul>
 
-<h1>v-for object</h1>
-<ul>
-	<li v-for="(key, value) in user">
-		{{ key }} : {{ value }}
-	</li>
-</ul>
+    <small>v-for 还支持一个可选的第二个参数为当前项的索引</small>
 
-<h1>v-for numeric</h1>
-<span v-for="n in 15">{{ n }},</span>
+    <ul>
+        <li v-for="(item, index) in items">
+            {{ parentMessage }} - {{ index }} - {{ item.message }}
+        </li>
+    </ul>
 
+
+    <h3>一个对象的 v-for</h3>
+    <small>你也可以用 v-for 通过一个对象的属性来迭代。</small>
+    <hr>
+
+    <small>仅循环字段值：v-for="value in object"</small>
+    <ul>
+        <li v-for="value in objectValue">
+            {{ value }}
+        </li>
+    </ul>
+
+    <small>属性 & 值：v-for="(value, key) in object"</small>
+    <ul>
+        <li v-for="(value, key) in objectValue">
+            key: {{ key }}, value: {{ value }}
+        </li>
+    </ul>
+
+    <small>属性 & 值 & 索引：v-for="(value, key, index) in object"</small>
+    <ul>
+        <li v-for="(value, key, index) in objectValue">
+            index: {{ index }}, key: {{ key }}, value: {{ value }}
+        </li>
+    </ul>
+
+    <h3>Key</h3>
+    <a href="https://cn.vuejs.org/v2/guide/list.html#key" target="_blank">[跳转] Key - cn.vuejs.org</a>
+
+
+    <h3>数组更新检测</h3>
+    <hr>
+
+    <h4>变异方法</h4>
+    <small>Vue 包含一组观察数组的变异方法，所以它们也将会触发视图更新。这些方法如下：</small>
+    <ul>
+        <li>
+            <small>push() - 向数组的末尾添加一个或更多元素，并返回新的长度</small>
+        </li>
+        <li>
+            <small>pop() - 删除并返回数组的最后一个元素</small>
+        </li>
+        <li>
+            <small>shift() - 删除并返回数组的第一个元素</small>
+        </li>
+        <li>
+            <small>unshift() - 向数组的开头添加一个或更多元素，并返回新的长度</small>
+        </li>
+        <li>
+            <small>splice() - 删除元素，并向数组添加新元素。</small>
+        </li>
+        <li>
+            <small>sort() - 对数组的元素进行排序</small>
+        </li>
+        <li>
+            <small>reverse() - 颠倒数组中元素的顺序</small>
+        </li>
+    </ul>
+
+    <h4>替换数组</h4>
+    <a href="https://cn.vuejs.org/v2/guide/list.html#%E6%9B%BF%E6%8D%A2%E6%95%B0%E7%BB%84" target="_blank">[跳转] 替换数组 -
+        cn.vuejs.org</a>
+
+    <h4>注意事项</h4>
+    <a href="https://cn.vuejs.org/v2/guide/list.html#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9" target="_blank">[跳转] 注意事项 -
+        cn.vuejs.org</a>
+
+    <h3>对象更改检测注意事项</h3>
+    <a href="https://cn.vuejs.org/v2/guide/list.html#%E5%AF%B9%E8%B1%A1%E6%9B%B4%E6%94%B9%E6%A3%80%E6%B5%8B%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"
+       target="_blank">[跳转] 对象更改检测注意事项 - cn.vuejs.org</a>
+    <hr>
+
+
+
+</div>
+
+<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 <script type="text/javascript" src="vue.js"></script>
 <script type="text/javascript">
-	var vm = new Vue({
-		el: 'html',
-		data: {
-			parentMessage: 'Parent',
-			items: [
-				{ message: 'Foo' },
-				{ message: 'Bar' }
-			],
-			user: {
-				uid: 1,
-				name: '雪霜茂茂',
-				time: new Date()
-			},
-		}
-	});
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            parentMessage: 'Parent',
+            items: [
+                {message: 'Foo'},
+                {message: 'Bar'}
+            ],
+            objectValue: {
+                firstName: 'John',
+                lastName: 'Doe',
+                age: 30
+            }
+        },
+        mounted: function () {
+            hljs.initHighlightingOnLoad();
+        }
+    });
 </script>
 </body>
 </html>
